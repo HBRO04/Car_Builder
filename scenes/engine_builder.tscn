@@ -6,6 +6,8 @@
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
 
 [node name="Engine Builder" type="Node2D" node_paths=PackedStringArray("lblErrorEngineBlock")]
+position = Vector2(-66.49994, 100.49994)
+scale = Vector2(1.0150163, 0.9526546)
 script = ExtResource("1_v3cha")
 lblErrorEngineBlock = NodePath("CanvasLayer/TabContainer/EngineBlock/lblError")
 
@@ -13,16 +15,21 @@ lblErrorEngineBlock = NodePath("CanvasLayer/TabContainer/EngineBlock/lblError")
 
 [node name="background_Color" type="Sprite2D" parent="CanvasLayer"]
 modulate = Color(0.23529412, 0.36862746, 0.43137255, 1)
-position = Vector2(972.25, 555.25)
-scale = Vector2(1945.5001, 1111.5)
+position = Vector2(959.6869, 499.28604)
+scale = Vector2(2120.6257, 1168.5721)
 texture = SubResource("CanvasTexture_ectv5")
 
 [node name="EngineSpecspnl" type="Panel" parent="CanvasLayer"]
 z_index = 4
-offset_left = 1549.0
-offset_top = 200.0
-offset_right = 1916.0
-offset_bottom = 975.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -432.0
+offset_top = 36.0
+offset_right = -71.896484
+offset_bottom = 888.3551
+grow_horizontal = 0
+scale = Vector2(1.0150163, 0.9526546)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EngineSpecspnl"]
 layout_mode = 0
@@ -81,10 +88,11 @@ text = "Fuel economy: "
 
 [node name="EngineCostpnl" type="Panel" parent="CanvasLayer"]
 z_index = 1
-offset_left = 1125.0
-offset_top = 152.0
-offset_right = 1512.0
-offset_bottom = 207.0
+offset_left = 1039.5
+offset_top = 66.99994
+offset_right = 1426.5
+offset_bottom = 121.99992
+scale = Vector2(1.0150163, 0.9526546)
 
 [node name="Costlbl" type="Label" parent="CanvasLayer/EngineCostpnl"]
 layout_mode = 0
@@ -100,17 +108,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -583.0
-offset_top = -448.0
-offset_right = 583.0
-offset_bottom = 435.0
+offset_left = -668.49994
+offset_top = -448.50006
+offset_right = 497.5
+offset_bottom = 434.49994
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.0150163, 0.9526546)
 size_flags_horizontal = 4
-current_tab = 3
+current_tab = 0
 
 [node name="EngineBlock" type="TabBar" parent="CanvasLayer/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -601,6 +609,7 @@ popup/item_2/text = "Race"
 popup/item_2/id = 2
 
 [node name="Fuel System" type="TabBar" parent="CanvasLayer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
@@ -747,21 +756,6 @@ offset_right = 373.0
 offset_bottom = 174.0
 max_value = 10.0
 value = 5.0
-
-[node name="EngineCostpnl" type="Panel" parent="CanvasLayer/TabContainer/Fuel System"]
-layout_mode = 0
-offset_left = 748.0
-offset_top = 29.0
-offset_right = 1135.0
-offset_bottom = 84.0
-
-[node name="Costlbl" type="Label" parent="CanvasLayer/TabContainer/Fuel System/EngineCostpnl"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 12.0
-offset_right = 365.0
-offset_bottom = 45.0
-text = "Cost: "
 
 [node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Fuel System"]
 layout_mode = 0

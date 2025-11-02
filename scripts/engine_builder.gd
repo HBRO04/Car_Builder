@@ -815,6 +815,7 @@ func _on_oil_Cooler_check_button_pressed() -> void:
 
 
 func _on_current_rpm_value_changed(value: float) -> void:
+	@warning_ignore("narrowing_conversion")
 	currentRPM = value
 	update_dyno_for_current_rpm() 
 	update_UI()
