@@ -1,0 +1,820 @@
+extends Node2D
+
+@export var lblErrorEngineBlock: Label
+
+var engineSize_L: float
+var cylinders: int #3,4,5,6 or 8
+var pistonStroke_mm: float
+var pistonDiameter_mm: float
+var EngineMat: int #cast iron, aluminum, Compacted Graphite Iron, Magnesium or Titanium
+var cylinderMat: int #cast iron, aluminum, Compacted Graphite Iron, Magnesium or Titanium
+var EngineType: int = 1 #inline, v-type, boxer or rotary
+var engineCost: float = 0
+var extraCost: float = 0 #for turbos, superchargers, exhausts and stuff that should not be times cylinders
+var baseMaterialCost: float = 100
+var complexity_Multiplier: float = 1.0
+var camType: int = 0 # OHV, SOHC, DOHC
+var kw_per_l: float = 0
+var kw: float = 0
+var numValve: int = 0 #2,3,4 or 5
+var vvt: bool = false
+var turbo: bool = false
+var supercharged: bool = false
+var tsetup: int #Na, single, twin
+var ttune: int #eco, normal, sport or race
+var torque: float = 0
+var reliability: float =0
+var reliabilityScore: String = ""
+var engine_weight: float = 0
+var max_kw: float
+var max_Torque_nm: float
+
+#components
+var pistonsType: int = 0 #normal, performance or race
+var conrodsType: int = 0 #normal, performance or race
+var crankshaftType: int = 0 #normal, performance or race
+
+#fuel
+var fuelsystem : int = 0 #carb or fuel injection
+var fuelType: int = 0 #95, 92, diesel, race
+var rpm: int = 0
+var currentRPM: int = 0
+var fuelmix: int = 0
+var fueleconomy: float = 0.0
+var Stringfueleconomy: String
+var kmperl: String
+
+#intakes
+var intakeType: int = 0 #normal, performance or race
+var radiatorType: int = 0#small, medium or race
+var oilCooler: bool = false
+
+#exhausts
+var cat: bool = false
+var catType: int = 0 #normal or premuim
+var exhaustType: int = 0 # only single or twin
+var exhaustManifoldType: int = 0 #normal, sports, performance or race
+var muffler: int = 0 #small, big, freeflow or straight pipe
+
+func _ready() -> void:
+	update_UI()
+	torque = get_torque_at_rpm(rpm) # max torque at max RPM
+	kw = (torque * rpm) / 9550.0    # max kW
+
+
+func calc_cost():
+	EngineMat = $CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn.selected
+	cylinderMat = $CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2.selected
+	baseMaterialCost = 0
+	extraCost = 0
+	
+	#materials
+	match  EngineMat:
+		0: baseMaterialCost = 100
+		1: baseMaterialCost = 150
+		2: baseMaterialCost = 180
+		3: baseMaterialCost = 250
+		4: baseMaterialCost = 400
+	match EngineType:
+		1: complexity_Multiplier = 1.0
+		2: complexity_Multiplier = 1.2
+		3: complexity_Multiplier = 1.3
+		4: complexity_Multiplier = 1.5
+	match cylinderMat:
+		0: baseMaterialCost += 100
+		1: baseMaterialCost += 150
+		2: baseMaterialCost += 180
+		3: baseMaterialCost += 250
+		4: baseMaterialCost += 400
+	match camType:
+		0: baseMaterialCost += 50
+		1: baseMaterialCost += 250
+		2: baseMaterialCost += 450
+	match numValve:
+		0: baseMaterialCost += 100
+		1: baseMaterialCost += 150
+		2: baseMaterialCost += 180
+		3: baseMaterialCost += 220
+		
+	#forced induction should not be multplied by cylinders
+	if turbo == true:
+		extraCost += 1200
+	if supercharged == true:
+		extraCost += 2500
+	if vvt == true:
+		extraCost += 1500
+	match tsetup:
+		0: extraCost += 0
+		1: extraCost += 500
+		2: extraCost += 1500
+	match ttune:
+		0: extraCost += 150
+		1: extraCost += 180
+		2: extraCost += 200
+		3: extraCost += 250
+		
+	#components
+	match pistonsType:
+		0: baseMaterialCost += 150 
+		1: baseMaterialCost += 350 
+		2: baseMaterialCost += 200
+	match conrodsType:
+		0: baseMaterialCost += 150 
+		1: baseMaterialCost += 350 
+		2: baseMaterialCost += 200
+	match crankshaftType:
+		0: extraCost += 1000 
+		1: extraCost += 2000 
+		2: extraCost += 3000
+		
+	#fuel system
+	match fuelsystem:
+		0: extraCost += 1000 
+		1: extraCost += 1500 
+		
+	#intake
+	match intakeType:
+		0: extraCost += 300 
+		1: extraCost += 1000 
+		2: extraCost += 3000
+	match radiatorType:
+		0: extraCost += 100
+		1: extraCost += 500
+		2: extraCost += 1500
+		
+	#exhaust
+	match  exhaustType:
+		0: extraCost += 500
+		1: extraCost += 1000
+	match  exhaustManifoldType:
+		0: extraCost += 300 
+		1: extraCost += 1000 
+		2: extraCost += 3000
+		3: extraCost += 5000
+	if cat == true:
+		match catType:
+			1: extraCost += 500 
+			2: extraCost += 1500 
+	engineCost = (baseMaterialCost * engineSize_L * cylinders * complexity_Multiplier ) + extraCost
+
+func update_UI():
+	var fi: String = "NA"
+	get_engine_Info()
+	calc_cost()
+	calc_weight()
+	
+	#reliability
+	reliability = calc_reliability()
+	
+	# calculate peak torque & kw once (these stay fixed)
+	var curve = get_torque_curve_parameters()
+	torque = curve["peak_torque"]                       # max torque
+	kw = (torque * curve["peak_torque_rpm"]) / 9550.0  # max kw
+	
+	$CanvasLayer/TabContainer/Confirmation/curvespnl/currentRPM.max_value = rpm
+	$CanvasLayer/TabContainer/Confirmation/curvespnl/currentRPM.min_value = 0
+	$"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/rpmlbl".text = str(rpm)
+	
+	update_dyno_graph($CanvasLayer/TabContainer/Confirmation/curvespnl/TorqueLine, $CanvasLayer/TabContainer/Confirmation/curvespnl/PowerLine, $CanvasLayer/TabContainer/Confirmation/curvespnl/GraphBackground,$CanvasLayer/TabContainer/Confirmation/curvespnl/RPM_Marker,$CanvasLayer/TabContainer/Confirmation/curvespnl/lblCurrentTorque, $CanvasLayer/TabContainer/Confirmation/curvespnl/lblCurrentPower)
+	
+	lblErrorEngineBlock.text = ""
+	$CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiameterlbl.text = str($CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider.value) + " mm"
+	$CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokelbl.text = str($CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2.value) + " mm"
+	$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/engineTypeNumlbl.text = str(EngineType) + "/4"
+	$CanvasLayer/EngineCostpnl/Costlbl.text = "Cost: R %.2f" % [engineCost]
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/rpmlbl.text = "RPM: " + str(rpm)
+	$"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/fuelmixlbl".text = str($"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/FuelMixSlider".value) + " %"
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/EnginekwperL_lbl.text = "kw per l: " + str(kw_per_l)
+	
+	# UI labels show MAX torque and MAX kw
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/kwlbl.text = "kw: " + str("%.2f" % max_kw)
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/torquelbl.text = "Torque: " + str("%.2f" % max_Torque_nm)
+	
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/Currentrpmlbl.text = "Current RPM: " + str(currentRPM)
+	if turbo == true:
+		fi = "Turbo"
+	if supercharged == true:
+		fi = "Supercharged"
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/forcedindlbl.text = "Forced Induction: " + fi
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/reliabilitylbl.text = "Reliability: " + str(reliability)
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/reliabilityScorelbl.text = "Reliability rating: " + reliabilityScore
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/weightlbl.text = "Engine weight: " + str(engine_weight)
+	calc_fuelEconomy()
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/fueleconlbl.text = "Fuel economy: " + Stringfueleconomy+ " L/100km"
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/fueleconlbl2.text = "Fuel economy: " + kmperl + " km per liter"
+	
+	#dyno graph (graph uses peak curve, red line shows currentRPM)
+	
+
+
+
+
+@warning_ignore("unused_parameter")
+func _on_piston_diamater_slider_value_changed(value: float) -> void:
+	update_UI()
+
+
+@warning_ignore("unused_parameter")
+func _on_piston_stroke_slider_2_value_changed(value: float) -> void:
+	update_UI()
+
+func get_engine_Info():
+	#engine type
+	EngineType = $CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn.selected +1
+	camType = $CanvasLayer/TabContainer/Production/CamshaftTypepnl/OptionButton.selected
+	numValve = $CanvasLayer/TabContainer/Production/numValvespnl/OptionButton.selected
+	
+	#fuel
+	fuelsystem = $"CanvasLayer/TabContainer/Fuel System/FuelSystempnl/EnginTypeOptbtn".selected
+	fuelType = $"CanvasLayer/TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn".selected	
+	
+	pistonStroke_mm = $CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2.value
+	pistonDiameter_mm = $CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider.value
+	rpm = $"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/RPMSlider".value
+	fuelmix = $"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/FuelMixSlider".value
+	
+	#need to choose cylinders in order to calc displacement
+	if $CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.selected == -1:
+		lblErrorEngineBlock.text = "Choose amount of cylinders"
+		return
+
+	
+	cylinders= int($CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.get_item_text(
+		$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.selected
+	).to_int())
+
+	var volume_mm3: float = (PI / 4.0) * pow(pistonDiameter_mm, 2) * pistonStroke_mm * cylinders
+	engineSize_L= volume_mm3 / 1_000_000.0
+	$CanvasLayer/EngineSpecspnl/VBoxContainer/EngineCapacitylbl.text = "Engine capacity: %.2f L" % [engineSize_L]#display engine size in liter
+	
+	#component types
+	pistonsType = $CanvasLayer/TabContainer/Components/Pistonspnl/OptionButton.selected
+	conrodsType = $CanvasLayer/TabContainer/Components/Conrodspnl/OptionButton.selected
+	crankshaftType = $CanvasLayer/TabContainer/Components/CrankShaftpnl/OptionButton.selected
+	
+	#forced induction
+	#checks if turbo or supercharged
+	if $"CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton".selected == 1:
+		turbo = true
+		supercharged = false
+	elif $"CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton".selected == 2:
+		supercharged = true
+		turbo = false
+	elif $"CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton".selected == 0:
+		turbo = false
+		supercharged = false
+		
+	#can't have na setups on Forced induction
+	if turbo == false and supercharged == false and $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected >= 1:
+		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(0)
+		$"CanvasLayer/TabContainer/Forced Induction/lblError".text = "Can't select type on a NA engine"
+	if turbo == true:
+		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+	if turbo == true and $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected == 0:
+		$"CanvasLayer/TabContainer/Forced Induction/lblError".text = "Can't select NA setup on turbo"
+		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+	if supercharged == true:
+		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+	if supercharged == true and $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected == 2:
+		$"CanvasLayer/TabContainer/Forced Induction/lblError".text = "Can't select twin setup on supercharger"
+		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+	if supercharged == true and $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected == 0:
+		$"CanvasLayer/TabContainer/Forced Induction/lblError".text = "Can't select NA setup on supercharger"
+		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+		
+	#forced induction types
+	tsetup = $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected
+	ttune = $"CanvasLayer/TabContainer/Forced Induction/Setuppnl/OptionButton".selected
+	
+	#intake
+	intakeType = $CanvasLayer/TabContainer/Intake/intakepnl/OptionButton.selected
+	radiatorType = $CanvasLayer/TabContainer/Intake/CoolingSystempnl/OptionButton.selected
+	
+	#exhausts
+	exhaustType = $CanvasLayer/TabContainer/Exhaust/Exhaustpnl/OptionButton.selected
+	exhaustManifoldType = $CanvasLayer/TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton.selected
+	catType = $CanvasLayer/TabContainer/Exhaust/Catpnl/OptionButton.selected
+	if catType >= 1:
+		cat = true
+	else :
+		cat = false
+	muffler = $CanvasLayer/TabContainer/Exhaust/exhaustMufflerpnl/OptionButton.selected
+		
+		
+	kw_per_l = kw_per_liter()
+	kw = roundf(engineSize_L * kw_per_l)
+	torque = roundf((kw * 9550) / rpm)
+	#kw = roundf((torque*rpm)/9550)
+	
+	
+
+func kw_per_liter() -> float:
+	var base_kw_per_l: float = 0.0
+
+	# --- Base power by cam type and valves ---
+	match camType:
+		0: # OHV
+			match numValve:
+				0: base_kw_per_l = 45 # 2-valve OHV average
+				_: 
+					$CanvasLayer/TabContainer/Production/lblError.text = "OHV can only have 2 valves"
+					$CanvasLayer/TabContainer/Production/numValvespnl/OptionButton.select(0)
+					return 0
+		1: # SOHC
+			match numValve:
+				0: base_kw_per_l = 60  # 2-valve SOHC
+				1: base_kw_per_l = 70  # 3-valve
+				2: base_kw_per_l = 80  # 4-valve
+				3: base_kw_per_l = 95  # 5-valve
+		2: # DOHC
+			match numValve:
+				0: base_kw_per_l = 65  # 2-valve DOHC
+				1: base_kw_per_l = 75  # 3-valve
+				2: base_kw_per_l = 90  # 4-valve
+				3: base_kw_per_l = 110 # 5-valve
+
+	# --- Forced Induction ---
+	if turbo:
+		match tsetup:
+			0: base_kw_per_l *= 1.4 # single
+			1: base_kw_per_l *= 1.6 # twin turbo
+	if supercharged:
+		base_kw_per_l *= 1.5
+
+	# --- Variable Valve Timing ---
+	if vvt:
+		base_kw_per_l *= 1.15
+
+	# --- Fuel System ---
+	match fuelsystem:
+		0: base_kw_per_l *= 0.95 # carburetor = less efficient
+		1: base_kw_per_l *= 1.1  # fuel injection = better power
+
+	# --- Fuel Type ---
+	match fuelType:
+		0: base_kw_per_l *= 1.0   # 95 octane (normal)
+		1: base_kw_per_l *= 0.95  # 92 octane (lower quality)
+		2: base_kw_per_l *= 0.9   # diesel (less kW per L)
+		3: base_kw_per_l *= 1.25  # race fuel (high octane)
+
+	# --- Intake Type ---
+	match intakeType:
+		0: base_kw_per_l *= 1.0   # normal
+		1: base_kw_per_l *= 1.1   # performance
+		2: base_kw_per_l *= 1.25  # race
+
+	# --- Exhaust System ---
+	match exhaustManifoldType:
+		0: base_kw_per_l *= 1.0
+		1: base_kw_per_l *= 1.1
+		2: base_kw_per_l *= 1.2
+		3: base_kw_per_l *= 1.35
+	if exhaustType == 1: # twin
+		base_kw_per_l *= 1.05
+	if cat:
+		match catType:
+			1: base_kw_per_l *= 0.98 # normal cat restricts flow
+			2: base_kw_per_l *= 1.02 # premium cat, less restriction
+			
+	match muffler:
+		0: base_kw_per_l *= 0.9
+		1: base_kw_per_l *= 0.88
+		2: base_kw_per_l *= 1.1
+		3: base_kw_per_l *= 1.35
+
+	# --- Internal Components ---
+	match pistonsType:
+		0: base_kw_per_l *= 1.0
+		1: base_kw_per_l *= 1.1
+		2: base_kw_per_l *= 1.25
+	match conrodsType:
+		0: base_kw_per_l *= 1.0
+		1: base_kw_per_l *= 1.05
+		2: base_kw_per_l *= 1.15
+	match crankshaftType:
+		0: base_kw_per_l *= 1.0
+		1: base_kw_per_l *= 1.1
+		2: base_kw_per_l *= 1.2
+
+	# --- Tuning Setup ---
+	match ttune:
+		0: base_kw_per_l *= 0.85 # eco
+		1: base_kw_per_l *= 1.0  # normal
+		2: base_kw_per_l *= 1.15 # sport
+		3: base_kw_per_l *= 1.3  # race
+
+	# --- Forced Induction Type ---
+	match tsetup:
+		0: base_kw_per_l *= 1.0
+		1: base_kw_per_l *= 1.15 # single
+		2: base_kw_per_l *= 1.3  # twin
+
+	# --- Final fine-tuning factor based on fuel mix (0–100%) ---
+	# Assume ideal mix = 50%, too rich or too lean reduces efficiency
+	var mix_efficiency = 1.0 - abs((fuelmix - 50.0) / 100.0) * 0.2
+	base_kw_per_l *= mix_efficiency
+
+	# Round to 1 decimal for stability
+	return roundf(base_kw_per_l * 10.0) / 10.0
+	
+# Calculate torque curve parameters based on engine configuration
+func get_torque_curve_parameters() -> Dictionary:
+	var peak_torque = engineSize_L * 130.0  # Nm per liter base
+
+	# Modify torque by cam type
+	match camType:
+		0: peak_torque *= 0.95
+		1: peak_torque *= 1.0
+		2: peak_torque *= 1.05
+
+	# Forced induction
+	if turbo:
+		peak_torque *= 1.35
+	if supercharged:
+		peak_torque *= 1.25
+
+	# Fuel type influence
+	match fuelType:
+		0: peak_torque *= 1.00
+		1: peak_torque *= 0.98
+		2: peak_torque *= 1.10
+		3: peak_torque *= 1.15
+
+	# Tuning
+	match ttune:
+		0: peak_torque *= 0.90
+		1: peak_torque *= 1.00
+		2: peak_torque *= 1.10
+		3: peak_torque *= 1.20
+
+	# Peak torque RPM
+	var peak_torque_rpm = 3500
+	if camType == 2:
+		peak_torque_rpm = 4500
+	if turbo:
+		peak_torque_rpm += 500
+	if ttune >= 2:
+		peak_torque_rpm += 500
+
+	# Engine redline (use max RPM from slider)
+	var redline = rpm
+	if fuelType == 2: # diesel
+		redline = min(redline, 5000)
+	if fuelType == 3: # race fuel
+		redline = max(redline, 8000)
+
+	return {
+		"peak_torque": peak_torque,
+		"peak_torque_rpm": peak_torque_rpm,
+		"redline": redline
+	}
+
+
+# Get torque at a specific RPM
+func get_torque_at_rpm(rpm_val: float) -> float:
+	var curve = get_torque_curve_parameters()
+	var peak_torque = curve["peak_torque"]
+	var peak_rpm = curve["peak_torque_rpm"]
+	var redline = curve["redline"]
+
+	# Use a smooth curve using piecewise quadratic approximation
+	if rpm_val <= peak_rpm:
+		# Rise portion (0 -> peak_rpm)
+		# Slow rise at low rpm, faster in mid rpm
+		var rise_factor = rpm_val / peak_rpm
+		return clamp(peak_torque * (0.4 + 0.6 * rise_factor), 0, peak_torque)
+	elif rpm_val <= redline:
+		# Fall portion (peak_rpm -> redline)
+		# Gradual torque drop off
+		var fall_factor = (rpm_val - peak_rpm) / float(redline - peak_rpm)
+		return clamp(peak_torque * (1.0 - 0.5 * fall_factor), 0, peak_torque)
+	else:
+		return 0
+
+
+
+func calc_reliability() -> int:
+	var base_reliability = 100
+	
+	#engine block #cast iron, aluminum, Compacted Graphite Iron, Magnesium or Titanium
+	match  EngineMat:
+		0: base_reliability -= 0
+		1: base_reliability -= 2
+		2: base_reliability -= 5
+		3: base_reliability -= 10
+		4: base_reliability += 5
+	match EngineType:
+		1: base_reliability -= 0
+		2: base_reliability -= 2
+		3: base_reliability += 5
+		4: base_reliability -= 10
+	match cylinderMat:
+		0: base_reliability -= 0
+		1: base_reliability -= 2
+		2: base_reliability -= 5
+		3: base_reliability -= 10
+		4: base_reliability += 5
+	
+	match camType:
+		0: base_reliability -= 0
+		1: base_reliability -= 2
+		2: base_reliability -= 5
+		
+	base_reliability -= (numValve + 2) * 2 #it is plus 2 so it is the right value because input is 0,1,2,3 not 2,3,4,5
+	
+	#forced induction
+	if turbo == true:
+		base_reliability -= 10
+	if supercharged == true:
+		base_reliability -= 15
+	if vvt == true:
+		base_reliability -= 5
+	
+	#fuel stuff
+	match  fuelsystem:
+		0: base_reliability -= 20
+		1: base_reliability += 10
+	match fuelType:
+		0: base_reliability += 0  # 95 octane
+		1: base_reliability += 3  # 93 octane burns cooler
+		2: base_reliability += 10 # diesel, low RPM, strong
+		3: base_reliability -= 10 # race fuel, high temp
+		
+	var mix_offset = abs(fuelmix - 50)
+	base_reliability -= mix_offset * 0.2  # 10% off center = -2 reliability
+		
+	#components
+	match pistonsType:
+		0: base_reliability += 0
+		1: base_reliability += 5
+		2: base_reliability += 10
+
+	match conrodsType:
+		0: base_reliability += 0
+		1: base_reliability += 3
+		2: base_reliability += 7
+
+	match crankshaftType:
+		0: base_reliability += 0
+		1: base_reliability += 4
+		2: base_reliability += 8
+	
+	#turbo tunes
+	match ttune:
+		0: base_reliability += 10 # eco
+		1: base_reliability += 0  # normal
+		2: base_reliability -= 5  # sport
+		3: base_reliability -= 15 # race
+		
+	#exhaust
+	match exhaustManifoldType:
+		0: base_reliability += 0
+		1: base_reliability += 2
+		2: base_reliability += 5
+		3: base_reliability -= 2
+		
+	if cat == true:
+		base_reliability += 2
+		if catType == 2:
+			base_reliability += 3
+			
+	match muffler:
+		0: base_reliability -= 4
+		1: base_reliability -= 2
+		2: base_reliability += 5
+		3: base_reliability += 2
+			
+	#intake
+	match intakeType:
+		0: base_reliability += 0
+		1: base_reliability += 4
+		2: base_reliability += 8
+	
+	match radiatorType:
+		0: base_reliability -= 10
+		1: base_reliability -= 2
+		2: base_reliability += 8
+		
+	if oilCooler == true:
+		base_reliability += 5
+	
+	base_reliability = clamp(base_reliability, 10, 100)
+	
+	if base_reliability >= 75:
+		reliabilityScore = "Excellent"
+	elif base_reliability >= 60:
+		reliabilityScore = "Good"
+	elif base_reliability >= 50:
+		reliabilityScore = "Alright"
+	elif base_reliability >= 40:
+		reliabilityScore = "Not Good"
+	elif base_reliability >= 30:
+		reliabilityScore = "Bad"
+	elif base_reliability <= 30:
+		reliabilityScore = "Very Bad"
+
+	return base_reliability
+	
+func calc_weight():
+	var base_weight: float = 0.0
+	var weight_m: float = 0.0
+	var extraweight: float = 0.0
+	match  EngineMat: #cast iron, aluminum, Compacted Graphite Iron, Magnesium or Titanium
+		0: base_weight = 50
+		1: base_weight = 35
+		2: base_weight = 40
+		3: base_weight = 30
+		4: base_weight = 45
+	match EngineType:
+		1: weight_m = 1.0
+		2: weight_m = 1.1
+		3: weight_m = 0.9
+		4: weight_m = 0.7
+	match cylinderMat:
+		0: base_weight += 5
+		1: base_weight += 3
+		2: base_weight += 2.5
+		3: base_weight += 2
+		4: base_weight += 4
+	match camType:
+		0: base_weight += 0
+		1: base_weight += 1
+		2: base_weight += 2
+	match numValve:
+		0: base_weight += 0.2
+		1: base_weight += 0.3
+		2: base_weight += 0.4
+		3: base_weight += 0.5
+		
+	#forced induction
+	if turbo == true:
+		extraweight += 50
+	if supercharged == true:
+		extraweight += 30
+		
+	#intake
+	match radiatorType:#small, medium or race
+		0: extraweight += 20
+		1: extraweight += 40
+		2: extraweight += 60
+		
+	if oilCooler == true:
+		extraweight += 5
+	
+	engine_weight = round((base_weight * engineSize_L * cylinders * weight_m ) + extraweight)
+	
+func calc_fuelEconomy():
+	var tune_factor: float = 1.0
+	var base_km_per_liter: float = 0
+	match ttune:#eco, normal, sport or race
+		0: tune_factor = 0.8
+		0: tune_factor = 1.0
+		0: tune_factor = 1.4
+		0: tune_factor = 1.8
+	
+	
+	fueleconomy = ((engineSize_L*0.5) / (reliability/100)) * tune_factor
+	Stringfueleconomy = "%.2f" % fueleconomy
+	base_km_per_liter = 100 / fueleconomy
+	kmperl = "%.2f" % base_km_per_liter
+	
+# Dyno graph updates
+
+
+func update_dyno_graph(line_torque: Line2D, line_power: Line2D, background: ColorRect, rpm_marker: Line2D = null, lbl_current_torque: Label = null, lbl_current_power: Label = null) -> void:
+	if line_torque == null or line_power == null or background == null:
+		return
+
+	line_torque.clear_points()
+	line_power.clear_points()
+	if rpm_marker != null:
+		rpm_marker.clear_points()
+
+	var graph_margin: float = 24.0
+	var point_step_rpm: int = 250
+	var width: float = background.size.x - 2.0 * graph_margin
+	var height: float = background.size.y - 2.0 * graph_margin
+	var x0: float = graph_margin
+	var y0: float = background.size.y - graph_margin
+
+	var curve = get_torque_curve_parameters()
+	var redline: float = curve.get("redline", rpm)
+
+	# --- generate RPM points ---
+	var rpm_points: Array = []
+	for rpm_val in range(0, int(redline) + point_step_rpm, point_step_rpm):
+		rpm_points.append(rpm_val)
+
+	# --- compute torque & power values ---
+	var torque_points: Array = []
+	var power_points: Array = []
+
+	for rpm_val in rpm_points:
+		var torque_val = get_torque_at_rpm(rpm_val)
+		var power_val = (torque_val * rpm_val) / 9550.0
+		torque_points.append(torque_val)
+		power_points.append(power_val)
+
+	# --- scaling ---
+	var max_torque: float = max(1.0, torque_points.max())
+	var max_power: float = max(1.0, power_points.max())
+	
+	#updating max 
+	max_kw = max_power
+	max_Torque_nm = max_torque
+
+	# --- add torque/power points ---
+	for i in range(rpm_points.size()):
+		var rpm_val: float = rpm_points[i]
+		var torque_val: float = torque_points[i]
+		var power_val: float = power_points[i]
+
+		var x = x0 + (rpm_val / redline) * width
+		var y_torque = y0 - (torque_val / max_torque) * height
+		var y_power = y0 - (power_val / max_power) * height
+
+		line_torque.add_point(Vector2(x, y_torque))
+		line_power.add_point(Vector2(x, y_power))
+
+	# --- draw current RPM marker ---
+	if currentRPM > 0:
+		var marker_x = x0 + (float(currentRPM) / redline) * width
+
+		if rpm_marker != null:
+			rpm_marker.add_point(Vector2(marker_x, graph_margin))
+			rpm_marker.add_point(Vector2(marker_x, background.size.y - graph_margin))
+
+		# --- calculate actual torque & power at current RPM ---
+		var current_torque: float = get_torque_at_rpm(currentRPM)
+		var current_kw: float = (current_torque * currentRPM) / 9550.0
+
+		# --- compute label positions ---
+		var y_torque = y0 - (current_torque / max_torque) * height
+		var y_power = y0 - (current_kw / max_power) * height
+
+		# --- update label text and position ---
+		if lbl_current_torque != null:
+			lbl_current_torque.text = "Torque: %.1f Nm" % current_torque
+			lbl_current_torque.position = Vector2(marker_x + 8, y_torque - 10)
+
+		if lbl_current_power != null:
+			lbl_current_power.text = "Power: %.1f kW" % current_kw
+			lbl_current_power.position = Vector2(marker_x + 8, y_power - 10)
+			
+func update_dyno_for_current_rpm() -> void:
+	var line_torque = $CanvasLayer/TabContainer/Confirmation/curvespnl/TorqueLine
+	var line_power = $CanvasLayer/TabContainer/Confirmation/curvespnl/PowerLine
+	var graph_bg = $CanvasLayer/TabContainer/Confirmation/curvespnl/GraphBackground
+
+	update_dyno_graph(line_torque, line_power, graph_bg, $CanvasLayer/TabContainer/Confirmation/curvespnl/RPM_Marker,$CanvasLayer/TabContainer/Confirmation/curvespnl/lblCurrentTorque,$CanvasLayer/TabContainer/Confirmation/curvespnl/lblCurrentPower)
+
+
+@warning_ignore("unused_parameter")
+func _on_cylinder_optbtn_item_selected(index: int) -> void:
+	update_UI()
+
+@warning_ignore("unused_parameter")
+func _on_engin_type_optbtn_item_selected(index: int) -> void:
+	update_UI()
+
+
+@warning_ignore("unused_parameter")
+func _on_engine_mat_optbtn_item_selected(index: int) -> void:
+	update_UI()
+
+
+@warning_ignore("unused_parameter")
+func _on_option_button_item_selected(index: int) -> void:
+	update_UI()
+
+
+@warning_ignore("unused_parameter")
+func _on_rpm_slider_value_changed(value: float) -> void:
+	update_UI()
+
+
+@warning_ignore("unused_parameter")
+func _on_fuel_mix_slider_value_changed(value: float) -> void:
+	update_UI()
+
+#vvt button
+func _on_check_button_pressed() -> void:
+	if vvt == false:
+		vvt = true
+	else:
+		vvt = false
+	update_UI()
+
+
+func _on_oil_Cooler_check_button_pressed() -> void:
+	if oilCooler == false:
+		oilCooler = true
+	else:
+		oilCooler = false
+	update_UI()
+
+
+func _on_current_rpm_value_changed(value: float) -> void:
+	currentRPM = value
+	update_dyno_for_current_rpm() 
+	update_UI()

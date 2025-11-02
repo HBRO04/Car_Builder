@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://0kh3lak20tj5"]
+
+[ext_resource type="Script" uid="uid://702faqsowvva" path="res://scripts/dyno_graph.gd" id="1_qqnlq"]
+
+[node name="DynoGraph" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1924.0
+offset_bottom = 1089.0
+script = ExtResource("1_qqnlq")
+
+[node name="GraphBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.32915837, 0.3291584, 0.3291584, 1)
+
+[node name="TorqueLine" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(0, 0.44412082, 0.78860873, 1)
+
+[node name="PowerLine" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(0.8260124, 0, 0.08243292, 1)
