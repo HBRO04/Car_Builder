@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cef7sayyf852u"]
+[gd_scene load_steps=5 format=3 uid="uid://cef7sayyf852u"]
 
 [ext_resource type="Script" uid="uid://dubtipy8j5h8c" path="res://scripts/engine_builder.gd" id="1_v3cha"]
+[ext_resource type="Texture2D" uid="uid://bsw6hcnbi3kj0" path="res://assets/engine_block i3 i4.png" id="2_fpiu6"]
+[ext_resource type="Texture2D" uid="uid://d0ee4bxoocsf7" path="res://assets/inline i5 i6.png" id="3_pjmh8"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ectv5"]
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
@@ -128,6 +130,22 @@ offset_left = 57.0
 offset_top = 120.0
 offset_right = 712.0
 offset_bottom = 330.0
+
+[node name="inline i3_i4" type="Sprite2D" parent="CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(330.67847, 97.25374)
+scale = Vector2(3.6329458, 3.3951182)
+texture = ExtResource("2_fpiu6")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="inline i5_i6" type="Sprite2D" parent="CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(325.75244, 125.59559)
+scale = Vector2(3.6329458, 3.3951182)
+texture = ExtResource("3_pjmh8")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 128)
 
 [node name="EngineTypepnl" type="Panel" parent="CanvasLayer/TabContainer/EngineBlock"]
 layout_mode = 0

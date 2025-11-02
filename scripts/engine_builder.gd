@@ -57,9 +57,12 @@ var exhaustManifoldType: int = 0 #normal, sports, performance or race
 var muffler: int = 0 #small, big, freeflow or straight pipe
 
 func _ready() -> void:
+	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
+	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
 	update_UI()
 	torque = get_torque_at_rpm(rpm) # max torque at max RPM
 	kw = (torque * rpm) / 9550.0    # max kW
+	
 
 
 func calc_cost():
@@ -203,7 +206,34 @@ func update_UI():
 	$CanvasLayer/EngineSpecspnl/VBoxContainer/fueleconlbl.text = "Fuel economy: " + Stringfueleconomy+ " L/100km"
 	$CanvasLayer/EngineSpecspnl/VBoxContainer/fueleconlbl2.text = "Fuel economy: " + kmperl + " km per liter"
 	
-	#dyno graph (graph uses peak curve, red line shows currentRPM)
+	var i3 = Rect2(0, 0, 64, 64)
+	var i4 = Rect2(64, 0, 64, 64)
+	var i5 = Rect2(0, 0, 128, 128)
+	var i6 = Rect2(128, 0, 128, 128)
+	#show correct engin block
+	if EngineType == 1:
+		match cylinders:
+			3:
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".region_rect = i3
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = true
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
+			4:
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".region_rect = i4
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = true
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
+			5:
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".region_rect = i5
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = true
+			6:
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".region_rect = i6
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = true
+			8:
+				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have an inline 8 cylinder"
+				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(3)
+	else:
+		$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
 	
 
 
