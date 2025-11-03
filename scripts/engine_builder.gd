@@ -57,11 +57,13 @@ var exhaustManifoldType: int = 0 #normal, sports, performance or race
 var muffler: int = 0 #small, big, freeflow or straight pipe
 
 func _ready() -> void:
-	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
-	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
+	hide_components_sprites()
+	hide_engine_sprites()
+	hide_cam_and_valve_sprites()
 	update_UI()
 	torque = get_torque_at_rpm(rpm) # max torque at max RPM
 	kw = (torque * rpm) / 9550.0    # max kW
+	$CanvasLayer/TabContainer/EngineBlock.visible = true
 	
 
 
@@ -206,10 +208,113 @@ func update_UI():
 	$CanvasLayer/EngineSpecspnl/VBoxContainer/fueleconlbl.text = "Fuel economy: " + Stringfueleconomy+ " L/100km"
 	$CanvasLayer/EngineSpecspnl/VBoxContainer/fueleconlbl2.text = "Fuel economy: " + kmperl + " km per liter"
 	
+	#show correct sprites
+	show_right_engine_sprite()
+	show_correct_camshaft_sprite()
+	show_components()
+	show_fuelSystem_Sprite()
+	show_forced_induction_sprite()
+	show_intake_sprite()
+	show_exhaust_sprites()
+	
+func show_exhaust_sprites():
+	var mani1 = Rect2(0,0,32,32)
+	var mani2 = Rect2(32,0,32,32)
+	var mani3 = Rect2(64,0,32,32)
+	var mani4 = Rect2(64+32,0,32,32)
+	var muffler1 = Rect2(0,32,32,32)
+	var muffler2 = Rect2(32,32,32,32)
+	var muffler3 = Rect2(64,32,32,32)
+	var muffler4 = Rect2(64+32,32,32,32)
+	var tip1 = Rect2(0,64,32,32)
+	var tip2 = Rect2(32,64,32,32)
+	
+	match exhaustManifoldType:
+		0:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani1
+		1:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani2
+		2:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani3
+		3:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani4
+	match muffler:
+		0:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler1
+		1:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler2
+		2:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler3
+		3:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler4
+			
+	match exhaustType:
+		0:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/tip.region_rect = tip1
+		1:
+			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/tip.region_rect = tip2
+	
+func show_intake_sprite():
+	var intake1 = Rect2(0,0,32,32)
+	var intake2 = Rect2(32,0,32,32)
+	var intake3 = Rect2(64,0,32,32)
+	var rad1 = Rect2(0,32,32,32)
+	var rad2 = Rect2(32,32,32,32)
+	var rad3 = Rect2(64,32,32,32)
+	
+	match intakeType:
+		0:
+			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/intake_sprite.region_rect = intake1
+		1:
+			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/intake_sprite.region_rect = intake2
+		2:
+			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/intake_sprite.region_rect = intake3
+			
+	match radiatorType:
+		0:
+			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/radiatureSprite.region_rect = rad1
+		1:
+			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/radiatureSprite.region_rect = rad2
+		2:
+			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/radiatureSprite.region_rect = rad3
+	
+func show_forced_induction_sprite():
+	var turbosprite = Rect2(0,0,64,64)
+	var superchargersprite = Rect2(64,0,64,64)
+	
+	if turbo == true:
+		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".region_rect = turbosprite
+		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".visible = true
+	
+	elif supercharged == true:
+		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".region_rect = superchargersprite
+		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".visible = true
+	
+	else:
+		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".visible = false
+	
+func show_fuelSystem_Sprite():
+	var carb = Rect2(0,0,32,32)
+	var injection = Rect2(32,0,32,32)
+	
+	match fuelsystem:
+		0:
+			$"CanvasLayer/TabContainer/Fuel System/previewEngineBlockTypepnl/fuelSystem".region_rect = carb
+		1:
+			$"CanvasLayer/TabContainer/Fuel System/previewEngineBlockTypepnl/fuelSystem".region_rect = injection
+	
+
+func show_right_engine_sprite():
 	var i3 = Rect2(0, 0, 64, 64)
 	var i4 = Rect2(64, 0, 64, 64)
 	var i5 = Rect2(0, 0, 128, 128)
 	var i6 = Rect2(128, 0, 128, 128)
+	var v4 = Rect2(0,0,84,84)
+	var v6 = Rect2(84,0,84,84)
+	var v8 = Rect2(84+84,0,84,84)
+	var b4 = Rect2(0, 0, 64, 64)
+	var b6 = Rect2(64, 0, 64, 64)
+	var b8 = Rect2(64+64, 0, 64, 64)
 	#show correct engin block
 	if EngineType == 1:
 		match cylinders:
@@ -232,12 +337,160 @@ func update_UI():
 			8:
 				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have an inline 8 cylinder"
 				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(3)
+	elif EngineType == 2:
+		match cylinders:
+			3:
+				hide_engine_sprites()
+				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have an v3 engine"
+				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v4
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+			4:
+				hide_engine_sprites()
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v4
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+			5:
+				hide_engine_sprites()
+				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have an v5 engine"
+				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v4
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+			6:
+				hide_engine_sprites()
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v6
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+			8:
+				hide_engine_sprites()
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v8
+				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+	elif EngineType == 3:
+		match cylinders:
+			3:
+				hide_engine_sprites()
+				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have a 3 cylinder boxer engine"
+				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+			4:
+				hide_engine_sprites()
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+			5:
+				hide_engine_sprites()
+				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have a 5 cylinder boxer engine"
+				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+			6:
+				hide_engine_sprites()
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b6
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+			8:
+				hide_engine_sprites()
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b8
+				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+	elif EngineType == 4:
+		hide_engine_sprites()
+		$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Rotary engine not available"
+		$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn.select(2)
+		$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+		$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
+		$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+		
 	else:
-		$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
+		hide_engine_sprites()
 	
 
+func hide_engine_sprites():
+	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
+	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
+	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = false
+	$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = false
+	
+func hide_cam_and_valve_sprites():
+	$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = false
+	$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = false
+	
+	
+func show_correct_camshaft_sprite():
+	var valves_2 = Rect2(0,0,32,32)
+	var valves_3 = Rect2(32,0,32,32)
+	var valves_4 = Rect2(64,0,32,32)
+	var valves_5 = Rect2(64+32,0,32,32)
+	var pushrod = Rect2(0,0,64,64)
+	var sohc = Rect2(64,0,64,64)
+	var dohc = Rect2(64+64,0,64,64)
+	match  camType:
+		0:
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.region_rect = pushrod
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = true
+		1:
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.region_rect = sohc
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = true
+		2:
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.region_rect = dohc
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = true
+			
+	match numValve:
+		0:
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_2
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
+		1:
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_3
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
+		2:
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_4
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
+		3:
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_5
+			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
 
+func show_components():
+	var piston1 = Rect2(0,0,32,32)
+	var piston2 = Rect2(32,0,32,32)
+	var piston3 = Rect2(64,0,32,32)
+	var crank1 = Rect2(0,32,32,32)
+	var crank2 = Rect2(32,32,32,32)
+	var crank3 = Rect2(64,32,32,32)
+	var conrod1 = Rect2(0,64,32,32)
+	var conrod2 = Rect2(32,64,32,32)
+	var conrod3 = Rect2(64,64,32,32)
+	match pistonsType:
+		0:
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.region_rect = piston1
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = true
+		1:
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.region_rect = piston2
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = true
+		2:
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.region_rect = piston3
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = true
+	match crankshaftType:
+		0:
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.region_rect = crank1
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = true
+		1:
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.region_rect = crank2
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = true
+		2:
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.region_rect = crank3
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = true
+	match conrodsType:
+		0:
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.region_rect = conrod1
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = true
+		1:
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.region_rect = conrod2
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = true
+		2:
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.region_rect = conrod3
+			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = true
+			
 
+func hide_components_sprites():
+	$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = false
+	$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = false
+	$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = false
 
 @warning_ignore("unused_parameter")
 func _on_piston_diamater_slider_value_changed(value: float) -> void:

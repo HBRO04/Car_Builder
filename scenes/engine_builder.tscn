@@ -1,8 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://cef7sayyf852u"]
+[gd_scene load_steps=15 format=3 uid="uid://cef7sayyf852u"]
 
 [ext_resource type="Script" uid="uid://dubtipy8j5h8c" path="res://scripts/engine_builder.gd" id="1_v3cha"]
 [ext_resource type="Texture2D" uid="uid://bsw6hcnbi3kj0" path="res://assets/engine_block i3 i4.png" id="2_fpiu6"]
+[ext_resource type="StyleBox" uid="uid://dqpp4vrn3paqk" path="res://scenes/test_preview_box.tres" id="2_ku17k"]
 [ext_resource type="Texture2D" uid="uid://d0ee4bxoocsf7" path="res://assets/inline i5 i6.png" id="3_pjmh8"]
+[ext_resource type="Texture2D" uid="uid://cgsgeam4kym8g" path="res://assets/v-engines.png" id="4_pjmh8"]
+[ext_resource type="Texture2D" uid="uid://dh52e0d1t0815" path="res://assets/Boxer engine.png" id="5_b6bfi"]
+[ext_resource type="Texture2D" uid="uid://g2c08qxn6o4w" path="res://assets/camshafts.png" id="6_mfw00"]
+[ext_resource type="Texture2D" uid="uid://djarea7wuae4t" path="res://assets/valves.png" id="7_l1jl4"]
+[ext_resource type="Texture2D" uid="uid://bi14q7dy8gyx2" path="res://assets/components.png" id="8_svopc"]
+[ext_resource type="Texture2D" uid="uid://xijg3tyfgut0" path="res://assets/fuel_system.png" id="10_x4oyf"]
+[ext_resource type="Texture2D" uid="uid://ddcvvjfnmgy18" path="res://assets/forced induction.png" id="11_x4oyf"]
+[ext_resource type="Texture2D" uid="uid://d3ipg2kwbvjqq" path="res://assets/intake.png" id="12_5a72t"]
+[ext_resource type="Texture2D" uid="uid://jbt8tt1j4dgo" path="res://assets/exhaust.png" id="13_rq1st"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ectv5"]
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
@@ -91,9 +101,9 @@ text = "Fuel economy: "
 [node name="EngineCostpnl" type="Panel" parent="CanvasLayer"]
 z_index = 1
 offset_left = 1039.5
-offset_top = 66.99994
+offset_top = 90.0
 offset_right = 1426.5
-offset_bottom = 121.99992
+offset_bottom = 144.99998
 scale = Vector2(1.0150163, 0.9526546)
 
 [node name="Costlbl" type="Label" parent="CanvasLayer/EngineCostpnl"]
@@ -118,9 +128,10 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.0150163, 0.9526546)
 size_flags_horizontal = 4
-current_tab = 0
+current_tab = 2
 
 [node name="EngineBlock" type="TabBar" parent="CanvasLayer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -130,6 +141,7 @@ offset_left = 57.0
 offset_top = 120.0
 offset_right = 712.0
 offset_bottom = 330.0
+theme_override_styles/panel = ExtResource("2_ku17k")
 
 [node name="inline i3_i4" type="Sprite2D" parent="CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl"]
 texture_filter = 1
@@ -146,6 +158,22 @@ scale = Vector2(3.6329458, 3.3951182)
 texture = ExtResource("3_pjmh8")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 128)
+
+[node name="v-engines" type="Sprite2D" parent="CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(332.64886, 108.80042)
+scale = Vector2(3.0831656, 2.8472285)
+texture = ExtResource("4_pjmh8")
+region_enabled = true
+region_rect = Rect2(0, 0, 84, 84)
+
+[node name="boxer_engines" type="Sprite2D" parent="CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(330.67847, 97.25374)
+scale = Vector2(3.6329458, 3.395118)
+texture = ExtResource("5_b6bfi")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
 
 [node name="EngineTypepnl" type="Panel" parent="CanvasLayer/TabContainer/EngineBlock"]
 layout_mode = 0
@@ -378,6 +406,23 @@ offset_left = 57.0
 offset_top = 120.0
 offset_right = 712.0
 offset_bottom = 330.0
+theme_override_styles/panel = ExtResource("2_ku17k")
+
+[node name="camshafts" type="Sprite2D" parent="CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(207.0351, 96.72887)
+scale = Vector2(6.511595, 5.5929246)
+texture = ExtResource("6_mfw00")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="valves" type="Sprite2D" parent="CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(510.47845, 103.02706)
+scale = Vector2(7.1735325, 6.3309917)
+texture = ExtResource("7_l1jl4")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Production"]
 layout_mode = 0
@@ -495,16 +540,41 @@ grow_vertical = 2
 text = "VVT"
 
 [node name="Components" type="TabBar" parent="CanvasLayer/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
 [node name="previewEngineBlockTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Components"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 57.0
 offset_top = 120.0
-offset_right = 712.0
+offset_right = 742.35254
 offset_bottom = 330.0
+theme_override_styles/panel = ExtResource("2_ku17k")
+
+[node name="Pistons" type="Sprite2D" parent="CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(94.72164, 89.905846)
+scale = Vector2(10.375448, 9.709711)
+texture = ExtResource("8_svopc")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="conrods" type="Sprite2D" parent="CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(300, 92.005)
+scale = Vector2(8.851458, 8.069557)
+texture = ExtResource("8_svopc")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="crankshaft" type="Sprite2D" parent="CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(514.66565, 105.65133)
+scale = Vector2(8.204918, 6.7574334)
+texture = ExtResource("8_svopc")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Components"]
 layout_mode = 0
@@ -637,6 +707,15 @@ offset_left = 57.0
 offset_top = 120.0
 offset_right = 712.0
 offset_bottom = 330.0
+theme_override_styles/panel = ExtResource("2_ku17k")
+
+[node name="fuelSystem" type="Sprite2D" parent="CanvasLayer/TabContainer/Fuel System/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(316.88556, 107.75073)
+scale = Vector2(8.035586, 6.265388)
+texture = ExtResource("10_x4oyf")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="FuelSystempnl" type="Panel" parent="CanvasLayer/TabContainer/Fuel System"]
 layout_mode = 0
@@ -795,6 +874,15 @@ offset_left = 57.0
 offset_top = 120.0
 offset_right = 712.0
 offset_bottom = 330.0
+theme_override_styles/panel = ExtResource("2_ku17k")
+
+[node name="forcedInduction_Sprite" type="Sprite2D" parent="CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(290.28494, 101.452545)
+scale = Vector2(3.1323466, 3.0834892)
+texture = ExtResource("11_x4oyf")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
 
 [node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Forced Induction"]
 layout_mode = 0
@@ -929,6 +1017,23 @@ offset_left = 57.0
 offset_top = 120.0
 offset_right = 712.0
 offset_bottom = 330.0
+theme_override_styles/panel = ExtResource("2_ku17k")
+
+[node name="intake_sprite" type="Sprite2D" parent="CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(130.18906, 105.65133)
+scale = Vector2(7.173529, 6.560614)
+texture = ExtResource("12_5a72t")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="radiatureSprite" type="Sprite2D" parent="CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(489.29657, 105.65133)
+scale = Vector2(7.173529, 6.560614)
+texture = ExtResource("12_5a72t")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Intake"]
 layout_mode = 0
@@ -1032,6 +1137,31 @@ offset_left = 57.0
 offset_top = 120.0
 offset_right = 712.0
 offset_bottom = 330.0
+theme_override_styles/panel = ExtResource("2_ku17k")
+
+[node name="ExhaustMani" type="Sprite2D" parent="CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(114.207954, 104.07678)
+scale = Vector2(6.0787854, 6.527813)
+texture = ExtResource("13_rq1st")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="muffler" type="Sprite2D" parent="CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(335.74188, 104.86407)
+scale = Vector2(6.148949, 6.3801994)
+texture = ExtResource("13_rq1st")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="tip" type="Sprite2D" parent="CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl"]
+texture_filter = 1
+position = Vector2(525.394, 100.927666)
+scale = Vector2(4.394053, 4.887658)
+texture = ExtResource("13_rq1st")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Exhaust"]
 layout_mode = 0
@@ -1196,13 +1326,6 @@ popup/item_3/id = 3
 visible = false
 layout_mode = 2
 metadata/_tab_index = 7
-
-[node name="previewEngineBlockTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Confirmation"]
-layout_mode = 0
-offset_left = 57.0
-offset_top = 120.0
-offset_right = 712.0
-offset_bottom = 330.0
 
 [node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Confirmation"]
 layout_mode = 0
