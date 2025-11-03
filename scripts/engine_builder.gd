@@ -64,7 +64,19 @@ func _ready() -> void:
 	torque = get_torque_at_rpm(rpm) # max torque at max RPM
 	kw = (torque * rpm) / 9550.0    # max kW
 	$CanvasLayer/TabContainer/EngineBlock.visible = true
+	populate_engine_list($CanvasLayer/loadEnginpnl/OptionButton)
 	
+	var dir = DirAccess.open("res://engines/")
+	if dir:
+		print("Files in res://engines/:")
+		dir.list_dir_begin()
+		var file = dir.get_next()
+		while file != "":
+			print(" - ", file)
+			file = dir.get_next()
+		dir.list_dir_end()
+	else:
+		print("Could not open res://engines/")
 
 
 func calc_cost():
@@ -120,27 +132,27 @@ func calc_cost():
 		
 	#components
 	match pistonsType:
-		0: baseMaterialCost += 150 
-		1: baseMaterialCost += 350 
+		0: baseMaterialCost += 150
+		1: baseMaterialCost += 350
 		2: baseMaterialCost += 200
 	match conrodsType:
-		0: baseMaterialCost += 150 
-		1: baseMaterialCost += 350 
+		0: baseMaterialCost += 150
+		1: baseMaterialCost += 350
 		2: baseMaterialCost += 200
 	match crankshaftType:
-		0: extraCost += 1000 
-		1: extraCost += 2000 
+		0: extraCost += 1000
+		1: extraCost += 2000
 		2: extraCost += 3000
 		
 	#fuel system
 	match fuelsystem:
-		0: extraCost += 1000 
-		1: extraCost += 1500 
+		0: extraCost += 1000
+		1: extraCost += 1500
 		
 	#intake
 	match intakeType:
-		0: extraCost += 300 
-		1: extraCost += 1000 
+		0: extraCost += 300
+		1: extraCost += 1000
 		2: extraCost += 3000
 	match radiatorType:
 		0: extraCost += 100
@@ -152,14 +164,14 @@ func calc_cost():
 		0: extraCost += 500
 		1: extraCost += 1000
 	match  exhaustManifoldType:
-		0: extraCost += 300 
-		1: extraCost += 1000 
+		0: extraCost += 300
+		1: extraCost += 1000
 		2: extraCost += 3000
 		3: extraCost += 5000
 	if cat == true:
 		match catType:
-			1: extraCost += 500 
-			2: extraCost += 1500 
+			1: extraCost += 500
+			2: extraCost += 1500
 	engineCost = (baseMaterialCost * engineSize_L * cylinders * complexity_Multiplier ) + extraCost
 
 func update_UI():
@@ -216,6 +228,7 @@ func update_UI():
 	show_forced_induction_sprite()
 	show_intake_sprite()
 	show_exhaust_sprites()
+	populate_engine_list($CanvasLayer/loadEnginpnl/OptionButton)
 	
 func show_exhaust_sprites():
 	var mani1 = Rect2(0,0,32,32)
@@ -509,7 +522,7 @@ func get_engine_Info():
 	
 	#fuel
 	fuelsystem = $"CanvasLayer/TabContainer/Fuel System/FuelSystempnl/EnginTypeOptbtn".selected
-	fuelType = $"CanvasLayer/TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn".selected	
+	fuelType = $"CanvasLayer/TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn".selected
 	
 	pistonStroke_mm = $CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2.value
 	pistonDiameter_mm = $CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider.value
@@ -599,7 +612,7 @@ func kw_per_liter() -> float:
 		0: # OHV
 			match numValve:
 				0: base_kw_per_l = 45 # 2-valve OHV average
-				_: 
+				_:
 					$CanvasLayer/TabContainer/Production/lblError.text = "OHV can only have 2 valves"
 					$CanvasLayer/TabContainer/Production/numValvespnl/OptionButton.select(0)
 					return 0
@@ -1100,5 +1113,362 @@ func _on_oil_Cooler_check_button_pressed() -> void:
 func _on_current_rpm_value_changed(value: float) -> void:
 	@warning_ignore("narrowing_conversion")
 	currentRPM = value
-	update_dyno_for_current_rpm() 
+	update_dyno_for_current_rpm()
+	update_UI()
+
+func populate_engine_list(option_button: OptionButton) -> void:
+	option_button.clear()  # remove any existing items
+	
+	var dir = DirAccess.open("res://engines/")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir() and file_name.ends_with(".json"):
+				# remove the extension for display
+				var display_name = file_name.get_basename()
+				option_button.add_item(display_name)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	else:
+		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error: Could not open engines folder."
+
+		
+# Save function
+func save_engine_to_file(file_name: String) -> void:
+	var folder = "res://engines/"
+	if not DirAccess.dir_exists_absolute(folder):
+		DirAccess.make_dir_recursive_absolute(folder)
+	
+	var data: Dictionary = {
+		"engineSize_L": engineSize_L,
+		"cylinders": cylinders,
+		"pistonStroke_mm": pistonStroke_mm,
+		"pistonDiameter_mm": pistonDiameter_mm,
+		"EngineMat": EngineMat,
+		"cylinderMat": cylinderMat,
+		"EngineType": EngineType,
+		"engineCost": engineCost,
+		"extraCost": extraCost,
+		"baseMaterialCost": baseMaterialCost,
+		"complexity_Multiplier": complexity_Multiplier,
+		"camType": camType,
+		"kw_per_l": kw_per_l,
+		"kw": kw,
+		"numValve": numValve,
+		"vvt": vvt,
+		"turbo": turbo,
+		"supercharged": supercharged,
+		"tsetup": tsetup,
+		"ttune": ttune,
+		"torque": torque,
+		"reliability": reliability,
+		"reliabilityScore": reliabilityScore,
+		"engine_weight": engine_weight,
+		"max_kw": max_kw,
+		"max_Torque_nm": max_Torque_nm,
+		"pistonsType": pistonsType,
+		"conrodsType": conrodsType,
+		"crankshaftType": crankshaftType,
+		"fuelsystem": fuelsystem,
+		"fuelType": fuelType,
+		"rpm": rpm,
+		"currentRPM": currentRPM,
+		"fuelmix": fuelmix,
+		"fueleconomy": fueleconomy,
+		"Stringfueleconomy": Stringfueleconomy,
+		"kmperl": kmperl,
+		"intakeType": intakeType,
+		"radiatorType": radiatorType,
+		"oilCooler": oilCooler,
+		"cat": cat,
+		"catType": catType,
+		"exhaustType": exhaustType,
+		"exhaustManifoldType": exhaustManifoldType,
+		"muffler": muffler
+	}
+
+	var json_text = JSON.stringify(data, "\t") # formatted JSON
+	var path = folder + file_name + ".json"
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if file:
+		file.store_string(json_text)
+		file.close()
+		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Saved successfully!"
+		print("Saved engine to: ", path)
+	else:
+		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error saving file!"
+	update_UI()
+
+# Load function
+func load_engine_from_file(file_name: String) -> void:
+	var path := "res://engines/" + file_name + ".json"
+
+	# --- Check if file exists ---
+	if not FileAccess.file_exists(path):
+		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error: Engine file not found at " + path
+		return
+
+	# --- Open file ---
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error: Could not open engine file."
+		return
+
+	var text := file.get_as_text()
+	file.close()
+
+	# --- Parse JSON ---
+	var json := JSON.new()
+	var err := json.parse(text)
+	if err != OK:
+		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error parsing JSON file: " + str(err)
+		return
+
+	var data: Dictionary = json.data as Dictionary
+	if data.is_empty():
+		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error: Loaded data is empty!"
+		return
+
+	# --- Assign all variables from file ---
+	engineSize_L = data.get("engineSize_L", 0.0)
+	cylinders = data.get("cylinders", 0)
+	pistonStroke_mm = data.get("pistonStroke_mm", 0.0)
+	pistonDiameter_mm = data.get("pistonDiameter_mm", 0.0)
+	EngineMat = data.get("EngineMat", 0)
+	cylinderMat = data.get("cylinderMat", 0)
+	EngineType = data.get("EngineType", 0)
+	engineCost = data.get("engineCost", 0.0)
+	extraCost = data.get("extraCost", 0.0)
+	baseMaterialCost = data.get("baseMaterialCost", 100.0)
+	complexity_Multiplier = data.get("complexity_Multiplier", 1.0)
+	camType = data.get("camType", 0)
+	kw_per_l = data.get("kw_per_l", 0.0)
+	kw = data.get("kw", 0.0)
+	numValve = data.get("numValve", 0)
+	vvt = data.get("vvt", false)
+	turbo = data.get("turbo", false)
+	supercharged = data.get("supercharged", false)
+	tsetup = data.get("tsetup", 0)
+	ttune = data.get("ttune", 0)
+	torque = data.get("torque", 0.0)
+	reliability = data.get("reliability", 0.0)
+	reliabilityScore = data.get("reliabilityScore", "")
+	engine_weight = data.get("engine_weight", 0.0)
+	max_kw = data.get("max_kw", 0.0)
+	max_Torque_nm = data.get("max_Torque_nm", 0.0)
+	pistonsType = data.get("pistonsType", 0)
+	conrodsType = data.get("conrodsType", 0)
+	crankshaftType = data.get("crankshaftType", 0)
+	fuelsystem = data.get("fuelsystem", 0)
+	fuelType = data.get("fuelType", 0)
+	rpm = data.get("rpm", 0)
+	currentRPM = data.get("currentRPM", 0)
+	fuelmix = data.get("fuelmix", 0)
+	fueleconomy = data.get("fueleconomy", 0.0)
+	Stringfueleconomy = data.get("Stringfueleconomy", "")
+	kmperl = data.get("kmperl", "")
+	intakeType = data.get("intakeType", 0)
+	radiatorType = data.get("radiatorType", 0)
+	oilCooler = data.get("oilCooler", false)
+	cat = data.get("cat", false)
+	catType = data.get("catType", 0)
+	exhaustType = data.get("exhaustType", 0)
+	exhaustManifoldType = data.get("exhaustManifoldType", 0)
+	muffler = data.get("muffler", 0)
+
+	$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Engine loaded successfully: " + file_name
+	print("✅ Loaded engine from:", path)
+	update_UI()
+
+
+func _on_Load_button_pressed() -> void:
+	var selected = $CanvasLayer/loadEnginpnl/OptionButton.get_selected_id()
+	if selected == -1:
+		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Please select an engine first!"
+		return
+	
+	var file_name = $CanvasLayer/loadEnginpnl/OptionButton.get_item_text(selected)
+	load_engine_from_file(file_name)
+	update_engine_ui()
+	#update_UI()
+	
+# --- Helper functions (top-level, outside of update_engine_ui) ---
+func select_by_text(option_button: OptionButton, text_value: String) -> void:
+	if option_button == null:
+		return
+	for i in range(option_button.item_count):
+		if str(option_button.get_item_text(i)).to_lower() == str(text_value).to_lower():
+			option_button.select(i)
+			return
+	print("⚠️ No match for", text_value, "in", option_button.name)
+
+func select_by_number(option_button: OptionButton, num_value: float) -> void:
+	if option_button == null:
+		return
+	for i in range(option_button.item_count):
+		var item_text = option_button.get_item_text(i)
+		if item_text.is_valid_int() and int(item_text) == int(num_value):
+			option_button.select(i)
+			return
+		elif item_text.is_valid_float() and float(item_text) == float(num_value):
+			option_button.select(i)
+			return
+	print("⚠️ No numeric match for", num_value, "in", option_button.name)
+
+
+# --- MAIN FUNCTION ---
+func update_engine_ui() -> void:
+	print("🔄 Updating UI with loaded engine data...")
+
+	# --- Lookup dictionaries ---
+	var ENGINE_MATERIALS = {0:"Cast Iron",1:"Aluminum",2:"Compacted Graphite Iron",3:"Magnesium",4:"Titanium"}
+	var CYLINDER_MATERIALS = ENGINE_MATERIALS
+	var ENGINE_TYPES = {0:"Inline",1:"V-Type",2:"Boxer",3:"Rotary"}
+	var CYLINDERS = {0:"3",1:"4",2:"5",3:"6",4:"8"}
+	var CAM_TYPES = {0:"Pushrod",1:"Single Overhead Cam",2:"Dual Overhead Cam"}
+	var TURBO_TYPES = {0:"NA",1:"Turbo",2:"Supercharger"}
+	var FUEL_SYSTEMS = {0:"Carburetor",1:"Fuel injection"}
+	var FUEL_TYPES = {0:"95",1:"92",2:"Diesel",3:"Race"}
+	var INTAKES = {0:"Normal",1:"Performance",2:"Race"}
+	var RADIATORS = {0:"Small",1:"Medium",2:"Race"}
+	var EXHAUSTS = {0:"Single",1:"Twin"}
+	var MANIFOLDS = {0:"Normal",1:"Sports",2:"Performance",3:"Race"}
+	var MUFFLERS = {0:"Small",1:"Big",2:"Freeflow",3:"Straight Pipe"}
+	var CAT_TYPES = {0:"None",1:"Normal",2:"Premium"}
+	var CYLINDERS_TEXT = {0:"3", 1:"4", 2:"5", 3:"6", 4:"8"}
+
+	# --- ENGINE BLOCK ---
+	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn"):
+		select_by_text(get_node("CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn"), ENGINE_MATERIALS.get(EngineMat, "Cast Iron"))
+	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2"):
+		select_by_text(get_node("CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2"), CYLINDER_MATERIALS.get(cylinderMat, "Cast Iron"))
+	
+	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn"):
+		select_by_text(get_node("CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn"), ENGINE_TYPES.get(EngineType, "Inline"))
+	var cylinder_text = CYLINDERS_TEXT.get(cylinders, str(cylinders))
+	select_by_text(get_node("CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn"), cylinder_text)
+	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2"):
+		get_node("CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2").value = pistonStroke_mm
+	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider"):
+		get_node("CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider").value = pistonDiameter_mm
+	
+
+	# --- PRODUCTION ---
+	if has_node("CanvasLayer/TabContainer/Production/CamshaftTypepnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Production/CamshaftTypepnl/OptionButton"), CAM_TYPES.get(camType, "Pushrod"))
+	if has_node("CanvasLayer/TabContainer/Production/numValvespnl/OptionButton"):
+		select_by_number(get_node("CanvasLayer/TabContainer/Production/numValvespnl/OptionButton"), numValve)
+	if has_node("CanvasLayer/TabContainer/Production/vvtpnl/CheckButton"):
+		get_node("CanvasLayer/TabContainer/Production/vvtpnl/CheckButton").button_pressed  = vvt
+
+	# --- FORCED INDUCTION ---
+	if has_node("CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton"), TURBO_TYPES.get(tsetup, "NA"))
+
+	# --- FUEL ---
+	if has_node("CanvasLayer/TabContainer/Fuel System/FuelTypepnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Fuel System/FuelTypepnl/OptionButton"), FUEL_TYPES.get(fuelType, "95"))
+	if has_node("CanvasLayer/TabContainer/Fuel System/FuelSystempnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Fuel System/FuelSystempnl/OptionButton"), FUEL_SYSTEMS.get(fuelsystem, "Carburetor"))
+	if has_node("CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/RPMSlider"):
+		get_node("CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/RPMSlider").value = rpm
+
+	# --- INTAKE ---
+	if has_node("CanvasLayer/TabContainer/Intake/intakepnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Intake/intakepnl/OptionButton"), INTAKES.get(intakeType, "Normal"))
+	if has_node("CanvasLayer/TabContainer/Intake/CoolingSystempnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Intake/CoolingSystempnl/OptionButton"), RADIATORS.get(radiatorType, "Small"))
+	if has_node("CanvasLayer/TabContainer/Intake/CoolingSystempnl/CheckButton"):
+		get_node("CanvasLayer/TabContainer/Intake/CoolingSystempnl/CheckButton").button_pressed  = oilCooler
+
+	# --- EXHAUST ---
+	if has_node("CanvasLayer/TabContainer/Exhaust/Exhaustpnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Exhaust/Exhaustpnl/OptionButton"), EXHAUSTS.get(exhaustType, "Single"))
+	if has_node("CanvasLayer/TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton"), MANIFOLDS.get(exhaustManifoldType, "Normal"))
+	if has_node("CanvasLayer/TabContainer/Exhaust/exhaustMufflerpnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Exhaust/exhaustMufflerpnl/OptionButton"), MUFFLERS.get(muffler, "Small"))
+	if has_node("CanvasLayer/TabContainer/Exhaust/Catpnl/OptionButton"):
+		select_by_text(get_node("CanvasLayer/TabContainer/Exhaust/Catpnl/OptionButton"), CAT_TYPES.get(catType, "None"))
+
+	# --- DISPLAY LABELS ---
+	if has_node("CanvasLayer/EngineSpecspnl/VBoxContainer/reliabilitylbl"):
+		get_node("CanvasLayer/EngineSpecspnl/VBoxContainer/reliabilitylbl").text = str(reliabilityScore)
+	if has_node("CanvasLayer/EngineSpecspnl/VBoxContainer/weightlbl"):
+		get_node("CanvasLayer/EngineSpecspnl/VBoxContainer/weightlbl").text = str(engine_weight) + " kg"
+	if has_node("CanvasLayer/EngineSpecspnl/VBoxContainer/kwlbl"):
+		get_node("CanvasLayer/EngineSpecspnl/VBoxContainer/kwlbl").text = str(max_kw) + " kW"
+	if has_node("CanvasLayer/EngineSpecspnl/VBoxContainer/torquelbl"):
+		get_node("CanvasLayer/EngineSpecspnl/VBoxContainer/torquelbl").text = str(max_Torque_nm) + " Nm"
+
+	print("✅ UI updated successfully with mapped labels.")
+
+
+func _on_savebtn_pressed() -> void:
+	var file_name: String = $CanvasLayer/TabContainer/Confirmation/LineEdit.text.strip_edges()
+	
+	if file_name == "":
+		lblErrorEngineBlock.text = "Error: Please enter a file name."
+		return
+
+	var file_path: String = "res://engines/%s.json" % file_name
+
+	var engine_data: Dictionary = {
+		"engineSize_L": engineSize_L,
+		"cylinders": cylinders,
+		"pistonStroke_mm": pistonStroke_mm,
+		"pistonDiameter_mm": pistonDiameter_mm,
+		"EngineMat": EngineMat,
+		"cylinderMat": cylinderMat,
+		"EngineType": EngineType,
+		"engineCost": engineCost,
+		"extraCost": extraCost,
+		"baseMaterialCost": baseMaterialCost,
+		"complexity_Multiplier": complexity_Multiplier,
+		"camType": camType,
+		"kw_per_l": kw_per_l,
+		"kw": kw,
+		"numValve": numValve,
+		"vvt": vvt,
+		"turbo": turbo,
+		"supercharged": supercharged,
+		"tsetup": tsetup,
+		"ttune": ttune,
+		"torque": torque,
+		"reliability": reliability,
+		"reliabilityScore": reliabilityScore,
+		"engine_weight": engine_weight,
+		"max_kw": max_kw,
+		"max_Torque_nm": max_Torque_nm,
+		"pistonsType": pistonsType,
+		"conrodsType": conrodsType,
+		"crankshaftType": crankshaftType,
+		"fuelsystem": fuelsystem,
+		"fuelType": fuelType,
+		"rpm": rpm,
+		"currentRPM": currentRPM,
+		"fuelmix": fuelmix,
+		"fueleconomy": fueleconomy,
+		"Stringfueleconomy": Stringfueleconomy,
+		"kmperl": kmperl,
+		"intakeType": intakeType,
+		"radiatorType": radiatorType,
+		"oilCooler": oilCooler,
+		"cat": cat,
+		"catType": catType,
+		"exhaustType": exhaustType,
+		"exhaustManifoldType": exhaustManifoldType,
+		"muffler": muffler
+	}
+
+	var file = FileAccess.open(file_path, FileAccess.WRITE_READ)
+	if file:
+		var json_text: String = JSON.stringify(engine_data, "\t")  # pretty print
+		file.store_string(json_text)
+		file.close()
+		lblErrorEngineBlock.text = "Engine saved successfully!"
+	else:
+		lblErrorEngineBlock.text = "Error: Could not open file for writing."
+		
 	update_UI()
