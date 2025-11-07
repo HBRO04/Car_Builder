@@ -2,6 +2,8 @@ extends Node2D
 
 @export var lblErrorEngineBlock: Label
 
+@onready var nextscenefile = preload("res://scenes/car_builder.tscn")
+
 var engineSize_L: float
 var cylinders: int #3,4,5,6 or 8
 var pistonStroke_mm: float
@@ -1482,3 +1484,7 @@ func _on_savebtn_pressed() -> void:
 		
 	$TabContainer/Confirmation/LineEdit.text = ""
 	update_UI()
+
+
+func _on_continuebtn_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/car_builder.tscn")

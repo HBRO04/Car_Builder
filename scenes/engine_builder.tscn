@@ -20,8 +20,8 @@
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
 
 [node name="Engine Builder" type="Node2D" node_paths=PackedStringArray("lblErrorEngineBlock")]
-position = Vector2(-64, 223)
-scale = Vector2(1.1000144, 1.1631204)
+position = Vector2(-64, 181)
+scale = Vector2(0.98230493, 0.9693876)
 script = ExtResource("1_v3cha")
 lblErrorEngineBlock = NodePath("TabContainer/EngineBlock/lblError")
 
@@ -1503,6 +1503,16 @@ theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
 text = " Save engine "
 
+[node name="Continuebtn" type="Button" parent="TabContainer/Confirmation"]
+layout_mode = 0
+offset_left = 301.4
+offset_top = 132.228
+offset_right = 454.10687
+offset_bottom = 206.75659
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
+text = " continue"
+
 [node name="LineEdit" type="LineEdit" parent="TabContainer/Confirmation"]
 layout_mode = 0
 offset_left = 100.98352
@@ -1575,4 +1585,5 @@ autowrap_mode = 2
 [connection signal="item_selected" from="TabContainer/Exhaust/exhaustMufflerpnl/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="value_changed" from="TabContainer/Confirmation/curvespnl/currentRPM" to="." method="_on_current_rpm_value_changed"]
 [connection signal="pressed" from="TabContainer/Confirmation/Savebtn" to="." method="_on_savebtn_pressed"]
+[connection signal="pressed" from="TabContainer/Confirmation/Continuebtn" to="." method="_on_continuebtn_pressed"]
 [connection signal="pressed" from="loadEnginpnl/Button" to="." method="_on_Load_button_pressed"]
