@@ -1114,10 +1114,11 @@ func _on_current_rpm_value_changed(value: float) -> void:
 	@warning_ignore("narrowing_conversion")
 	currentRPM = value
 	update_dyno_for_current_rpm()
+	$TabContainer/Confirmation/curvespnl/Label.text = "Current RPM: " + str(currentRPM)
 	update_UI()
 
 func populate_engine_list(option_button: OptionButton) -> void:
-	option_button.clear()  # remove any existing items
+	option_button.clear() 
 	
 	var dir = DirAccess.open("res://engines/")
 	if dir:
@@ -1278,8 +1279,7 @@ func load_engine_from_file(file_name: String) -> void:
 	muffler = data.get("muffler", 0)
 
 	$loadEnginpnl/lblerrorloading.text = "Engine loaded successfully: " + file_name
-	print("✅ Loaded engine from:", path)
-	#update_UI()
+
 
 
 func _on_Load_button_pressed() -> void:
@@ -1289,6 +1289,7 @@ func _on_Load_button_pressed() -> void:
 		$loadEnginpnl/lblerrorloading.text = "Please select an engine first!"
 		return
 		
+	#don't remove the for loop don't know why but code don't work without running atleast 5 times to set everything
 	for i in range(7):
 		var file_name = $loadEnginpnl/OptionButton.get_item_text(selected)
 		load_engine_from_file(file_name)
@@ -1388,7 +1389,7 @@ func update_engine_ui() -> void:
 	
 	
 
-	# --- INTAKE ---
+	#Intake
 	$TabContainer/Intake/intakepnl/OptionButton.select(intakeType)
 
 	match int(radiatorType):
@@ -1402,14 +1403,13 @@ func update_engine_ui() -> void:
 	if has_node("TabContainer/Intake/CoolingSystempnl/CheckButton"):
 		get_node("TabContainer/Intake/CoolingSystempnl/CheckButton").button_pressed  = oilCooler
 
-	# --- EXHAUST ---
+	#Exhaust
 	$TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton.select(exhaustManifoldType)
 	$TabContainer/Exhaust/Exhaustpnl/OptionButton.select(exhaustType)
 	$TabContainer/Exhaust/Catpnl/OptionButton.select(catType)
 	$TabContainer/Exhaust/exhaustMufflerpnl/OptionButton.select(muffler)
 
 
-	print("✅ UI updated successfully with mapped labels.")
 	hide_engine_sprites()
 	update_UI()
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://cef7sayyf852u"]
+[gd_scene load_steps=17 format=3 uid="uid://cef7sayyf852u"]
 
 [ext_resource type="Script" uid="uid://dubtipy8j5h8c" path="res://scripts/engine_builder.gd" id="1_v3cha"]
+[ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="2_85mox"]
 [ext_resource type="Texture2D" uid="uid://bsw6hcnbi3kj0" path="res://assets/engine_block i3 i4.png" id="2_fpiu6"]
 [ext_resource type="StyleBox" uid="uid://dqpp4vrn3paqk" path="res://scenes/test_preview_box.tres" id="2_ku17k"]
 [ext_resource type="Texture2D" uid="uid://d0ee4bxoocsf7" path="res://assets/inline i5 i6.png" id="3_pjmh8"]
@@ -13,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://ddcvvjfnmgy18" path="res://assets/forced induction.png" id="11_x4oyf"]
 [ext_resource type="Texture2D" uid="uid://d3ipg2kwbvjqq" path="res://assets/intake.png" id="12_5a72t"]
 [ext_resource type="Texture2D" uid="uid://jbt8tt1j4dgo" path="res://assets/exhaust.png" id="13_rq1st"]
+[ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="15_gwq5s"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ectv5"]
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
@@ -47,54 +49,67 @@ offset_left = 15.0
 offset_top = 17.0
 offset_right = 353.0
 offset_bottom = 757.0
+theme_override_constants/separation = 6
 
 [node name="EngineCapacitylbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Engine capacity:"
+label_settings = ExtResource("2_85mox")
 
 [node name="EnginekwperL_lbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "kw per L:"
+label_settings = ExtResource("2_85mox")
 
 [node name="kwlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "kw:"
+label_settings = ExtResource("2_85mox")
 
 [node name="torquelbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "torque:"
+label_settings = ExtResource("2_85mox")
 
 [node name="rpmlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "RPM:"
+label_settings = ExtResource("2_85mox")
 
 [node name="Currentrpmlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "RPM:"
+label_settings = ExtResource("2_85mox")
 
 [node name="forcedindlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Forced Induction: "
+label_settings = ExtResource("2_85mox")
 
 [node name="reliabilitylbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Reliability:"
+label_settings = ExtResource("2_85mox")
 
 [node name="reliabilityScorelbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Reliability rating:"
+label_settings = ExtResource("2_85mox")
 
 [node name="weightlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Engine weight:"
+label_settings = ExtResource("2_85mox")
 
 [node name="fueleconlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Fuel economy: "
+label_settings = ExtResource("2_85mox")
 
 [node name="fueleconlbl2" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Fuel economy: "
+label_settings = ExtResource("2_85mox")
 
 [node name="EngineCostpnl" type="Panel" parent="."]
 z_index = 1
@@ -111,6 +126,7 @@ offset_top = 12.0
 offset_right = 365.0
 offset_bottom = 45.0
 text = "Cost: "
+label_settings = ExtResource("2_85mox")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 anchors_preset = 8
@@ -126,11 +142,15 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.0150163, 0.9526546)
 size_flags_horizontal = 4
-current_tab = 4
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 20
+current_tab = 7
 
 [node name="EngineBlock" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 18
 metadata/_tab_index = 0
 
 [node name="previewEngineBlockTypepnl" type="Panel" parent="TabContainer/EngineBlock"]
@@ -187,6 +207,7 @@ offset_top = 13.0
 offset_right = 55.0
 offset_bottom = 36.0
 text = "Engine Type:"
+label_settings = ExtResource("2_85mox")
 
 [node name="engineTypeNumlbl" type="Label" parent="TabContainer/EngineBlock/EngineTypepnl"]
 layout_mode = 0
@@ -195,6 +216,7 @@ offset_top = 11.0
 offset_right = 266.0
 offset_bottom = 34.0
 text = "1/4"
+label_settings = ExtResource("2_85mox")
 
 [node name="EnginTypeOptbtn" type="OptionButton" parent="TabContainer/EngineBlock/EngineTypepnl"]
 layout_mode = 1
@@ -209,6 +231,8 @@ offset_right = 42.0
 offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 4
 popup/item_0/text = "Inline"
@@ -233,6 +257,8 @@ offset_right = 42.0
 offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 5
 popup/item_0/text = "3"
@@ -253,6 +279,7 @@ offset_top = 117.0
 offset_right = 93.0
 offset_bottom = 140.0
 text = "Cylinders:"
+label_settings = ExtResource("2_85mox")
 
 [node name="EngineMaterialspnl" type="Panel" parent="TabContainer/EngineBlock"]
 layout_mode = 0
@@ -267,6 +294,8 @@ offset_left = 15.0
 offset_top = 11.0
 offset_right = 141.0
 offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 text = "Engine Material:"
 
 [node name="Label2" type="Label" parent="TabContainer/EngineBlock/EngineMaterialspnl"]
@@ -276,6 +305,7 @@ offset_top = 117.0
 offset_right = 141.0
 offset_bottom = 140.0
 text = "Cylinder Head Material:"
+label_settings = ExtResource("2_85mox")
 
 [node name="EngineMatOptbtn" type="OptionButton" parent="TabContainer/EngineBlock/EngineMaterialspnl"]
 layout_mode = 1
@@ -287,6 +317,8 @@ offset_top = 65.0
 offset_right = 16.0
 offset_bottom = 85.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 5
 popup/item_0/text = "Cast Iron"
@@ -310,6 +342,8 @@ offset_top = 150.0
 offset_right = 114.0
 offset_bottom = 181.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 5
 popup/item_0/text = "Cast Iron"
@@ -337,6 +371,7 @@ offset_top = 17.0
 offset_right = 52.0
 offset_bottom = 40.0
 text = "Piston diamater:"
+label_settings = ExtResource("2_85mox")
 
 [node name="PistonDiameterlbl" type="Label" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
@@ -345,6 +380,7 @@ offset_top = 17.0
 offset_right = 341.0
 offset_bottom = 40.0
 text = "00.00"
+label_settings = ExtResource("2_85mox")
 
 [node name="PistonStrokelbl" type="Label" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
@@ -353,6 +389,7 @@ offset_top = 105.0
 offset_right = 341.0
 offset_bottom = 128.0
 text = "00.00"
+label_settings = ExtResource("2_85mox")
 
 [node name="Label2" type="Label" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
@@ -361,6 +398,7 @@ offset_top = 105.0
 offset_right = 142.0
 offset_bottom = 128.0
 text = "Piston stroke:"
+label_settings = ExtResource("2_85mox")
 
 [node name="PistonDiamaterSlider" type="HSlider" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
@@ -445,6 +483,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Camshaft Type:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Production/CamshaftTypepnl"]
 layout_mode = 1
@@ -459,6 +498,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 3
 popup/item_0/text = "Pushrod"
@@ -482,6 +523,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Number of Valves:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Production/numValvespnl"]
 layout_mode = 1
@@ -496,6 +538,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 4
 popup/item_0/text = "2"
@@ -521,6 +565,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "VVT:"
+label_settings = ExtResource("2_85mox")
 
 [node name="CheckButton" type="CheckButton" parent="TabContainer/Production/vvtpnl"]
 layout_mode = 1
@@ -535,6 +580,8 @@ offset_right = 38.5
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 text = "VVT"
 
 [node name="Components" type="TabBar" parent="TabContainer"]
@@ -598,6 +645,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Pistons Type:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Components/Pistonspnl"]
 layout_mode = 1
@@ -612,6 +660,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 3
 popup/item_0/text = "Normal"
@@ -635,6 +685,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Crankshaft Type:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Components/CrankShaftpnl"]
 layout_mode = 1
@@ -649,6 +700,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 3
 popup/item_0/text = "Normal"
@@ -672,6 +725,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Conrods Type:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Components/Conrodspnl"]
 layout_mode = 1
@@ -686,6 +740,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 3
 popup/item_0/text = "Normal"
@@ -730,6 +786,7 @@ offset_top = 13.0
 offset_right = 55.0
 offset_bottom = 36.0
 text = "Fuel System:"
+label_settings = ExtResource("2_85mox")
 
 [node name="EnginTypeOptbtn" type="OptionButton" parent="TabContainer/Fuel System/FuelSystempnl"]
 layout_mode = 1
@@ -744,6 +801,8 @@ offset_right = 42.0
 offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 2
 popup/item_0/text = "Carberator"
@@ -772,6 +831,7 @@ offset_top = 11.0
 offset_right = 141.0
 offset_bottom = 34.0
 text = "Fuel Type:"
+label_settings = ExtResource("2_85mox")
 
 [node name="EngineMatOptbtn" type="OptionButton" parent="TabContainer/Fuel System/FuelTypepnl"]
 layout_mode = 1
@@ -783,6 +843,8 @@ offset_top = 65.0
 offset_right = 16.0
 offset_bottom = 85.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 4
 popup/item_0/text = "93"
@@ -808,6 +870,7 @@ offset_top = 17.0
 offset_right = 52.0
 offset_bottom = 40.0
 text = "RPM Limit:"
+label_settings = ExtResource("2_85mox")
 
 [node name="rpmlbl" type="Label" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
@@ -816,6 +879,7 @@ offset_top = 17.0
 offset_right = 341.0
 offset_bottom = 40.0
 text = "00.00"
+label_settings = ExtResource("2_85mox")
 
 [node name="fuelmixlbl" type="Label" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
@@ -824,6 +888,7 @@ offset_top = 105.0
 offset_right = 341.0
 offset_bottom = 128.0
 text = "00.00 %"
+label_settings = ExtResource("2_85mox")
 
 [node name="Label2" type="Label" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
@@ -832,6 +897,7 @@ offset_top = 105.0
 offset_right = 142.0
 offset_bottom = 128.0
 text = "Fuel Mixture:"
+label_settings = ExtResource("2_85mox")
 
 [node name="RPMSlider" type="HSlider" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
@@ -863,6 +929,7 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Forced Induction" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
@@ -905,6 +972,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Forced Induction Type:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Forced Induction/turbopnl"]
 layout_mode = 1
@@ -919,6 +987,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 3
 popup/item_0/text = "NA"
@@ -942,6 +1012,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Tune:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Forced Induction/Setuppnl"]
 layout_mode = 1
@@ -956,6 +1027,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 4
 popup/item_0/text = "Feul Economy"
@@ -981,6 +1054,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Setup:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Forced Induction/Typepnl"]
 layout_mode = 1
@@ -995,6 +1069,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 3
 popup/item_0/text = "NA"
@@ -1056,6 +1132,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Intake:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Intake/intakepnl"]
 layout_mode = 1
@@ -1070,6 +1147,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 3
 popup/item_0/text = "Normal"
@@ -1093,6 +1172,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "raidiator Type:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Intake/CoolingSystempnl"]
 layout_mode = 1
@@ -1107,6 +1187,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 3
 popup/item_0/text = "small"
@@ -1122,6 +1204,8 @@ offset_left = 99.0
 offset_top = 103.0
 offset_right = 223.0
 offset_bottom = 134.0
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 text = "Oil Cooler"
 
 [node name="Exhaust" type="TabBar" parent="TabContainer"]
@@ -1184,6 +1268,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Exhaust Manifold:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Exhaust/ExhaustManifoldpnl"]
 layout_mode = 1
@@ -1198,6 +1283,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 4
 popup/item_0/text = "Normal"
@@ -1223,6 +1310,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Exhaust:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Exhaust/Exhaustpnl"]
 layout_mode = 1
@@ -1237,6 +1325,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 2
 popup/item_0/text = "Single"
@@ -1258,6 +1348,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Cat:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Exhaust/Catpnl"]
 layout_mode = 1
@@ -1272,6 +1363,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 3
 popup/item_0/text = "None"
@@ -1295,6 +1388,7 @@ offset_top = 17.0
 offset_right = 55.0
 offset_bottom = 40.0
 text = "Muffler Type:"
+label_settings = ExtResource("2_85mox")
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/Exhaust/exhaustMufflerpnl"]
 layout_mode = 1
@@ -1309,6 +1403,8 @@ offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 selected = 0
 item_count = 4
 popup/item_0/text = "small"
@@ -1321,7 +1417,6 @@ popup/item_3/text = "straight pipe"
 popup/item_3/id = 3
 
 [node name="Confirmation" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 7
 
@@ -1379,6 +1474,7 @@ offset_left = 52.0
 offset_top = 419.0
 offset_right = 92.0
 offset_bottom = 442.0
+label_settings = ExtResource("2_85mox")
 
 [node name="lblCurrentPower" type="Label" parent="TabContainer/Confirmation/curvespnl"]
 layout_mode = 0
@@ -1386,6 +1482,16 @@ offset_left = 145.0
 offset_top = 419.0
 offset_right = 185.0
 offset_bottom = 442.0
+label_settings = ExtResource("2_85mox")
+
+[node name="Label" type="Label" parent="TabContainer/Confirmation/curvespnl"]
+layout_mode = 0
+offset_left = 443.18643
+offset_top = 419.42783
+offset_right = 567.67896
+offset_bottom = 449.64767
+text = "Current RPM: 0"
+label_settings = ExtResource("2_85mox")
 
 [node name="Savebtn" type="Button" parent="TabContainer/Confirmation"]
 layout_mode = 0
@@ -1393,6 +1499,8 @@ offset_left = 93.10189
 offset_top = 132.22816
 offset_right = 245.80878
 offset_bottom = 206.75676
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 text = " Save engine "
 
 [node name="LineEdit" type="LineEdit" parent="TabContainer/Confirmation"]
@@ -1401,7 +1509,9 @@ offset_left = 100.98352
 offset_top = 75.54445
 offset_right = 402.4565
 offset_bottom = 106.54445
-placeholder_text = "Name the engine"
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
+placeholder_text = "Name the engine..."
 max_length = 100
 
 [node name="loadEnginpnl" type="Panel" parent="."]
@@ -1416,6 +1526,8 @@ offset_left = 65.0
 offset_top = 144.0
 offset_right = 176.0
 offset_bottom = 175.0
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 text = " Load engine "
 
 [node name="OptionButton" type="OptionButton" parent="loadEnginpnl"]
@@ -1424,6 +1536,8 @@ offset_left = 50.0
 offset_top = 82.0
 offset_right = 197.0
 offset_bottom = 119.0
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
 
 [node name="lblerrorloading" type="Label" parent="loadEnginpnl"]
 layout_mode = 0

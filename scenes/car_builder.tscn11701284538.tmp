@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://wd54wnab53ck"]
+
+[ext_resource type="Script" uid="uid://b1o656v7k4ycp" path="res://scripts/car_builder.gd" id="1_hyjnl"]
+[ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="1_txq15"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_fjaen"]
+specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
+
+[node name="Car_Builder" type="Node2D" node_paths=PackedStringArray("bodyGrid")]
+script = ExtResource("1_hyjnl")
+bodyGrid = NodePath("TabContainer/Car body/ScrollContainer/GridContainer")
+
+[node name="BackgroundColor" type="Sprite2D" parent="."]
+modulate = Color(0.23529412, 0.36862746, 0.43137255, 1)
+position = Vector2(978.91315, 476.52438)
+scale = Vector2(-1991.9034, 1043.6898)
+texture = SubResource("CanvasTexture_fjaen")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+offset_left = 262.0
+offset_top = 116.0
+offset_right = 1567.0
+offset_bottom = 827.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 20
+current_tab = 0
+
+[node name="Car body" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Car body"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Car body/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Engine" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Drive Terrain" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Suspension" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="Confirmation" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
