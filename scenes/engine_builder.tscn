@@ -18,95 +18,93 @@
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
 
 [node name="Engine Builder" type="Node2D" node_paths=PackedStringArray("lblErrorEngineBlock")]
-position = Vector2(-66.49994, 100.49994)
-scale = Vector2(1.0150163, 0.9526546)
+position = Vector2(-64, 223)
+scale = Vector2(1.1000144, 1.1631204)
 script = ExtResource("1_v3cha")
-lblErrorEngineBlock = NodePath("CanvasLayer/TabContainer/EngineBlock/lblError")
+lblErrorEngineBlock = NodePath("TabContainer/EngineBlock/lblError")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="background_Color" type="Sprite2D" parent="CanvasLayer"]
+[node name="background_Color" type="Sprite2D" parent="."]
 modulate = Color(0.23529412, 0.36862746, 0.43137255, 1)
-position = Vector2(959.6869, 499.28604)
-scale = Vector2(2120.6257, 1168.5721)
+position = Vector2(1581.2552, 704.87256)
+scale = Vector2(3258.0757, 1803.3818)
 texture = SubResource("CanvasTexture_ectv5")
 
-[node name="EngineSpecspnl" type="Panel" parent="CanvasLayer"]
+[node name="EngineSpecspnl" type="Panel" parent="."]
 z_index = 4
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -432.0
-offset_top = 36.0
-offset_right = -71.896484
-offset_bottom = 888.3551
+offset_left = 1543.325
+offset_top = -67.70548
+offset_right = 1923.8121
+offset_bottom = 784.6496
 grow_horizontal = 0
 scale = Vector2(1.0150163, 0.9526546)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EngineSpecspnl"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EngineSpecspnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
 offset_right = 353.0
 offset_bottom = 757.0
 
-[node name="EngineCapacitylbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="EngineCapacitylbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Engine capacity:"
 
-[node name="EnginekwperL_lbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="EnginekwperL_lbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "kw per L:"
 
-[node name="kwlbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="kwlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "kw:"
 
-[node name="torquelbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="torquelbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "torque:"
 
-[node name="rpmlbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="rpmlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "RPM:"
 
-[node name="Currentrpmlbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="Currentrpmlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "RPM:"
 
-[node name="forcedindlbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="forcedindlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Forced Induction: "
 
-[node name="reliabilitylbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="reliabilitylbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Reliability:"
 
-[node name="reliabilityScorelbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="reliabilityScorelbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Reliability rating:"
 
-[node name="weightlbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="weightlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Engine weight:"
 
-[node name="fueleconlbl" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="fueleconlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Fuel economy: "
 
-[node name="fueleconlbl2" type="Label" parent="CanvasLayer/EngineSpecspnl/VBoxContainer"]
+[node name="fueleconlbl2" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Fuel economy: "
 
-[node name="EngineCostpnl" type="Panel" parent="CanvasLayer"]
+[node name="EngineCostpnl" type="Panel" parent="."]
 z_index = 1
-offset_left = 1039.5
-offset_top = 90.0
-offset_right = 1426.5
-offset_bottom = 144.99998
+offset_left = 1089.6376
+offset_top = -11.021767
+offset_right = 1476.6376
+offset_bottom = 43.978218
 scale = Vector2(1.0150163, 0.9526546)
 
-[node name="Costlbl" type="Label" parent="CanvasLayer/EngineCostpnl"]
+[node name="Costlbl" type="Label" parent="EngineCostpnl"]
 layout_mode = 0
 offset_left = 23.0
 offset_top = 12.0
@@ -114,28 +112,28 @@ offset_right = 365.0
 offset_bottom = 45.0
 text = "Cost: "
 
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer"]
+[node name="TabContainer" type="TabContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -668.49994
-offset_top = -448.50006
-offset_right = 497.5
-offset_bottom = 434.49994
+offset_left = 346.79248
+offset_top = -95.52255
+offset_right = 1512.7925
+offset_bottom = 787.4774
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.0150163, 0.9526546)
 size_flags_horizontal = 4
-current_tab = 3
+current_tab = 4
 
-[node name="EngineBlock" type="TabBar" parent="CanvasLayer/TabContainer"]
+[node name="EngineBlock" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="previewEngineBlockTypepnl" type="Panel" parent="CanvasLayer/TabContainer/EngineBlock"]
+[node name="previewEngineBlockTypepnl" type="Panel" parent="TabContainer/EngineBlock"]
 layout_mode = 0
 offset_left = 57.0
 offset_top = 120.0
@@ -143,7 +141,7 @@ offset_right = 712.0
 offset_bottom = 330.0
 theme_override_styles/panel = ExtResource("2_ku17k")
 
-[node name="inline i3_i4" type="Sprite2D" parent="CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl"]
+[node name="inline i3_i4" type="Sprite2D" parent="TabContainer/EngineBlock/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(330.67847, 97.25374)
 scale = Vector2(3.6329458, 3.3951182)
@@ -151,7 +149,7 @@ texture = ExtResource("2_fpiu6")
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 64)
 
-[node name="inline i5_i6" type="Sprite2D" parent="CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl"]
+[node name="inline i5_i6" type="Sprite2D" parent="TabContainer/EngineBlock/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(325.75244, 125.59559)
 scale = Vector2(3.6329458, 3.3951182)
@@ -159,7 +157,7 @@ texture = ExtResource("3_pjmh8")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 128)
 
-[node name="v-engines" type="Sprite2D" parent="CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl"]
+[node name="v-engines" type="Sprite2D" parent="TabContainer/EngineBlock/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(332.64886, 108.80042)
 scale = Vector2(3.0831656, 2.8472285)
@@ -167,7 +165,7 @@ texture = ExtResource("4_pjmh8")
 region_enabled = true
 region_rect = Rect2(0, 0, 84, 84)
 
-[node name="boxer_engines" type="Sprite2D" parent="CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl"]
+[node name="boxer_engines" type="Sprite2D" parent="TabContainer/EngineBlock/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(330.67847, 97.25374)
 scale = Vector2(3.6329458, 3.395118)
@@ -175,14 +173,14 @@ texture = ExtResource("5_b6bfi")
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 64)
 
-[node name="EngineTypepnl" type="Panel" parent="CanvasLayer/TabContainer/EngineBlock"]
+[node name="EngineTypepnl" type="Panel" parent="TabContainer/EngineBlock"]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 399.0
 offset_right = 348.0
 offset_bottom = 609.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/EngineBlock/EngineTypepnl"]
+[node name="Label" type="Label" parent="TabContainer/EngineBlock/EngineTypepnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 13.0
@@ -190,7 +188,7 @@ offset_right = 55.0
 offset_bottom = 36.0
 text = "Engine Type:"
 
-[node name="engineTypeNumlbl" type="Label" parent="CanvasLayer/TabContainer/EngineBlock/EngineTypepnl"]
+[node name="engineTypeNumlbl" type="Label" parent="TabContainer/EngineBlock/EngineTypepnl"]
 layout_mode = 0
 offset_left = 233.0
 offset_top = 11.0
@@ -198,7 +196,7 @@ offset_right = 266.0
 offset_bottom = 34.0
 text = "1/4"
 
-[node name="EnginTypeOptbtn" type="OptionButton" parent="CanvasLayer/TabContainer/EngineBlock/EngineTypepnl"]
+[node name="EnginTypeOptbtn" type="OptionButton" parent="TabContainer/EngineBlock/EngineTypepnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -222,7 +220,7 @@ popup/item_2/id = 2
 popup/item_3/text = "Rotary"
 popup/item_3/id = 3
 
-[node name="CylinderOptbtn" type="OptionButton" parent="CanvasLayer/TabContainer/EngineBlock/EngineTypepnl"]
+[node name="CylinderOptbtn" type="OptionButton" parent="TabContainer/EngineBlock/EngineTypepnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -248,7 +246,7 @@ popup/item_3/id = 3
 popup/item_4/text = "8"
 popup/item_4/id = 4
 
-[node name="Label2" type="Label" parent="CanvasLayer/TabContainer/EngineBlock/EngineTypepnl"]
+[node name="Label2" type="Label" parent="TabContainer/EngineBlock/EngineTypepnl"]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 117.0
@@ -256,14 +254,14 @@ offset_right = 93.0
 offset_bottom = 140.0
 text = "Cylinders:"
 
-[node name="EngineMaterialspnl" type="Panel" parent="CanvasLayer/TabContainer/EngineBlock"]
+[node name="EngineMaterialspnl" type="Panel" parent="TabContainer/EngineBlock"]
 layout_mode = 0
 offset_left = 422.0
 offset_top = 399.0
 offset_right = 710.0
 offset_bottom = 609.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl"]
+[node name="Label" type="Label" parent="TabContainer/EngineBlock/EngineMaterialspnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 11.0
@@ -271,7 +269,7 @@ offset_right = 141.0
 offset_bottom = 34.0
 text = "Engine Material:"
 
-[node name="Label2" type="Label" parent="CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl"]
+[node name="Label2" type="Label" parent="TabContainer/EngineBlock/EngineMaterialspnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 117.0
@@ -279,7 +277,7 @@ offset_right = 141.0
 offset_bottom = 140.0
 text = "Cylinder Head Material:"
 
-[node name="EngineMatOptbtn" type="OptionButton" parent="CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl"]
+[node name="EngineMatOptbtn" type="OptionButton" parent="TabContainer/EngineBlock/EngineMaterialspnl"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -302,7 +300,7 @@ popup/item_3/id = 3
 popup/item_4/text = "Titanium"
 popup/item_4/id = 4
 
-[node name="CylinderMatOptbtn2" type="OptionButton" parent="CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl"]
+[node name="CylinderMatOptbtn2" type="OptionButton" parent="TabContainer/EngineBlock/EngineMaterialspnl"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -325,14 +323,14 @@ popup/item_3/id = 3
 popup/item_4/text = "Titanium"
 popup/item_4/id = 4
 
-[node name="EngineSizepnl" type="Panel" parent="CanvasLayer/TabContainer/EngineBlock"]
+[node name="EngineSizepnl" type="Panel" parent="TabContainer/EngineBlock"]
 layout_mode = 0
 offset_left = 748.0
 offset_top = 120.0
 offset_right = 1135.0
 offset_bottom = 330.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/EngineBlock/EngineSizepnl"]
+[node name="Label" type="Label" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 17.0
@@ -340,7 +338,7 @@ offset_right = 52.0
 offset_bottom = 40.0
 text = "Piston diamater:"
 
-[node name="PistonDiameterlbl" type="Label" parent="CanvasLayer/TabContainer/EngineBlock/EngineSizepnl"]
+[node name="PistonDiameterlbl" type="Label" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
 offset_left = 300.0
 offset_top = 17.0
@@ -348,7 +346,7 @@ offset_right = 341.0
 offset_bottom = 40.0
 text = "00.00"
 
-[node name="PistonStrokelbl" type="Label" parent="CanvasLayer/TabContainer/EngineBlock/EngineSizepnl"]
+[node name="PistonStrokelbl" type="Label" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
 offset_left = 300.0
 offset_top = 105.0
@@ -356,7 +354,7 @@ offset_right = 341.0
 offset_bottom = 128.0
 text = "00.00"
 
-[node name="Label2" type="Label" parent="CanvasLayer/TabContainer/EngineBlock/EngineSizepnl"]
+[node name="Label2" type="Label" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 105.0
@@ -364,7 +362,7 @@ offset_right = 142.0
 offset_bottom = 128.0
 text = "Piston stroke:"
 
-[node name="PistonDiamaterSlider" type="HSlider" parent="CanvasLayer/TabContainer/EngineBlock/EngineSizepnl"]
+[node name="PistonDiamaterSlider" type="HSlider" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 62.0
@@ -375,7 +373,7 @@ max_value = 120.0
 step = 0.1
 value = 50.0
 
-[node name="PistonStrokeSlider2" type="HSlider" parent="CanvasLayer/TabContainer/EngineBlock/EngineSizepnl"]
+[node name="PistonStrokeSlider2" type="HSlider" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 148.0
@@ -386,7 +384,7 @@ max_value = 140.0
 step = 0.1
 value = 40.0
 
-[node name="lblError" type="Label" parent="CanvasLayer/TabContainer/EngineBlock"]
+[node name="lblError" type="Label" parent="TabContainer/EngineBlock"]
 layout_mode = 0
 offset_left = 63.0
 offset_top = 338.0
@@ -395,12 +393,12 @@ offset_bottom = 386.0
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Production" type="TabBar" parent="CanvasLayer/TabContainer"]
+[node name="Production" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="previewEngineBlockTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Production"]
+[node name="previewEngineBlockTypepnl" type="Panel" parent="TabContainer/Production"]
 layout_mode = 0
 offset_left = 57.0
 offset_top = 120.0
@@ -408,7 +406,7 @@ offset_right = 712.0
 offset_bottom = 330.0
 theme_override_styles/panel = ExtResource("2_ku17k")
 
-[node name="camshafts" type="Sprite2D" parent="CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl"]
+[node name="camshafts" type="Sprite2D" parent="TabContainer/Production/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(207.0351, 96.72887)
 scale = Vector2(6.511595, 5.5929246)
@@ -416,7 +414,7 @@ texture = ExtResource("6_mfw00")
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 64)
 
-[node name="valves" type="Sprite2D" parent="CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl"]
+[node name="valves" type="Sprite2D" parent="TabContainer/Production/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(510.47845, 103.02706)
 scale = Vector2(7.1735325, 6.3309917)
@@ -424,7 +422,7 @@ texture = ExtResource("7_l1jl4")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Production"]
+[node name="lblError" type="Label" parent="TabContainer/Production"]
 layout_mode = 0
 offset_left = 63.0
 offset_top = 338.0
@@ -433,14 +431,14 @@ offset_bottom = 386.0
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="CamshaftTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Production"]
+[node name="CamshaftTypepnl" type="Panel" parent="TabContainer/Production"]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Production/CamshaftTypepnl"]
+[node name="Label" type="Label" parent="TabContainer/Production/CamshaftTypepnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -448,7 +446,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Camshaft Type:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Production/CamshaftTypepnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Production/CamshaftTypepnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -470,14 +468,14 @@ popup/item_1/id = 1
 popup/item_2/text = "Dual Overhead Cam"
 popup/item_2/id = 2
 
-[node name="numValvespnl" type="Panel" parent="CanvasLayer/TabContainer/Production"]
+[node name="numValvespnl" type="Panel" parent="TabContainer/Production"]
 layout_mode = 0
 offset_left = 460.0
 offset_top = 469.0
 offset_right = 755.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Production/numValvespnl"]
+[node name="Label" type="Label" parent="TabContainer/Production/numValvespnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -485,7 +483,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Number of Valves:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Production/numValvespnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Production/numValvespnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -509,14 +507,14 @@ popup/item_2/id = 2
 popup/item_3/text = "5"
 popup/item_3/id = 3
 
-[node name="vvtpnl" type="Panel" parent="CanvasLayer/TabContainer/Production"]
+[node name="vvtpnl" type="Panel" parent="TabContainer/Production"]
 layout_mode = 0
 offset_left = 812.0
 offset_top = 469.0
 offset_right = 1107.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Production/vvtpnl"]
+[node name="Label" type="Label" parent="TabContainer/Production/vvtpnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -524,7 +522,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "VVT:"
 
-[node name="CheckButton" type="CheckButton" parent="CanvasLayer/TabContainer/Production/vvtpnl"]
+[node name="CheckButton" type="CheckButton" parent="TabContainer/Production/vvtpnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -539,12 +537,12 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "VVT"
 
-[node name="Components" type="TabBar" parent="CanvasLayer/TabContainer"]
+[node name="Components" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="previewEngineBlockTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Components"]
+[node name="previewEngineBlockTypepnl" type="Panel" parent="TabContainer/Components"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 57.0
@@ -553,7 +551,7 @@ offset_right = 742.35254
 offset_bottom = 330.0
 theme_override_styles/panel = ExtResource("2_ku17k")
 
-[node name="Pistons" type="Sprite2D" parent="CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl"]
+[node name="Pistons" type="Sprite2D" parent="TabContainer/Components/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(94.72164, 89.905846)
 scale = Vector2(10.375448, 9.709711)
@@ -561,7 +559,7 @@ texture = ExtResource("8_svopc")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="conrods" type="Sprite2D" parent="CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl"]
+[node name="conrods" type="Sprite2D" parent="TabContainer/Components/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(300, 92.005)
 scale = Vector2(8.851458, 8.069557)
@@ -569,7 +567,7 @@ texture = ExtResource("8_svopc")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="crankshaft" type="Sprite2D" parent="CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl"]
+[node name="crankshaft" type="Sprite2D" parent="TabContainer/Components/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(514.66565, 105.65133)
 scale = Vector2(8.204918, 6.7574334)
@@ -577,7 +575,7 @@ texture = ExtResource("8_svopc")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Components"]
+[node name="lblError" type="Label" parent="TabContainer/Components"]
 layout_mode = 0
 offset_left = 63.0
 offset_top = 338.0
@@ -586,14 +584,14 @@ offset_bottom = 386.0
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Pistonspnl" type="Panel" parent="CanvasLayer/TabContainer/Components"]
+[node name="Pistonspnl" type="Panel" parent="TabContainer/Components"]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Components/Pistonspnl"]
+[node name="Label" type="Label" parent="TabContainer/Components/Pistonspnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -601,7 +599,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Pistons Type:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Components/Pistonspnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Components/Pistonspnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -623,14 +621,14 @@ popup/item_1/id = 1
 popup/item_2/text = "Race"
 popup/item_2/id = 2
 
-[node name="CrankShaftpnl" type="Panel" parent="CanvasLayer/TabContainer/Components"]
+[node name="CrankShaftpnl" type="Panel" parent="TabContainer/Components"]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 640.0
 offset_right = 384.0
 offset_bottom = 785.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Components/CrankShaftpnl"]
+[node name="Label" type="Label" parent="TabContainer/Components/CrankShaftpnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -638,7 +636,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Crankshaft Type:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Components/CrankShaftpnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Components/CrankShaftpnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -660,14 +658,14 @@ popup/item_1/id = 1
 popup/item_2/text = "Race"
 popup/item_2/id = 2
 
-[node name="Conrodspnl" type="Panel" parent="CanvasLayer/TabContainer/Components"]
+[node name="Conrodspnl" type="Panel" parent="TabContainer/Components"]
 layout_mode = 0
 offset_left = 460.0
 offset_top = 469.0
 offset_right = 755.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Components/Conrodspnl"]
+[node name="Label" type="Label" parent="TabContainer/Components/Conrodspnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -675,7 +673,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Conrods Type:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Components/Conrodspnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Components/Conrodspnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -697,11 +695,12 @@ popup/item_1/id = 1
 popup/item_2/text = "Race"
 popup/item_2/id = 2
 
-[node name="Fuel System" type="TabBar" parent="CanvasLayer/TabContainer"]
+[node name="Fuel System" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="previewEngineBlockTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Fuel System"]
+[node name="previewEngineBlockTypepnl" type="Panel" parent="TabContainer/Fuel System"]
 layout_mode = 0
 offset_left = 57.0
 offset_top = 120.0
@@ -709,7 +708,7 @@ offset_right = 712.0
 offset_bottom = 330.0
 theme_override_styles/panel = ExtResource("2_ku17k")
 
-[node name="fuelSystem" type="Sprite2D" parent="CanvasLayer/TabContainer/Fuel System/previewEngineBlockTypepnl"]
+[node name="fuelSystem" type="Sprite2D" parent="TabContainer/Fuel System/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(316.88556, 107.75073)
 scale = Vector2(8.035586, 6.265388)
@@ -717,14 +716,14 @@ texture = ExtResource("10_x4oyf")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="FuelSystempnl" type="Panel" parent="CanvasLayer/TabContainer/Fuel System"]
+[node name="FuelSystempnl" type="Panel" parent="TabContainer/Fuel System"]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 399.0
 offset_right = 348.0
 offset_bottom = 609.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Fuel System/FuelSystempnl"]
+[node name="Label" type="Label" parent="TabContainer/Fuel System/FuelSystempnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 13.0
@@ -732,7 +731,7 @@ offset_right = 55.0
 offset_bottom = 36.0
 text = "Fuel System:"
 
-[node name="EnginTypeOptbtn" type="OptionButton" parent="CanvasLayer/TabContainer/Fuel System/FuelSystempnl"]
+[node name="EnginTypeOptbtn" type="OptionButton" parent="TabContainer/Fuel System/FuelSystempnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -752,21 +751,21 @@ popup/item_0/id = 0
 popup/item_1/text = "Fuel injection"
 popup/item_1/id = 1
 
-[node name="Label2" type="Label" parent="CanvasLayer/TabContainer/Fuel System/FuelSystempnl"]
+[node name="Label2" type="Label" parent="TabContainer/Fuel System/FuelSystempnl"]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 117.0
 offset_right = 93.0
 offset_bottom = 140.0
 
-[node name="FuelTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Fuel System"]
+[node name="FuelTypepnl" type="Panel" parent="TabContainer/Fuel System"]
 layout_mode = 0
 offset_left = 422.0
 offset_top = 399.0
 offset_right = 710.0
 offset_bottom = 609.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Fuel System/FuelTypepnl"]
+[node name="Label" type="Label" parent="TabContainer/Fuel System/FuelTypepnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 11.0
@@ -774,7 +773,7 @@ offset_right = 141.0
 offset_bottom = 34.0
 text = "Fuel Type:"
 
-[node name="EngineMatOptbtn" type="OptionButton" parent="CanvasLayer/TabContainer/Fuel System/FuelTypepnl"]
+[node name="EngineMatOptbtn" type="OptionButton" parent="TabContainer/Fuel System/FuelTypepnl"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -795,14 +794,14 @@ popup/item_2/id = 2
 popup/item_3/text = "Race"
 popup/item_3/id = 3
 
-[node name="Fuelsliderspnl" type="Panel" parent="CanvasLayer/TabContainer/Fuel System"]
+[node name="Fuelsliderspnl" type="Panel" parent="TabContainer/Fuel System"]
 layout_mode = 0
 offset_left = 748.0
 offset_top = 120.0
 offset_right = 1135.0
 offset_bottom = 330.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl"]
+[node name="Label" type="Label" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 17.0
@@ -810,7 +809,7 @@ offset_right = 52.0
 offset_bottom = 40.0
 text = "RPM Limit:"
 
-[node name="rpmlbl" type="Label" parent="CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl"]
+[node name="rpmlbl" type="Label" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
 offset_left = 300.0
 offset_top = 17.0
@@ -818,7 +817,7 @@ offset_right = 341.0
 offset_bottom = 40.0
 text = "00.00"
 
-[node name="fuelmixlbl" type="Label" parent="CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl"]
+[node name="fuelmixlbl" type="Label" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
 offset_left = 300.0
 offset_top = 105.0
@@ -826,7 +825,7 @@ offset_right = 341.0
 offset_bottom = 128.0
 text = "00.00 %"
 
-[node name="Label2" type="Label" parent="CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl"]
+[node name="Label2" type="Label" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 105.0
@@ -834,7 +833,7 @@ offset_right = 142.0
 offset_bottom = 128.0
 text = "Fuel Mixture:"
 
-[node name="RPMSlider" type="HSlider" parent="CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl"]
+[node name="RPMSlider" type="HSlider" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 62.0
@@ -845,7 +844,7 @@ max_value = 15000.0
 step = 100.0
 value = 4500.0
 
-[node name="FuelMixSlider" type="HSlider" parent="CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl"]
+[node name="FuelMixSlider" type="HSlider" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 148.0
@@ -854,7 +853,7 @@ offset_bottom = 174.0
 max_value = 10.0
 value = 5.0
 
-[node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Fuel System"]
+[node name="lblError" type="Label" parent="TabContainer/Fuel System"]
 layout_mode = 0
 offset_left = 63.0
 offset_top = 338.0
@@ -863,12 +862,11 @@ offset_bottom = 386.0
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Forced Induction" type="TabBar" parent="CanvasLayer/TabContainer"]
-visible = false
+[node name="Forced Induction" type="TabBar" parent="TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="previewEngineBlockTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Forced Induction"]
+[node name="previewEngineBlockTypepnl" type="Panel" parent="TabContainer/Forced Induction"]
 layout_mode = 0
 offset_left = 57.0
 offset_top = 120.0
@@ -876,7 +874,7 @@ offset_right = 712.0
 offset_bottom = 330.0
 theme_override_styles/panel = ExtResource("2_ku17k")
 
-[node name="forcedInduction_Sprite" type="Sprite2D" parent="CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl"]
+[node name="forcedInduction_Sprite" type="Sprite2D" parent="TabContainer/Forced Induction/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(290.28494, 101.452545)
 scale = Vector2(3.1323466, 3.0834892)
@@ -884,7 +882,7 @@ texture = ExtResource("11_x4oyf")
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 64)
 
-[node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Forced Induction"]
+[node name="lblError" type="Label" parent="TabContainer/Forced Induction"]
 layout_mode = 0
 offset_left = 63.0
 offset_top = 338.0
@@ -893,14 +891,14 @@ offset_bottom = 386.0
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="turbopnl" type="Panel" parent="CanvasLayer/TabContainer/Forced Induction"]
+[node name="turbopnl" type="Panel" parent="TabContainer/Forced Induction"]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Forced Induction/turbopnl"]
+[node name="Label" type="Label" parent="TabContainer/Forced Induction/turbopnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -908,7 +906,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Forced Induction Type:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Forced Induction/turbopnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Forced Induction/turbopnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -930,14 +928,14 @@ popup/item_1/id = 1
 popup/item_2/text = "Supercharger"
 popup/item_2/id = 3
 
-[node name="Setuppnl" type="Panel" parent="CanvasLayer/TabContainer/Forced Induction"]
+[node name="Setuppnl" type="Panel" parent="TabContainer/Forced Induction"]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 640.0
 offset_right = 384.0
 offset_bottom = 785.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Forced Induction/Setuppnl"]
+[node name="Label" type="Label" parent="TabContainer/Forced Induction/Setuppnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -945,7 +943,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Tune:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Forced Induction/Setuppnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Forced Induction/Setuppnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -969,14 +967,14 @@ popup/item_2/id = 2
 popup/item_3/text = "Race"
 popup/item_3/id = 3
 
-[node name="Typepnl" type="Panel" parent="CanvasLayer/TabContainer/Forced Induction"]
+[node name="Typepnl" type="Panel" parent="TabContainer/Forced Induction"]
 layout_mode = 0
 offset_left = 460.0
 offset_top = 469.0
 offset_right = 755.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Forced Induction/Typepnl"]
+[node name="Label" type="Label" parent="TabContainer/Forced Induction/Typepnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -984,7 +982,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Setup:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Forced Induction/Typepnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Forced Induction/Typepnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1006,12 +1004,12 @@ popup/item_1/id = 1
 popup/item_2/text = "Twin"
 popup/item_2/id = 2
 
-[node name="Intake" type="TabBar" parent="CanvasLayer/TabContainer"]
+[node name="Intake" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
-[node name="previewEngineBlockTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Intake"]
+[node name="previewEngineBlockTypepnl" type="Panel" parent="TabContainer/Intake"]
 layout_mode = 0
 offset_left = 57.0
 offset_top = 120.0
@@ -1019,7 +1017,7 @@ offset_right = 712.0
 offset_bottom = 330.0
 theme_override_styles/panel = ExtResource("2_ku17k")
 
-[node name="intake_sprite" type="Sprite2D" parent="CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl"]
+[node name="intake_sprite" type="Sprite2D" parent="TabContainer/Intake/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(130.18906, 105.65133)
 scale = Vector2(7.173529, 6.560614)
@@ -1027,7 +1025,7 @@ texture = ExtResource("12_5a72t")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="radiatureSprite" type="Sprite2D" parent="CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl"]
+[node name="radiatureSprite" type="Sprite2D" parent="TabContainer/Intake/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(489.29657, 105.65133)
 scale = Vector2(7.173529, 6.560614)
@@ -1035,7 +1033,7 @@ texture = ExtResource("12_5a72t")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Intake"]
+[node name="lblError" type="Label" parent="TabContainer/Intake"]
 layout_mode = 0
 offset_left = 63.0
 offset_top = 338.0
@@ -1044,14 +1042,14 @@ offset_bottom = 386.0
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="intakepnl" type="Panel" parent="CanvasLayer/TabContainer/Intake"]
+[node name="intakepnl" type="Panel" parent="TabContainer/Intake"]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Intake/intakepnl"]
+[node name="Label" type="Label" parent="TabContainer/Intake/intakepnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -1059,7 +1057,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Intake:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Intake/intakepnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Intake/intakepnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1081,14 +1079,14 @@ popup/item_1/id = 1
 popup/item_2/text = "Race"
 popup/item_2/id = 2
 
-[node name="CoolingSystempnl" type="Panel" parent="CanvasLayer/TabContainer/Intake"]
+[node name="CoolingSystempnl" type="Panel" parent="TabContainer/Intake"]
 layout_mode = 0
 offset_left = 430.0
 offset_top = 469.0
 offset_right = 725.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Intake/CoolingSystempnl"]
+[node name="Label" type="Label" parent="TabContainer/Intake/CoolingSystempnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -1096,7 +1094,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "raidiator Type:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Intake/CoolingSystempnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Intake/CoolingSystempnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1118,7 +1116,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Race"
 popup/item_2/id = 2
 
-[node name="CheckButton" type="CheckButton" parent="CanvasLayer/TabContainer/Intake/CoolingSystempnl"]
+[node name="CheckButton" type="CheckButton" parent="TabContainer/Intake/CoolingSystempnl"]
 layout_mode = 0
 offset_left = 99.0
 offset_top = 103.0
@@ -1126,12 +1124,12 @@ offset_right = 223.0
 offset_bottom = 134.0
 text = "Oil Cooler"
 
-[node name="Exhaust" type="TabBar" parent="CanvasLayer/TabContainer"]
+[node name="Exhaust" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 6
 
-[node name="previewEngineBlockTypepnl" type="Panel" parent="CanvasLayer/TabContainer/Exhaust"]
+[node name="previewEngineBlockTypepnl" type="Panel" parent="TabContainer/Exhaust"]
 layout_mode = 0
 offset_left = 57.0
 offset_top = 120.0
@@ -1139,7 +1137,7 @@ offset_right = 712.0
 offset_bottom = 330.0
 theme_override_styles/panel = ExtResource("2_ku17k")
 
-[node name="ExhaustMani" type="Sprite2D" parent="CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl"]
+[node name="ExhaustMani" type="Sprite2D" parent="TabContainer/Exhaust/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(114.207954, 104.07678)
 scale = Vector2(6.0787854, 6.527813)
@@ -1147,7 +1145,7 @@ texture = ExtResource("13_rq1st")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="muffler" type="Sprite2D" parent="CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl"]
+[node name="muffler" type="Sprite2D" parent="TabContainer/Exhaust/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(335.74188, 104.86407)
 scale = Vector2(6.148949, 6.3801994)
@@ -1155,7 +1153,7 @@ texture = ExtResource("13_rq1st")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="tip" type="Sprite2D" parent="CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl"]
+[node name="tip" type="Sprite2D" parent="TabContainer/Exhaust/previewEngineBlockTypepnl"]
 texture_filter = 1
 position = Vector2(525.394, 100.927666)
 scale = Vector2(4.394053, 4.887658)
@@ -1163,7 +1161,7 @@ texture = ExtResource("13_rq1st")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Exhaust"]
+[node name="lblError" type="Label" parent="TabContainer/Exhaust"]
 layout_mode = 0
 offset_left = 63.0
 offset_top = 338.0
@@ -1172,14 +1170,14 @@ offset_bottom = 386.0
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="ExhaustManifoldpnl" type="Panel" parent="CanvasLayer/TabContainer/Exhaust"]
+[node name="ExhaustManifoldpnl" type="Panel" parent="TabContainer/Exhaust"]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Exhaust/ExhaustManifoldpnl"]
+[node name="Label" type="Label" parent="TabContainer/Exhaust/ExhaustManifoldpnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -1187,7 +1185,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Exhaust Manifold:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Exhaust/ExhaustManifoldpnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Exhaust/ExhaustManifoldpnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1211,14 +1209,14 @@ popup/item_2/id = 2
 popup/item_3/text = "Race"
 popup/item_3/id = 3
 
-[node name="Exhaustpnl" type="Panel" parent="CanvasLayer/TabContainer/Exhaust"]
+[node name="Exhaustpnl" type="Panel" parent="TabContainer/Exhaust"]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 640.0
 offset_right = 384.0
 offset_bottom = 785.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Exhaust/Exhaustpnl"]
+[node name="Label" type="Label" parent="TabContainer/Exhaust/Exhaustpnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -1226,7 +1224,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Exhaust:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Exhaust/Exhaustpnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Exhaust/Exhaustpnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1246,14 +1244,14 @@ popup/item_0/id = 0
 popup/item_1/text = "Twin"
 popup/item_1/id = 1
 
-[node name="Catpnl" type="Panel" parent="CanvasLayer/TabContainer/Exhaust"]
+[node name="Catpnl" type="Panel" parent="TabContainer/Exhaust"]
 layout_mode = 0
 offset_left = 460.0
 offset_top = 469.0
 offset_right = 755.0
 offset_bottom = 614.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Exhaust/Catpnl"]
+[node name="Label" type="Label" parent="TabContainer/Exhaust/Catpnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -1261,7 +1259,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Cat:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Exhaust/Catpnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Exhaust/Catpnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1283,14 +1281,14 @@ popup/item_1/id = 1
 popup/item_2/text = "Premuim"
 popup/item_2/id = 2
 
-[node name="exhaustMufflerpnl" type="Panel" parent="CanvasLayer/TabContainer/Exhaust"]
+[node name="exhaustMufflerpnl" type="Panel" parent="TabContainer/Exhaust"]
 layout_mode = 0
 offset_left = 460.0
 offset_top = 640.0
 offset_right = 755.0
 offset_bottom = 785.0
 
-[node name="Label" type="Label" parent="CanvasLayer/TabContainer/Exhaust/exhaustMufflerpnl"]
+[node name="Label" type="Label" parent="TabContainer/Exhaust/exhaustMufflerpnl"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
@@ -1298,7 +1296,7 @@ offset_right = 55.0
 offset_bottom = 40.0
 text = "Muffler Type:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/TabContainer/Exhaust/exhaustMufflerpnl"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Exhaust/exhaustMufflerpnl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1322,12 +1320,12 @@ popup/item_2/id = 2
 popup/item_3/text = "straight pipe"
 popup/item_3/id = 3
 
-[node name="Confirmation" type="TabBar" parent="CanvasLayer/TabContainer"]
+[node name="Confirmation" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 7
 
-[node name="lblError" type="Label" parent="CanvasLayer/TabContainer/Confirmation"]
+[node name="lblError" type="Label" parent="TabContainer/Confirmation"]
 layout_mode = 0
 offset_left = 63.0
 offset_top = 338.0
@@ -1336,14 +1334,14 @@ offset_bottom = 386.0
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="curvespnl" type="Panel" parent="CanvasLayer/TabContainer/Confirmation"]
+[node name="curvespnl" type="Panel" parent="TabContainer/Confirmation"]
 layout_mode = 0
 offset_left = 66.0
 offset_top = 359.0
 offset_right = 1113.0
 offset_bottom = 819.0
 
-[node name="GraphBackground" type="ColorRect" parent="CanvasLayer/TabContainer/Confirmation/curvespnl"]
+[node name="GraphBackground" type="ColorRect" parent="TabContainer/Confirmation/curvespnl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1356,40 +1354,40 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.32915837, 0.3291584, 0.3291584, 1)
 
-[node name="TorqueLine" type="Line2D" parent="CanvasLayer/TabContainer/Confirmation/curvespnl"]
+[node name="TorqueLine" type="Line2D" parent="TabContainer/Confirmation/curvespnl"]
 width = 2.0
 default_color = Color(0, 0.44412082, 0.78860873, 1)
 
-[node name="PowerLine" type="Line2D" parent="CanvasLayer/TabContainer/Confirmation/curvespnl"]
+[node name="PowerLine" type="Line2D" parent="TabContainer/Confirmation/curvespnl"]
 width = 2.0
 default_color = Color(0.8260124, 0, 0.08243292, 1)
 
-[node name="RPM_Marker" type="Line2D" parent="CanvasLayer/TabContainer/Confirmation/curvespnl"]
+[node name="RPM_Marker" type="Line2D" parent="TabContainer/Confirmation/curvespnl"]
 width = 2.0
 default_color = Color(0.4940132, 0.3422607, 0.0119498065, 1)
 
-[node name="currentRPM" type="HSlider" parent="CanvasLayer/TabContainer/Confirmation/curvespnl"]
+[node name="currentRPM" type="HSlider" parent="TabContainer/Confirmation/curvespnl"]
 layout_mode = 0
 offset_left = 22.0
 offset_top = 383.0
 offset_right = 1033.0
 offset_bottom = 420.0
 
-[node name="lblCurrentTorque" type="Label" parent="CanvasLayer/TabContainer/Confirmation/curvespnl"]
+[node name="lblCurrentTorque" type="Label" parent="TabContainer/Confirmation/curvespnl"]
 layout_mode = 0
 offset_left = 52.0
 offset_top = 419.0
 offset_right = 92.0
 offset_bottom = 442.0
 
-[node name="lblCurrentPower" type="Label" parent="CanvasLayer/TabContainer/Confirmation/curvespnl"]
+[node name="lblCurrentPower" type="Label" parent="TabContainer/Confirmation/curvespnl"]
 layout_mode = 0
 offset_left = 145.0
 offset_top = 419.0
 offset_right = 185.0
 offset_bottom = 442.0
 
-[node name="Savebtn" type="Button" parent="CanvasLayer/TabContainer/Confirmation"]
+[node name="Savebtn" type="Button" parent="TabContainer/Confirmation"]
 layout_mode = 0
 offset_left = 93.10189
 offset_top = 132.22816
@@ -1397,7 +1395,7 @@ offset_right = 245.80878
 offset_bottom = 206.75676
 text = " Save engine "
 
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/TabContainer/Confirmation"]
+[node name="LineEdit" type="LineEdit" parent="TabContainer/Confirmation"]
 layout_mode = 0
 offset_left = 100.98352
 offset_top = 75.54445
@@ -1406,13 +1404,13 @@ offset_bottom = 106.54445
 placeholder_text = "Name the engine"
 max_length = 100
 
-[node name="loadEnginpnl" type="Panel" parent="CanvasLayer"]
-offset_left = 42.0
-offset_top = 41.0
-offset_right = 277.0
-offset_bottom = 361.0
+[node name="loadEnginpnl" type="Panel" parent="."]
+offset_left = 106.894775
+offset_top = -62.45699
+offset_right = 341.89478
+offset_bottom = 257.543
 
-[node name="Button" type="Button" parent="CanvasLayer/loadEnginpnl"]
+[node name="Button" type="Button" parent="loadEnginpnl"]
 layout_mode = 0
 offset_left = 65.0
 offset_top = 144.0
@@ -1420,14 +1418,14 @@ offset_right = 176.0
 offset_bottom = 175.0
 text = " Load engine "
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/loadEnginpnl"]
+[node name="OptionButton" type="OptionButton" parent="loadEnginpnl"]
 layout_mode = 0
 offset_left = 50.0
 offset_top = 82.0
 offset_right = 197.0
 offset_bottom = 119.0
 
-[node name="lblerrorloading" type="Label" parent="CanvasLayer/loadEnginpnl"]
+[node name="lblerrorloading" type="Label" parent="loadEnginpnl"]
 layout_mode = 0
 offset_left = 22.0
 offset_top = 201.0
@@ -1435,32 +1433,32 @@ offset_right = 207.0
 offset_bottom = 291.0
 autowrap_mode = 2
 
-[connection signal="item_selected" from="CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn" to="." method="_on_engin_type_optbtn_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn" to="." method="_on_cylinder_optbtn_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn" to="." method="_on_engine_mat_optbtn_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2" to="." method="_on_option_button_item_selected"]
-[connection signal="value_changed" from="CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider" to="." method="_on_piston_diamater_slider_value_changed"]
-[connection signal="value_changed" from="CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2" to="." method="_on_piston_stroke_slider_2_value_changed"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Production/CamshaftTypepnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Production/numValvespnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="pressed" from="CanvasLayer/TabContainer/Production/vvtpnl/CheckButton" to="." method="_on_check_button_pressed"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Components/Pistonspnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Components/CrankShaftpnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Components/Conrodspnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Fuel System/FuelSystempnl/EnginTypeOptbtn" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn" to="." method="_on_option_button_item_selected"]
-[connection signal="value_changed" from="CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/RPMSlider" to="." method="_on_rpm_slider_value_changed"]
-[connection signal="value_changed" from="CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/FuelMixSlider" to="." method="_on_fuel_mix_slider_value_changed"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Forced Induction/Setuppnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Intake/intakepnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Intake/CoolingSystempnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="pressed" from="CanvasLayer/TabContainer/Intake/CoolingSystempnl/CheckButton" to="." method="_on_oil_Cooler_check_button_pressed"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Exhaust/Exhaustpnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Exhaust/Catpnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/TabContainer/Exhaust/exhaustMufflerpnl/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="value_changed" from="CanvasLayer/TabContainer/Confirmation/curvespnl/currentRPM" to="." method="_on_current_rpm_value_changed"]
-[connection signal="pressed" from="CanvasLayer/TabContainer/Confirmation/Savebtn" to="." method="_on_savebtn_pressed"]
-[connection signal="pressed" from="CanvasLayer/loadEnginpnl/Button" to="." method="_on_Load_button_pressed"]
+[connection signal="item_selected" from="TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn" to="." method="_on_engin_type_optbtn_item_selected"]
+[connection signal="item_selected" from="TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn" to="." method="_on_cylinder_optbtn_item_selected"]
+[connection signal="item_selected" from="TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn" to="." method="_on_engine_mat_optbtn_item_selected"]
+[connection signal="item_selected" from="TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2" to="." method="_on_option_button_item_selected"]
+[connection signal="value_changed" from="TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider" to="." method="_on_piston_diamater_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2" to="." method="_on_piston_stroke_slider_2_value_changed"]
+[connection signal="item_selected" from="TabContainer/Production/CamshaftTypepnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Production/numValvespnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="TabContainer/Production/vvtpnl/CheckButton" to="." method="_on_check_button_pressed"]
+[connection signal="item_selected" from="TabContainer/Components/Pistonspnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Components/CrankShaftpnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Components/Conrodspnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Fuel System/FuelSystempnl/EnginTypeOptbtn" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn" to="." method="_on_option_button_item_selected"]
+[connection signal="value_changed" from="TabContainer/Fuel System/Fuelsliderspnl/RPMSlider" to="." method="_on_rpm_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Fuel System/Fuelsliderspnl/FuelMixSlider" to="." method="_on_fuel_mix_slider_value_changed"]
+[connection signal="item_selected" from="TabContainer/Forced Induction/turbopnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Forced Induction/Setuppnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Forced Induction/Typepnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Intake/intakepnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Intake/CoolingSystempnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="TabContainer/Intake/CoolingSystempnl/CheckButton" to="." method="_on_oil_Cooler_check_button_pressed"]
+[connection signal="item_selected" from="TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Exhaust/Exhaustpnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Exhaust/Catpnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Exhaust/exhaustMufflerpnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="value_changed" from="TabContainer/Confirmation/curvespnl/currentRPM" to="." method="_on_current_rpm_value_changed"]
+[connection signal="pressed" from="TabContainer/Confirmation/Savebtn" to="." method="_on_savebtn_pressed"]
+[connection signal="pressed" from="loadEnginpnl/Button" to="." method="_on_Load_button_pressed"]

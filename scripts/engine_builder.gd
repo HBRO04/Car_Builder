@@ -63,8 +63,8 @@ func _ready() -> void:
 	update_UI()
 	torque = get_torque_at_rpm(rpm) # max torque at max RPM
 	kw = (torque * rpm) / 9550.0    # max kW
-	$CanvasLayer/TabContainer/EngineBlock.visible = true
-	populate_engine_list($CanvasLayer/loadEnginpnl/OptionButton)
+	$TabContainer/EngineBlock.visible = true
+	populate_engine_list($loadEnginpnl/OptionButton)
 	
 	var dir = DirAccess.open("res://engines/")
 	if dir:
@@ -80,8 +80,8 @@ func _ready() -> void:
 
 
 func calc_cost():
-	EngineMat = $CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn.selected
-	cylinderMat = $CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2.selected
+	EngineMat = $TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn.selected
+	cylinderMat = $TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2.selected
 	baseMaterialCost = 0
 	extraCost = 0
 	
@@ -188,37 +188,37 @@ func update_UI():
 	torque = curve["peak_torque"]                       # max torque
 	kw = (torque * curve["peak_torque_rpm"]) / 9550.0  # max kw
 	
-	$CanvasLayer/TabContainer/Confirmation/curvespnl/currentRPM.max_value = rpm
-	$CanvasLayer/TabContainer/Confirmation/curvespnl/currentRPM.min_value = 0
-	$"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/rpmlbl".text = str(rpm)
+	$TabContainer/Confirmation/curvespnl/currentRPM.max_value = rpm
+	$TabContainer/Confirmation/curvespnl/currentRPM.min_value = 0
+	$"TabContainer/Fuel System/Fuelsliderspnl/rpmlbl".text = str(rpm)
 	
-	update_dyno_graph($CanvasLayer/TabContainer/Confirmation/curvespnl/TorqueLine, $CanvasLayer/TabContainer/Confirmation/curvespnl/PowerLine, $CanvasLayer/TabContainer/Confirmation/curvespnl/GraphBackground,$CanvasLayer/TabContainer/Confirmation/curvespnl/RPM_Marker,$CanvasLayer/TabContainer/Confirmation/curvespnl/lblCurrentTorque, $CanvasLayer/TabContainer/Confirmation/curvespnl/lblCurrentPower)
+	update_dyno_graph($TabContainer/Confirmation/curvespnl/TorqueLine, $TabContainer/Confirmation/curvespnl/PowerLine, $TabContainer/Confirmation/curvespnl/GraphBackground,$TabContainer/Confirmation/curvespnl/RPM_Marker,$TabContainer/Confirmation/curvespnl/lblCurrentTorque, $TabContainer/Confirmation/curvespnl/lblCurrentPower)
 	
 	lblErrorEngineBlock.text = ""
-	$CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiameterlbl.text = str($CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider.value) + " mm"
-	$CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokelbl.text = str($CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2.value) + " mm"
-	$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/engineTypeNumlbl.text = str(EngineType) + "/4"
-	$CanvasLayer/EngineCostpnl/Costlbl.text = "Cost: R %.2f" % [engineCost]
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/rpmlbl.text = "RPM: " + str(rpm)
-	$"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/fuelmixlbl".text = str($"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/FuelMixSlider".value) + " %"
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/EnginekwperL_lbl.text = "kw per l: " + str(kw_per_l)
+	$TabContainer/EngineBlock/EngineSizepnl/PistonDiameterlbl.text = str($TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider.value) + " mm"
+	$TabContainer/EngineBlock/EngineSizepnl/PistonStrokelbl.text = str($TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2.value) + " mm"
+	$TabContainer/EngineBlock/EngineTypepnl/engineTypeNumlbl.text = str(EngineType) + "/4"
+	$EngineCostpnl/Costlbl.text = "Cost: R %.2f" % [engineCost]
+	$EngineSpecspnl/VBoxContainer/rpmlbl.text = "RPM: " + str(rpm)
+	$"TabContainer/Fuel System/Fuelsliderspnl/fuelmixlbl".text = str($"TabContainer/Fuel System/Fuelsliderspnl/FuelMixSlider".value) + " %"
+	$EngineSpecspnl/VBoxContainer/EnginekwperL_lbl.text = "kw per l: " + str(kw_per_l)
 	
 	# UI labels show MAX torque and MAX kw
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/kwlbl.text = "kw: " + str("%.2f" % max_kw)
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/torquelbl.text = "Torque: " + str("%.2f" % max_Torque_nm)
+	$EngineSpecspnl/VBoxContainer/kwlbl.text = "kw: " + str("%.2f" % max_kw)
+	$EngineSpecspnl/VBoxContainer/torquelbl.text = "Torque: " + str("%.2f" % max_Torque_nm)
 	
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/Currentrpmlbl.text = "Current RPM: " + str(currentRPM)
+	$EngineSpecspnl/VBoxContainer/Currentrpmlbl.text = "Current RPM: " + str(currentRPM)
 	if turbo == true:
 		fi = "Turbo"
 	if supercharged == true:
 		fi = "Supercharged"
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/forcedindlbl.text = "Forced Induction: " + fi
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/reliabilitylbl.text = "Reliability: " + str(reliability)
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/reliabilityScorelbl.text = "Reliability rating: " + reliabilityScore
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/weightlbl.text = "Engine weight: " + str(engine_weight)
+	$EngineSpecspnl/VBoxContainer/forcedindlbl.text = "Forced Induction: " + fi
+	$EngineSpecspnl/VBoxContainer/reliabilitylbl.text = "Reliability: " + str(reliability)
+	$EngineSpecspnl/VBoxContainer/reliabilityScorelbl.text = "Reliability rating: " + reliabilityScore
+	$EngineSpecspnl/VBoxContainer/weightlbl.text = "Engine weight: " + str(engine_weight)
 	calc_fuelEconomy()
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/fueleconlbl.text = "Fuel economy: " + Stringfueleconomy+ " L/100km"
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/fueleconlbl2.text = "Fuel economy: " + kmperl + " km per liter"
+	$EngineSpecspnl/VBoxContainer/fueleconlbl.text = "Fuel economy: " + Stringfueleconomy+ " L/100km"
+	$EngineSpecspnl/VBoxContainer/fueleconlbl2.text = "Fuel economy: " + kmperl + " km per liter"
 	
 	#show correct sprites
 	show_right_engine_sprite()
@@ -228,7 +228,7 @@ func update_UI():
 	show_forced_induction_sprite()
 	show_intake_sprite()
 	show_exhaust_sprites()
-	populate_engine_list($CanvasLayer/loadEnginpnl/OptionButton)
+	populate_engine_list($loadEnginpnl/OptionButton)
 	
 func show_exhaust_sprites():
 	var mani1 = Rect2(0,0,32,32)
@@ -244,28 +244,28 @@ func show_exhaust_sprites():
 	
 	match exhaustManifoldType:
 		0:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani1
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani1
 		1:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani2
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani2
 		2:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani3
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani3
 		3:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani4
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/ExhaustMani.region_rect = mani4
 	match muffler:
 		0:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler1
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler1
 		1:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler2
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler2
 		2:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler3
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler3
 		3:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler4
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/muffler.region_rect = muffler4
 			
 	match exhaustType:
 		0:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/tip.region_rect = tip1
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/tip.region_rect = tip1
 		1:
-			$CanvasLayer/TabContainer/Exhaust/previewEngineBlockTypepnl/tip.region_rect = tip2
+			$TabContainer/Exhaust/previewEngineBlockTypepnl/tip.region_rect = tip2
 	
 func show_intake_sprite():
 	var intake1 = Rect2(0,0,32,32)
@@ -277,34 +277,34 @@ func show_intake_sprite():
 	
 	match intakeType:
 		0:
-			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/intake_sprite.region_rect = intake1
+			$TabContainer/Intake/previewEngineBlockTypepnl/intake_sprite.region_rect = intake1
 		1:
-			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/intake_sprite.region_rect = intake2
+			$TabContainer/Intake/previewEngineBlockTypepnl/intake_sprite.region_rect = intake2
 		2:
-			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/intake_sprite.region_rect = intake3
+			$TabContainer/Intake/previewEngineBlockTypepnl/intake_sprite.region_rect = intake3
 			
 	match radiatorType:
 		0:
-			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/radiatureSprite.region_rect = rad1
+			$TabContainer/Intake/previewEngineBlockTypepnl/radiatureSprite.region_rect = rad1
 		1:
-			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/radiatureSprite.region_rect = rad2
+			$TabContainer/Intake/previewEngineBlockTypepnl/radiatureSprite.region_rect = rad2
 		2:
-			$CanvasLayer/TabContainer/Intake/previewEngineBlockTypepnl/radiatureSprite.region_rect = rad3
+			$TabContainer/Intake/previewEngineBlockTypepnl/radiatureSprite.region_rect = rad3
 	
 func show_forced_induction_sprite():
 	var turbosprite = Rect2(0,0,64,64)
 	var superchargersprite = Rect2(64,0,64,64)
 	
 	if turbo == true:
-		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".region_rect = turbosprite
-		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".visible = true
+		$"TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".region_rect = turbosprite
+		$"TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".visible = true
 	
 	elif supercharged == true:
-		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".region_rect = superchargersprite
-		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".visible = true
+		$"TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".region_rect = superchargersprite
+		$"TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".visible = true
 	
 	else:
-		$"CanvasLayer/TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".visible = false
+		$"TabContainer/Forced Induction/previewEngineBlockTypepnl/forcedInduction_Sprite".visible = false
 	
 func show_fuelSystem_Sprite():
 	var carb = Rect2(0,0,32,32)
@@ -312,9 +312,9 @@ func show_fuelSystem_Sprite():
 	
 	match fuelsystem:
 		0:
-			$"CanvasLayer/TabContainer/Fuel System/previewEngineBlockTypepnl/fuelSystem".region_rect = carb
+			$"TabContainer/Fuel System/previewEngineBlockTypepnl/fuelSystem".region_rect = carb
 		1:
-			$"CanvasLayer/TabContainer/Fuel System/previewEngineBlockTypepnl/fuelSystem".region_rect = injection
+			$"TabContainer/Fuel System/previewEngineBlockTypepnl/fuelSystem".region_rect = injection
 	
 
 func show_right_engine_sprite():
@@ -332,97 +332,97 @@ func show_right_engine_sprite():
 	if EngineType == 1:
 		match cylinders:
 			3:
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".region_rect = i3
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = true
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".region_rect = i3
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = true
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
 			4:
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".region_rect = i4
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = true
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".region_rect = i4
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = true
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
 			5:
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".region_rect = i5
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = true
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".region_rect = i5
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = true
 			6:
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".region_rect = i6
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = true
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".region_rect = i6
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = true
 			8:
-				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have an inline 8 cylinder"
-				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(3)
+				$TabContainer/EngineBlock/lblError.text = "Can't have an inline 8 cylinder"
+				$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(3)
 	elif EngineType == 2:
 		match cylinders:
 			3:
 				hide_engine_sprites()
-				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have an v3 engine"
-				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v4
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+				$TabContainer/EngineBlock/lblError.text = "Can't have an v3 engine"
+				$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v4
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
 			4:
 				hide_engine_sprites()
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v4
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v4
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
 			5:
 				hide_engine_sprites()
-				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have an v5 engine"
-				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v4
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+				$TabContainer/EngineBlock/lblError.text = "Can't have an v5 engine"
+				$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v4
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
 			6:
 				hide_engine_sprites()
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v6
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v6
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
 			8:
 				hide_engine_sprites()
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v8
-				$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".region_rect = v8
+				$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = true
 	elif EngineType == 3:
 		match cylinders:
 			3:
 				hide_engine_sprites()
-				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have a 3 cylinder boxer engine"
-				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+				$TabContainer/EngineBlock/lblError.text = "Can't have a 3 cylinder boxer engine"
+				$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
 			4:
 				hide_engine_sprites()
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
 			5:
 				hide_engine_sprites()
-				$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Can't have a 5 cylinder boxer engine"
-				$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+				$TabContainer/EngineBlock/lblError.text = "Can't have a 5 cylinder boxer engine"
+				$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
 			6:
 				hide_engine_sprites()
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b6
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b6
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
 			8:
 				hide_engine_sprites()
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b8
-				$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b8
+				$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
 	elif EngineType == 4:
 		hide_engine_sprites()
-		$CanvasLayer/TabContainer/EngineBlock/lblError.text = "Rotary engine not available"
-		$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn.select(2)
-		$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
-		$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
-		$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
+		$TabContainer/EngineBlock/lblError.text = "Rotary engine not available"
+		$TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn.select(2)
+		$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+		$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.region_rect = b4
+		$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = true
 		
 	else:
 		hide_engine_sprites()
 	
 
 func hide_engine_sprites():
-	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
-	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
-	$"CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = false
-	$CanvasLayer/TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = false
+	$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i3_i4".visible = false
+	$"TabContainer/EngineBlock/previewEngineBlockTypepnl/inline i5_i6".visible = false
+	$"TabContainer/EngineBlock/previewEngineBlockTypepnl/v-engines".visible = false
+	$TabContainer/EngineBlock/previewEngineBlockTypepnl/boxer_engines.visible = false
 	
 func hide_cam_and_valve_sprites():
-	$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = false
-	$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = false
+	$TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = false
+	$TabContainer/Production/previewEngineBlockTypepnl/valves.visible = false
 	
 	
 func show_correct_camshaft_sprite():
@@ -435,28 +435,28 @@ func show_correct_camshaft_sprite():
 	var dohc = Rect2(64+64,0,64,64)
 	match  camType:
 		0:
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.region_rect = pushrod
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = true
+			$TabContainer/Production/previewEngineBlockTypepnl/camshafts.region_rect = pushrod
+			$TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = true
 		1:
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.region_rect = sohc
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = true
+			$TabContainer/Production/previewEngineBlockTypepnl/camshafts.region_rect = sohc
+			$TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = true
 		2:
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.region_rect = dohc
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = true
+			$TabContainer/Production/previewEngineBlockTypepnl/camshafts.region_rect = dohc
+			$TabContainer/Production/previewEngineBlockTypepnl/camshafts.visible = true
 			
 	match numValve:
 		0:
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_2
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
+			$TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_2
+			$TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
 		1:
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_3
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
+			$TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_3
+			$TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
 		2:
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_4
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
+			$TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_4
+			$TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
 		3:
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_5
-			$CanvasLayer/TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
+			$TabContainer/Production/previewEngineBlockTypepnl/valves.region_rect = valves_5
+			$TabContainer/Production/previewEngineBlockTypepnl/valves.visible = true
 
 func show_components():
 	var piston1 = Rect2(0,0,32,32)
@@ -470,40 +470,40 @@ func show_components():
 	var conrod3 = Rect2(64,64,32,32)
 	match pistonsType:
 		0:
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.region_rect = piston1
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = true
+			$TabContainer/Components/previewEngineBlockTypepnl/Pistons.region_rect = piston1
+			$TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = true
 		1:
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.region_rect = piston2
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = true
+			$TabContainer/Components/previewEngineBlockTypepnl/Pistons.region_rect = piston2
+			$TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = true
 		2:
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.region_rect = piston3
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = true
+			$TabContainer/Components/previewEngineBlockTypepnl/Pistons.region_rect = piston3
+			$TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = true
 	match crankshaftType:
 		0:
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.region_rect = crank1
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = true
+			$TabContainer/Components/previewEngineBlockTypepnl/crankshaft.region_rect = crank1
+			$TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = true
 		1:
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.region_rect = crank2
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = true
+			$TabContainer/Components/previewEngineBlockTypepnl/crankshaft.region_rect = crank2
+			$TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = true
 		2:
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.region_rect = crank3
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = true
+			$TabContainer/Components/previewEngineBlockTypepnl/crankshaft.region_rect = crank3
+			$TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = true
 	match conrodsType:
 		0:
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.region_rect = conrod1
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = true
+			$TabContainer/Components/previewEngineBlockTypepnl/conrods.region_rect = conrod1
+			$TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = true
 		1:
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.region_rect = conrod2
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = true
+			$TabContainer/Components/previewEngineBlockTypepnl/conrods.region_rect = conrod2
+			$TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = true
 		2:
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.region_rect = conrod3
-			$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = true
+			$TabContainer/Components/previewEngineBlockTypepnl/conrods.region_rect = conrod3
+			$TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = true
 			
 
 func hide_components_sprites():
-	$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = false
-	$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = false
-	$CanvasLayer/TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = false
+	$TabContainer/Components/previewEngineBlockTypepnl/Pistons.visible = false
+	$TabContainer/Components/previewEngineBlockTypepnl/conrods.visible = false
+	$TabContainer/Components/previewEngineBlockTypepnl/crankshaft.visible = false
 
 @warning_ignore("unused_parameter")
 func _on_piston_diamater_slider_value_changed(value: float) -> void:
@@ -516,85 +516,85 @@ func _on_piston_stroke_slider_2_value_changed(value: float) -> void:
 
 func get_engine_Info():
 	#engine type
-	EngineType = $CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn.selected +1
-	camType = $CanvasLayer/TabContainer/Production/CamshaftTypepnl/OptionButton.selected
-	numValve = $CanvasLayer/TabContainer/Production/numValvespnl/OptionButton.selected
+	EngineType = $TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn.selected +1
+	camType = $TabContainer/Production/CamshaftTypepnl/OptionButton.selected
+	numValve = $TabContainer/Production/numValvespnl/OptionButton.selected
 	
 	#fuel
-	fuelsystem = $"CanvasLayer/TabContainer/Fuel System/FuelSystempnl/EnginTypeOptbtn".selected
-	fuelType = $"CanvasLayer/TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn".selected
+	fuelsystem = $"TabContainer/Fuel System/FuelSystempnl/EnginTypeOptbtn".selected
+	fuelType = $"TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn".selected
 	
-	pistonStroke_mm = $CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2.value
-	pistonDiameter_mm = $CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider.value
-	rpm = $"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/RPMSlider".value
-	fuelmix = $"CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/FuelMixSlider".value
+	pistonStroke_mm = $TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2.value
+	pistonDiameter_mm = $TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider.value
+	rpm = $"TabContainer/Fuel System/Fuelsliderspnl/RPMSlider".value
+	fuelmix = $"TabContainer/Fuel System/Fuelsliderspnl/FuelMixSlider".value
 	
 	#need to choose cylinders in order to calc displacement
-	if $CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.selected == -1:
+	if $TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.selected == -1:
 		lblErrorEngineBlock.text = "Choose amount of cylinders"
 		return
 
 	
-	cylinders= int($CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.get_item_text(
-		$CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.selected
+	cylinders= int($TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.get_item_text(
+		$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.selected
 	).to_int())
 
 	var volume_mm3: float = (PI / 4.0) * pow(pistonDiameter_mm, 2) * pistonStroke_mm * cylinders
 	engineSize_L= volume_mm3 / 1_000_000.0
-	$CanvasLayer/EngineSpecspnl/VBoxContainer/EngineCapacitylbl.text = "Engine capacity: %.2f L" % [engineSize_L]#display engine size in liter
+	$EngineSpecspnl/VBoxContainer/EngineCapacitylbl.text = "Engine capacity: %.2f L" % [engineSize_L]#display engine size in liter
 	
 	#component types
-	pistonsType = $CanvasLayer/TabContainer/Components/Pistonspnl/OptionButton.selected
-	conrodsType = $CanvasLayer/TabContainer/Components/Conrodspnl/OptionButton.selected
-	crankshaftType = $CanvasLayer/TabContainer/Components/CrankShaftpnl/OptionButton.selected
+	pistonsType = $TabContainer/Components/Pistonspnl/OptionButton.selected
+	conrodsType = $TabContainer/Components/Conrodspnl/OptionButton.selected
+	crankshaftType = $TabContainer/Components/CrankShaftpnl/OptionButton.selected
 	
 	#forced induction
 	#checks if turbo or supercharged
-	if $"CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton".selected == 1:
+	if $"TabContainer/Forced Induction/turbopnl/OptionButton".selected == 1:
 		turbo = true
 		supercharged = false
-	elif $"CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton".selected == 2:
+	elif $"TabContainer/Forced Induction/turbopnl/OptionButton".selected == 2:
 		supercharged = true
 		turbo = false
-	elif $"CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton".selected == 0:
+	elif $"TabContainer/Forced Induction/turbopnl/OptionButton".selected == 0:
 		turbo = false
 		supercharged = false
 		
 	#can't have na setups on Forced induction
-	if turbo == false and supercharged == false and $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected >= 1:
-		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(0)
-		$"CanvasLayer/TabContainer/Forced Induction/lblError".text = "Can't select type on a NA engine"
+	if turbo == false and supercharged == false and $"TabContainer/Forced Induction/Typepnl/OptionButton".selected >= 1:
+		$"TabContainer/Forced Induction/Typepnl/OptionButton".select(0)
+		$"TabContainer/Forced Induction/lblError".text = "Can't select type on a NA engine"
 	if turbo == true:
-		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
-	if turbo == true and $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected == 0:
-		$"CanvasLayer/TabContainer/Forced Induction/lblError".text = "Can't select NA setup on turbo"
-		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+		$"TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+	if turbo == true and $"TabContainer/Forced Induction/Typepnl/OptionButton".selected == 0:
+		$"TabContainer/Forced Induction/lblError".text = "Can't select NA setup on turbo"
+		$"TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
 	if supercharged == true:
-		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
-	if supercharged == true and $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected == 2:
-		$"CanvasLayer/TabContainer/Forced Induction/lblError".text = "Can't select twin setup on supercharger"
-		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
-	if supercharged == true and $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected == 0:
-		$"CanvasLayer/TabContainer/Forced Induction/lblError".text = "Can't select NA setup on supercharger"
-		$"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+		$"TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+	if supercharged == true and $"TabContainer/Forced Induction/Typepnl/OptionButton".selected == 2:
+		$"TabContainer/Forced Induction/lblError".text = "Can't select twin setup on supercharger"
+		$"TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
+	if supercharged == true and $"TabContainer/Forced Induction/Typepnl/OptionButton".selected == 0:
+		$"TabContainer/Forced Induction/lblError".text = "Can't select NA setup on supercharger"
+		$"TabContainer/Forced Induction/Typepnl/OptionButton".select(1)
 		
 	#forced induction types
-	tsetup = $"CanvasLayer/TabContainer/Forced Induction/Typepnl/OptionButton".selected
-	ttune = $"CanvasLayer/TabContainer/Forced Induction/Setuppnl/OptionButton".selected
+	tsetup = $"TabContainer/Forced Induction/Typepnl/OptionButton".selected
+	ttune = $"TabContainer/Forced Induction/Setuppnl/OptionButton".selected
 	
 	#intake
-	intakeType = $CanvasLayer/TabContainer/Intake/intakepnl/OptionButton.selected
-	radiatorType = $CanvasLayer/TabContainer/Intake/CoolingSystempnl/OptionButton.selected
+	intakeType = $TabContainer/Intake/intakepnl/OptionButton.selected
+	radiatorType = $TabContainer/Intake/CoolingSystempnl/OptionButton.selected
 	
 	#exhausts
-	exhaustType = $CanvasLayer/TabContainer/Exhaust/Exhaustpnl/OptionButton.selected
-	exhaustManifoldType = $CanvasLayer/TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton.selected
-	catType = $CanvasLayer/TabContainer/Exhaust/Catpnl/OptionButton.selected
+	exhaustType = $TabContainer/Exhaust/Exhaustpnl/OptionButton.selected
+	exhaustManifoldType = $TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton.selected
+	catType = $TabContainer/Exhaust/Catpnl/OptionButton.selected
 	if catType >= 1:
 		cat = true
 	else :
 		cat = false
-	muffler = $CanvasLayer/TabContainer/Exhaust/exhaustMufflerpnl/OptionButton.selected
+	muffler = $TabContainer/Exhaust/exhaustMufflerpnl/OptionButton.selected
 		
 		
 	kw_per_l = kw_per_liter()
@@ -613,8 +613,8 @@ func kw_per_liter() -> float:
 			match numValve:
 				0: base_kw_per_l = 45 # 2-valve OHV average
 				_:
-					$CanvasLayer/TabContainer/Production/lblError.text = "OHV can only have 2 valves"
-					$CanvasLayer/TabContainer/Production/numValvespnl/OptionButton.select(0)
+					$TabContainer/Production/lblError.text = "OHV can only have 2 valves"
+					$TabContainer/Production/numValvespnl/OptionButton.select(0)
 					return 0
 		1: # SOHC
 			match numValve:
@@ -1058,11 +1058,11 @@ func update_dyno_graph(line_torque: Line2D, line_power: Line2D, background: Colo
 			lbl_current_power.position = Vector2(marker_x + 8, y_power - 10)
 			
 func update_dyno_for_current_rpm() -> void:
-	var line_torque = $CanvasLayer/TabContainer/Confirmation/curvespnl/TorqueLine
-	var line_power = $CanvasLayer/TabContainer/Confirmation/curvespnl/PowerLine
-	var graph_bg = $CanvasLayer/TabContainer/Confirmation/curvespnl/GraphBackground
+	var line_torque = $TabContainer/Confirmation/curvespnl/TorqueLine
+	var line_power = $TabContainer/Confirmation/curvespnl/PowerLine
+	var graph_bg = $TabContainer/Confirmation/curvespnl/GraphBackground
 
-	update_dyno_graph(line_torque, line_power, graph_bg, $CanvasLayer/TabContainer/Confirmation/curvespnl/RPM_Marker,$CanvasLayer/TabContainer/Confirmation/curvespnl/lblCurrentTorque,$CanvasLayer/TabContainer/Confirmation/curvespnl/lblCurrentPower)
+	update_dyno_graph(line_torque, line_power, graph_bg, $TabContainer/Confirmation/curvespnl/RPM_Marker,$TabContainer/Confirmation/curvespnl/lblCurrentTorque,$TabContainer/Confirmation/curvespnl/lblCurrentPower)
 
 
 @warning_ignore("unused_parameter")
@@ -1131,7 +1131,7 @@ func populate_engine_list(option_button: OptionButton) -> void:
 			file_name = dir.get_next()
 		dir.list_dir_end()
 	else:
-		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error: Could not open engines folder."
+		$loadEnginpnl/lblerrorloading.text = "Error: Could not open engines folder."
 
 		
 # Save function
@@ -1194,10 +1194,10 @@ func save_engine_to_file(file_name: String) -> void:
 	if file:
 		file.store_string(json_text)
 		file.close()
-		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Saved successfully!"
+		$loadEnginpnl/lblerrorloading.text = "Saved successfully!"
 		print("Saved engine to: ", path)
 	else:
-		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error saving file!"
+		$loadEnginpnl/lblerrorloading.text = "Error saving file!"
 	update_UI()
 
 # Load function
@@ -1206,13 +1206,13 @@ func load_engine_from_file(file_name: String) -> void:
 
 	# --- Check if file exists ---
 	if not FileAccess.file_exists(path):
-		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error: Engine file not found at " + path
+		$loadEnginpnl/lblerrorloading.text = "Error: Engine file not found at " + path
 		return
 
 	# --- Open file ---
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error: Could not open engine file."
+		$loadEnginpnl/lblerrorloading.text = "Error: Could not open engine file."
 		return
 
 	var text := file.get_as_text()
@@ -1222,21 +1222,21 @@ func load_engine_from_file(file_name: String) -> void:
 	var json := JSON.new()
 	var err := json.parse(text)
 	if err != OK:
-		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error parsing JSON file: " + str(err)
+		$loadEnginpnl/lblerrorloading.text = "Error parsing JSON file: " + str(err)
 		return
 
 	var data: Dictionary = json.data as Dictionary
 	if data.is_empty():
-		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Error: Loaded data is empty!"
+		$loadEnginpnl/lblerrorloading.text = "Error: Loaded data is empty!"
 		return
 
 	# --- Assign all variables from file ---
-	engineSize_L = data.get("engineSize_L", 0.0)
+	#engineSize_L = data.get("engineSize_L", 0.0)
+	EngineMat = data.get("EngineMat", 0)
+	cylinderMat = data.get("cylinderMat", 0)
 	cylinders = data.get("cylinders", 0)
 	pistonStroke_mm = data.get("pistonStroke_mm", 0.0)
 	pistonDiameter_mm = data.get("pistonDiameter_mm", 0.0)
-	EngineMat = data.get("EngineMat", 0)
-	cylinderMat = data.get("cylinderMat", 0)
 	EngineType = data.get("EngineType", 0)
 	engineCost = data.get("engineCost", 0.0)
 	extraCost = data.get("extraCost", 0.0)
@@ -1277,136 +1277,145 @@ func load_engine_from_file(file_name: String) -> void:
 	exhaustManifoldType = data.get("exhaustManifoldType", 0)
 	muffler = data.get("muffler", 0)
 
-	$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Engine loaded successfully: " + file_name
+	$loadEnginpnl/lblerrorloading.text = "Engine loaded successfully: " + file_name
 	print("✅ Loaded engine from:", path)
-	update_UI()
+	#update_UI()
 
 
 func _on_Load_button_pressed() -> void:
-	var selected = $CanvasLayer/loadEnginpnl/OptionButton.get_selected_id()
+	
+	var selected = $loadEnginpnl/OptionButton.get_selected_id()
 	if selected == -1:
-		$CanvasLayer/loadEnginpnl/lblerrorloading.text = "Please select an engine first!"
+		$loadEnginpnl/lblerrorloading.text = "Please select an engine first!"
 		return
+		
+	for i in range(7):
+		var file_name = $loadEnginpnl/OptionButton.get_item_text(selected)
+		load_engine_from_file(file_name)
+		update_engine_ui()
 	
-	var file_name = $CanvasLayer/loadEnginpnl/OptionButton.get_item_text(selected)
-	load_engine_from_file(file_name)
-	update_engine_ui()
-	#update_UI()
 	
-# --- Helper functions (top-level, outside of update_engine_ui) ---
-func select_by_text(option_button: OptionButton, text_value: String) -> void:
-	if option_button == null:
-		return
-	for i in range(option_button.item_count):
-		if str(option_button.get_item_text(i)).to_lower() == str(text_value).to_lower():
-			option_button.select(i)
-			return
-	print("⚠️ No match for", text_value, "in", option_button.name)
+	
 
-func select_by_number(option_button: OptionButton, num_value: float) -> void:
-	if option_button == null:
-		return
-	for i in range(option_button.item_count):
-		var item_text = option_button.get_item_text(i)
-		if item_text.is_valid_int() and int(item_text) == int(num_value):
-			option_button.select(i)
-			return
-		elif item_text.is_valid_float() and float(item_text) == float(num_value):
-			option_button.select(i)
-			return
-	print("⚠️ No numeric match for", num_value, "in", option_button.name)
-
-
-# --- MAIN FUNCTION ---
 func update_engine_ui() -> void:
-	print("🔄 Updating UI with loaded engine data...")
-
-	# --- Lookup dictionaries ---
-	var ENGINE_MATERIALS = {0:"Cast Iron",1:"Aluminum",2:"Compacted Graphite Iron",3:"Magnesium",4:"Titanium"}
-	var CYLINDER_MATERIALS = ENGINE_MATERIALS
-	var ENGINE_TYPES = {0:"Inline",1:"V-Type",2:"Boxer",3:"Rotary"}
-	var CYLINDERS = {0:"3",1:"4",2:"5",3:"6",4:"8"}
-	var CAM_TYPES = {0:"Pushrod",1:"Single Overhead Cam",2:"Dual Overhead Cam"}
-	var TURBO_TYPES = {0:"NA",1:"Turbo",2:"Supercharger"}
-	var FUEL_SYSTEMS = {0:"Carburetor",1:"Fuel injection"}
-	var FUEL_TYPES = {0:"95",1:"92",2:"Diesel",3:"Race"}
-	var INTAKES = {0:"Normal",1:"Performance",2:"Race"}
-	var RADIATORS = {0:"Small",1:"Medium",2:"Race"}
-	var EXHAUSTS = {0:"Single",1:"Twin"}
-	var MANIFOLDS = {0:"Normal",1:"Sports",2:"Performance",3:"Race"}
-	var MUFFLERS = {0:"Small",1:"Big",2:"Freeflow",3:"Straight Pipe"}
-	var CAT_TYPES = {0:"None",1:"Normal",2:"Premium"}
-	var CYLINDERS_TEXT = {0:"3", 1:"4", 2:"5", 3:"6", 4:"8"}
-
-	# --- ENGINE BLOCK ---
-	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn"):
-		select_by_text(get_node("CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn"), ENGINE_MATERIALS.get(EngineMat, "Cast Iron"))
-	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2"):
-		select_by_text(get_node("CanvasLayer/TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2"), CYLINDER_MATERIALS.get(cylinderMat, "Cast Iron"))
 	
-	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn"):
-		select_by_text(get_node("CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn"), ENGINE_TYPES.get(EngineType, "Inline"))
-	var cylinder_text = CYLINDERS_TEXT.get(cylinders, str(cylinders))
-	select_by_text(get_node("CanvasLayer/TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn"), cylinder_text)
-	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2"):
-		get_node("CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2").value = pistonStroke_mm
-	if has_node("CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider"):
-		get_node("CanvasLayer/TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider").value = pistonDiameter_mm
+	#engine specs	
+	match EngineMat:
+		0:
+			$TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn.select(0)
+		1:
+			$TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn.select(1)
+		2:
+			$TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn.select(2)
+		3:
+			$TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn.select(3)
+		4:
+			$TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn.select(4)
+	
+	match cylinderMat:
+		0:
+			$TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2.select(0)
+		1:
+			$TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2.select(1)
+		2:
+			$TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2.select(2)
+		3:
+			$TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2.select(3)
+		4:
+			$TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2.select(4)	
+			
+	
+	
+	$TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn.select(EngineType-1)
+	match cylinders:
+		3:
+			$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(0)
+		4:
+			$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(1)
+		5:
+			$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(2)
+		6:
+			$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(3)
+		8:
+			$TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn.select(4)
+	
+	
+	
+	
+	$TabContainer/EngineBlock/EngineSizepnl/PistonStrokeSlider2.value = float(pistonStroke_mm)
+	$TabContainer/EngineBlock/EngineSizepnl/PistonDiamaterSlider.value = float(pistonDiameter_mm)
 	
 
 	# --- PRODUCTION ---
-	if has_node("CanvasLayer/TabContainer/Production/CamshaftTypepnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Production/CamshaftTypepnl/OptionButton"), CAM_TYPES.get(camType, "Pushrod"))
-	if has_node("CanvasLayer/TabContainer/Production/numValvespnl/OptionButton"):
-		select_by_number(get_node("CanvasLayer/TabContainer/Production/numValvespnl/OptionButton"), numValve)
-	if has_node("CanvasLayer/TabContainer/Production/vvtpnl/CheckButton"):
-		get_node("CanvasLayer/TabContainer/Production/vvtpnl/CheckButton").button_pressed  = vvt
+	$TabContainer/Production/CamshaftTypepnl/OptionButton.select(camType)
+	$TabContainer/Production/numValvespnl/OptionButton.select(numValve)
+	
+	if has_node("TabContainer/Production/vvtpnl/CheckButton"):
+		get_node("TabContainer/Production/vvtpnl/CheckButton").button_pressed  = vvt
+		
+	
+	#components
+	$TabContainer/Components/Pistonspnl/OptionButton.select(pistonsType)
+	$TabContainer/Components/CrankShaftpnl/OptionButton.select(crankshaftType)
+	$TabContainer/Components/Conrodspnl/OptionButton.select(conrodsType)
 
 	# --- FORCED INDUCTION ---
-	if has_node("CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Forced Induction/turbopnl/OptionButton"), TURBO_TYPES.get(tsetup, "NA"))
-
+	if turbo == true:
+		$"TabContainer/Forced Induction/turbopnl/OptionButton".select(1)
+	elif supercharged == true:
+		$"TabContainer/Forced Induction/turbopnl/OptionButton".select(2)
+	else:
+		$"TabContainer/Forced Induction/turbopnl/OptionButton".select(0)
+		
+	$"TabContainer/Forced Induction/Setuppnl/OptionButton".select(ttune)
 	# --- FUEL ---
-	if has_node("CanvasLayer/TabContainer/Fuel System/FuelTypepnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Fuel System/FuelTypepnl/OptionButton"), FUEL_TYPES.get(fuelType, "95"))
-	if has_node("CanvasLayer/TabContainer/Fuel System/FuelSystempnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Fuel System/FuelSystempnl/OptionButton"), FUEL_SYSTEMS.get(fuelsystem, "Carburetor"))
-	if has_node("CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/RPMSlider"):
-		get_node("CanvasLayer/TabContainer/Fuel System/Fuelsliderspnl/RPMSlider").value = rpm
+	$"TabContainer/Fuel System/FuelSystempnl/EnginTypeOptbtn".select(fuelsystem)
+	$"TabContainer/Fuel System/Fuelsliderspnl/FuelMixSlider".value = fuelmix
+	
+	match int(fuelType):
+		0:
+			$"TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn".select(0)
+		1:
+			$"TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn".select(1)
+		2:
+			$"TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn".select(2)
+		3:
+			$"TabContainer/Fuel System/FuelTypepnl/EngineMatOptbtn".select(3)
+	
+	
+	$"TabContainer/Fuel System/Fuelsliderspnl/RPMSlider".value = rpm
+	
+	
+	
 
 	# --- INTAKE ---
-	if has_node("CanvasLayer/TabContainer/Intake/intakepnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Intake/intakepnl/OptionButton"), INTAKES.get(intakeType, "Normal"))
-	if has_node("CanvasLayer/TabContainer/Intake/CoolingSystempnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Intake/CoolingSystempnl/OptionButton"), RADIATORS.get(radiatorType, "Small"))
-	if has_node("CanvasLayer/TabContainer/Intake/CoolingSystempnl/CheckButton"):
-		get_node("CanvasLayer/TabContainer/Intake/CoolingSystempnl/CheckButton").button_pressed  = oilCooler
+	$TabContainer/Intake/intakepnl/OptionButton.select(intakeType)
+
+	match int(radiatorType):
+		0:
+			$TabContainer/Intake/CoolingSystempnl/OptionButton.select(0)
+		1:
+			$TabContainer/Intake/CoolingSystempnl/OptionButton.select(1)
+		2:
+			$TabContainer/Intake/CoolingSystempnl/OptionButton.select(2)
+	
+	if has_node("TabContainer/Intake/CoolingSystempnl/CheckButton"):
+		get_node("TabContainer/Intake/CoolingSystempnl/CheckButton").button_pressed  = oilCooler
 
 	# --- EXHAUST ---
-	if has_node("CanvasLayer/TabContainer/Exhaust/Exhaustpnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Exhaust/Exhaustpnl/OptionButton"), EXHAUSTS.get(exhaustType, "Single"))
-	if has_node("CanvasLayer/TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton"), MANIFOLDS.get(exhaustManifoldType, "Normal"))
-	if has_node("CanvasLayer/TabContainer/Exhaust/exhaustMufflerpnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Exhaust/exhaustMufflerpnl/OptionButton"), MUFFLERS.get(muffler, "Small"))
-	if has_node("CanvasLayer/TabContainer/Exhaust/Catpnl/OptionButton"):
-		select_by_text(get_node("CanvasLayer/TabContainer/Exhaust/Catpnl/OptionButton"), CAT_TYPES.get(catType, "None"))
+	$TabContainer/Exhaust/ExhaustManifoldpnl/OptionButton.select(exhaustManifoldType)
+	$TabContainer/Exhaust/Exhaustpnl/OptionButton.select(exhaustType)
+	$TabContainer/Exhaust/Catpnl/OptionButton.select(catType)
+	$TabContainer/Exhaust/exhaustMufflerpnl/OptionButton.select(muffler)
 
-	# --- DISPLAY LABELS ---
-	if has_node("CanvasLayer/EngineSpecspnl/VBoxContainer/reliabilitylbl"):
-		get_node("CanvasLayer/EngineSpecspnl/VBoxContainer/reliabilitylbl").text = str(reliabilityScore)
-	if has_node("CanvasLayer/EngineSpecspnl/VBoxContainer/weightlbl"):
-		get_node("CanvasLayer/EngineSpecspnl/VBoxContainer/weightlbl").text = str(engine_weight) + " kg"
-	if has_node("CanvasLayer/EngineSpecspnl/VBoxContainer/kwlbl"):
-		get_node("CanvasLayer/EngineSpecspnl/VBoxContainer/kwlbl").text = str(max_kw) + " kW"
-	if has_node("CanvasLayer/EngineSpecspnl/VBoxContainer/torquelbl"):
-		get_node("CanvasLayer/EngineSpecspnl/VBoxContainer/torquelbl").text = str(max_Torque_nm) + " Nm"
 
 	print("✅ UI updated successfully with mapped labels.")
+	hide_engine_sprites()
+	update_UI()
 
 
 func _on_savebtn_pressed() -> void:
-	var file_name: String = $CanvasLayer/TabContainer/Confirmation/LineEdit.text.strip_edges()
+	var file_name: String = $TabContainer/Confirmation/LineEdit.text.strip_edges()
 	
 	if file_name == "":
 		lblErrorEngineBlock.text = "Error: Please enter a file name."
@@ -1471,4 +1480,5 @@ func _on_savebtn_pressed() -> void:
 	else:
 		lblErrorEngineBlock.text = "Error: Could not open file for writing."
 		
+	$TabContainer/Confirmation/LineEdit.text = ""
 	update_UI()
