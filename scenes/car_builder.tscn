@@ -36,9 +36,10 @@ offset_right = 1567.0
 offset_bottom = 827.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 20
-current_tab = 0
+current_tab = 4
 
 [node name="Car body" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -223,16 +224,16 @@ theme_override_font_sizes/font_size = 17
 
 [node name="enginespecspnl" type="Panel" parent="TabContainer/Engine"]
 layout_mode = 0
-offset_left = 538.0
-offset_top = 76.0
-offset_right = 901.0
-offset_bottom = 521.0
+offset_left = 715.0
+offset_top = 116.0
+offset_right = 1078.0
+offset_bottom = 561.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Engine/enginespecspnl"]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 21.0
-offset_right = 221.0
+offset_right = 328.0
 offset_bottom = 428.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Engine/enginespecspnl/ScrollContainer"]
@@ -309,6 +310,26 @@ label_settings = ExtResource("3_iiyue")
 layout_mode = 2
 text = "Engine Cost:"
 label_settings = ExtResource("3_iiyue")
+
+[node name="buildEnginebtn" type="Button" parent="TabContainer/Engine"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 106.0
+offset_right = 251.0
+offset_bottom = 156.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+text = " Build new engine"
+
+[node name="selectEnginebtn" type="Button" parent="TabContainer/Engine"]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 106.0
+offset_right = 539.0
+offset_bottom = 156.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+text = " Select existing engine"
 
 [node name="Drive Terrain" type="TabBar" parent="TabContainer"]
 visible = false
@@ -627,7 +648,6 @@ offset_right = 244.0
 offset_bottom = 321.0
 
 [node name="Confirmation" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
@@ -876,12 +896,63 @@ label_settings = ExtResource("3_iiyue")
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
+[node name="LineEdit" type="LineEdit" parent="TabContainer/Confirmation"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 92.0
+offset_right = 751.0
+offset_bottom = 123.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+placeholder_text = "Name the car..."
+max_length = 150
+
+[node name="Button" type="Button" parent="TabContainer/Confirmation"]
+layout_mode = 0
+offset_left = 491.0
+offset_top = 614.0
+offset_right = 726.0
+offset_bottom = 663.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+text = " Built car "
+
+[node name="costpnl" type="Panel" parent="."]
+offset_left = 1205.0
+offset_top = 168.0
+offset_right = 1396.0
+offset_bottom = 203.0
+
+[node name="Costlbl" type="Label" parent="costpnl"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 185.0
+offset_bottom = 29.0
+label_settings = ExtResource("3_iiyue")
+
+[node name="weightpnl" type="Panel" parent="."]
+offset_left = 1205.0
+offset_top = 213.0
+offset_right = 1396.0
+offset_bottom = 248.0
+
+[node name="weightlbl" type="Label" parent="weightpnl"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 185.0
+offset_bottom = 29.0
+label_settings = ExtResource("3_iiyue")
+
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1" to="." method="_on_body_1_toggled"]
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2" to="." method="_on_body_2_toggled"]
 [connection signal="item_selected" from="TabContainer/Car body/bodyMatpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Car body/chasyMatpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Car body/interiorTypepnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Engine/Enginepnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="TabContainer/Engine/buildEnginebtn" to="." method="_on_build_enginebtn_pressed"]
+[connection signal="pressed" from="TabContainer/Engine/selectEnginebtn" to="." method="_on_select_enginebtn_pressed"]
 [connection signal="value_changed" from="TabContainer/Drive Terrain/engineLocationpnl/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="item_selected" from="TabContainer/Drive Terrain/Driveterrainpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Drive Terrain/Brakespnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]

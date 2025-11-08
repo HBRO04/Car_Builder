@@ -49,7 +49,12 @@ offset_left = 15.0
 offset_top = 17.0
 offset_right = 353.0
 offset_bottom = 757.0
-theme_override_constants/separation = 6
+theme_override_constants/separation = 10
+
+[node name="weightlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
+layout_mode = 2
+text = "Engine weight:"
+label_settings = ExtResource("2_85mox")
 
 [node name="EngineCapacitylbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
@@ -57,6 +62,7 @@ text = "Engine capacity:"
 label_settings = ExtResource("2_85mox")
 
 [node name="EnginekwperL_lbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "kw per L:"
 label_settings = ExtResource("2_85mox")
@@ -77,6 +83,7 @@ text = "RPM:"
 label_settings = ExtResource("2_85mox")
 
 [node name="Currentrpmlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "RPM:"
 label_settings = ExtResource("2_85mox")
@@ -94,11 +101,6 @@ label_settings = ExtResource("2_85mox")
 [node name="reliabilityScorelbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
 layout_mode = 2
 text = "Reliability rating:"
-label_settings = ExtResource("2_85mox")
-
-[node name="weightlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
-layout_mode = 2
-text = "Engine weight:"
 label_settings = ExtResource("2_85mox")
 
 [node name="fueleconlbl" type="Label" parent="EngineSpecspnl/VBoxContainer"]
@@ -1557,6 +1559,16 @@ offset_right = 207.0
 offset_bottom = 291.0
 autowrap_mode = 2
 
+[node name="loadEnginebtn" type="Button" parent="loadEnginpnl"]
+layout_mode = 0
+offset_left = 69.22161
+offset_top = 37.69909
+offset_right = 184.22162
+offset_bottom = 68.69909
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
+text = " Load engine "
+
 [connection signal="item_selected" from="TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn" to="." method="_on_engin_type_optbtn_item_selected"]
 [connection signal="item_selected" from="TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn" to="." method="_on_cylinder_optbtn_item_selected"]
 [connection signal="item_selected" from="TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn" to="." method="_on_engine_mat_optbtn_item_selected"]
@@ -1587,3 +1599,4 @@ autowrap_mode = 2
 [connection signal="pressed" from="TabContainer/Confirmation/Savebtn" to="." method="_on_savebtn_pressed"]
 [connection signal="pressed" from="TabContainer/Confirmation/Continuebtn" to="." method="_on_continuebtn_pressed"]
 [connection signal="pressed" from="loadEnginpnl/Button" to="." method="_on_Load_button_pressed"]
+[connection signal="pressed" from="loadEnginpnl/loadEnginebtn" to="." method="_on_load_enginebtn_pressed"]

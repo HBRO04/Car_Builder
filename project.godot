@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Car builder sim"
-run/main_scene="uid://cef7sayyf852u"
+run/main_scene="uid://wd54wnab53ck"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,3 +21,7 @@ window/size/viewport_width=1908
 window/size/viewport_height=916
 window/size/mode=2
 window/size/initial_position_type=4
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

@@ -67,6 +67,8 @@ func _ready() -> void:
 	kw = (torque * rpm) / 9550.0    # max kW
 	$TabContainer/EngineBlock.visible = true
 	populate_engine_list($loadEnginpnl/OptionButton)
+	$loadEnginpnl/Button.visible = false
+	$loadEnginpnl/OptionButton.visible = false
 	
 	var dir = DirAccess.open("res://engines/")
 	if dir:
@@ -82,99 +84,122 @@ func _ready() -> void:
 
 
 func calc_cost():
+	# Read UI selections
 	EngineMat = $TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn.selected
 	cylinderMat = $TabContainer/EngineBlock/EngineMaterialspnl/CylinderMatOptbtn2.selected
-	baseMaterialCost = 0
-	extraCost = 0
-	
-	#materials
-	match  EngineMat:
-		0: baseMaterialCost = 100
-		1: baseMaterialCost = 150
-		2: baseMaterialCost = 180
-		3: baseMaterialCost = 250
-		4: baseMaterialCost = 400
+
+	var material_core: float = 0.0
+	var upgrade_cost: float = 0.0
+	var complexity_Multiplier: float = 1.0
+
+	# Core engine block material
+	match EngineMat:
+		0: material_core = 100
+		1: material_core = 150
+		2: material_core = 180
+		3: material_core = 250
+		4: material_core = 400
+
+	# Cylinder material affects core cost lightly
+	match cylinderMat:
+		0: material_core += 50
+		1: material_core += 80
+		2: material_core += 120
+		3: material_core += 180
+		4: material_core += 250
+
+	# Engine type complexity (mild multiplier, not extreme)
 	match EngineType:
 		1: complexity_Multiplier = 1.0
-		2: complexity_Multiplier = 1.2
-		3: complexity_Multiplier = 1.3
-		4: complexity_Multiplier = 1.5
-	match cylinderMat:
-		0: baseMaterialCost += 100
-		1: baseMaterialCost += 150
-		2: baseMaterialCost += 180
-		3: baseMaterialCost += 250
-		4: baseMaterialCost += 400
+		2: complexity_Multiplier = 1.1
+		3: complexity_Multiplier = 1.2
+		4: complexity_Multiplier = 1.3
+
+	# Cam system small cost variation
 	match camType:
-		0: baseMaterialCost += 50
-		1: baseMaterialCost += 250
-		2: baseMaterialCost += 450
+		0: upgrade_cost += 50
+		1: upgrade_cost += 200
+		2: upgrade_cost += 350
+
+	# Number of valves affects manufacturing complexity (add, not multiply)
 	match numValve:
-		0: baseMaterialCost += 100
-		1: baseMaterialCost += 150
-		2: baseMaterialCost += 180
-		3: baseMaterialCost += 220
-		
-	#forced induction should not be multplied by cylinders
-	if turbo == true:
-		extraCost += 1200
-	if supercharged == true:
-		extraCost += 2500
-	if vvt == true:
-		extraCost += 1500
+		0: upgrade_cost += 80
+		1: upgrade_cost += 120
+		2: upgrade_cost += 150
+		3: upgrade_cost += 200
+
+	# Forced induction
+	if turbo:
+		upgrade_cost += 800
+	if supercharged:
+		upgrade_cost += 1400
+	if vvt:
+		upgrade_cost += 400
+
 	match tsetup:
-		0: extraCost += 0
-		1: extraCost += 500
-		2: extraCost += 1500
+		0: pass
+		1: upgrade_cost += 300
+		2: upgrade_cost += 700
+
 	match ttune:
-		0: extraCost += 150
-		1: extraCost += 180
-		2: extraCost += 200
-		3: extraCost += 250
-		
-	#components
+		0: upgrade_cost += 80
+		1: upgrade_cost += 120
+		2: upgrade_cost += 180
+		3: upgrade_cost += 250
+
+	# Components
 	match pistonsType:
-		0: baseMaterialCost += 150
-		1: baseMaterialCost += 350
-		2: baseMaterialCost += 200
+		0: upgrade_cost += 150
+		1: upgrade_cost += 300
+		2: upgrade_cost += 500
+
 	match conrodsType:
-		0: baseMaterialCost += 150
-		1: baseMaterialCost += 350
-		2: baseMaterialCost += 200
+		0: upgrade_cost += 120
+		1: upgrade_cost += 280
+		2: upgrade_cost += 450
+
 	match crankshaftType:
-		0: extraCost += 1000
-		1: extraCost += 2000
-		2: extraCost += 3000
-		
-	#fuel system
+		0: upgrade_cost += 300
+		1: upgrade_cost += 600
+		2: upgrade_cost += 1200
+
+	# Fuel system
 	match fuelsystem:
-		0: extraCost += 1000
-		1: extraCost += 1500
-		
-	#intake
+		0: upgrade_cost += 200
+		1: upgrade_cost += 450
+
+	# Intake
 	match intakeType:
-		0: extraCost += 300
-		1: extraCost += 1000
-		2: extraCost += 3000
+		0: upgrade_cost += 200
+		1: upgrade_cost += 800
+		2: upgrade_cost += 2000
+
 	match radiatorType:
-		0: extraCost += 100
-		1: extraCost += 500
-		2: extraCost += 1500
-		
-	#exhaust
-	match  exhaustType:
-		0: extraCost += 500
-		1: extraCost += 1000
-	match  exhaustManifoldType:
-		0: extraCost += 300
-		1: extraCost += 1000
-		2: extraCost += 3000
-		3: extraCost += 5000
-	if cat == true:
+		0: upgrade_cost += 80
+		1: upgrade_cost += 300
+		2: upgrade_cost += 900
+
+	# Exhaust
+	match exhaustType:
+		0: upgrade_cost += 300
+		1: upgrade_cost += 800
+
+	match exhaustManifoldType:
+		0: upgrade_cost += 150
+		1: upgrade_cost += 450
+		2: upgrade_cost += 900
+		3: upgrade_cost += 1600
+
+	if cat:
 		match catType:
-			1: extraCost += 500
-			2: extraCost += 1500
-	engineCost = (baseMaterialCost * engineSize_L * cylinders * complexity_Multiplier ) + extraCost
+			1: upgrade_cost += 300
+			2: upgrade_cost += 900
+
+	# Final calculation:
+	# Only the engine core gets multiplied by displacement and cylinders.
+	var block_cost = material_core * engineSize_L * cylinders * complexity_Multiplier
+
+	engineCost = block_cost + upgrade_cost
 
 func update_UI():
 	var fi: String = "NA"
@@ -915,51 +940,61 @@ func calc_reliability() -> int:
 	
 func calc_weight():
 	var base_weight: float = 0.0
-	var weight_m: float = 0.0
+	var weight_mult: float = 1.0
 	var extraweight: float = 0.0
-	match  EngineMat: #cast iron, aluminum, Compacted Graphite Iron, Magnesium or Titanium
-		0: base_weight = 50
-		1: base_weight = 35
-		2: base_weight = 40
-		3: base_weight = 30
-		4: base_weight = 45
+
+	# Engine 
+	match EngineMat: # cast iron, aluminum, CGI, magnesium, titanium alloys
+		0: base_weight = 65   # Cast Iron (heaviest common)
+		1: base_weight = 45   # Aluminum
+		2: base_weight = 55   # Compacted Graphite Iron (slightly lighter than iron)
+		3: base_weight = 38   # Magnesium alloy blocks
+		4: base_weight = 50   # Titanium alloys (strong but heavier than Mg)
+
+	# Engine Layout Complexity 
 	match EngineType:
-		1: weight_m = 1.0
-		2: weight_m = 1.1
-		3: weight_m = 0.9
-		4: weight_m = 0.7
+		1: weight_mult = 1.00   # Inline/Basic
+		2: weight_mult = 1.05   # V-layout slightly heavier
+		3: weight_mult = 0.95   # Boxer slightly lighter per displacement
+		4: weight_mult = 0.90   # Compact performance layout focus
+
 	match cylinderMat:
-		0: base_weight += 5
+		0: base_weight += 4
 		1: base_weight += 3
-		2: base_weight += 2.5
-		3: base_weight += 2
-		4: base_weight += 4
+		2: base_weight += 2
+		3: base_weight += 1.5
+		4: base_weight += 3.5
+
 	match camType:
 		0: base_weight += 0
-		1: base_weight += 1
-		2: base_weight += 2
+		1: base_weight += 1.2
+		2: base_weight += 2.5
+
+	# Valve count 
 	match numValve:
-		0: base_weight += 0.2
-		1: base_weight += 0.3
-		2: base_weight += 0.4
+		0: base_weight += 0.1
+		1: base_weight += 0.2
+		2: base_weight += 0.3
 		3: base_weight += 0.5
-		
-	#forced induction
-	if turbo == true:
-		extraweight += 50
-	if supercharged == true:
-		extraweight += 30
-		
-	#intake
-	match radiatorType:#small, medium or race
-		0: extraweight += 20
-		1: extraweight += 40
-		2: extraweight += 60
-		
-	if oilCooler == true:
-		extraweight += 5
-	
-	engine_weight = round((base_weight * engineSize_L * cylinders * weight_m ) + extraweight)
+
+	# Forced induction 
+	if turbo:
+		extraweight += 11  # turbo + piping
+	if supercharged:
+		extraweight += 16  # blower + bracket
+	# No double stacking insanity here
+
+	# radiator
+	match radiatorType: # small, medium, race radiator
+		0: extraweight += 6
+		1: extraweight += 10
+		2: extraweight += 15
+
+	if oilCooler:
+		extraweight += 4
+
+	engine_weight = round((base_weight * engineSize_L * cylinders * weight_mult) + extraweight)
+
 	
 func calc_fuelEconomy():
 	var tune_factor: float = 1.0
@@ -1296,6 +1331,10 @@ func _on_Load_button_pressed() -> void:
 		var file_name = $loadEnginpnl/OptionButton.get_item_text(selected)
 		load_engine_from_file(file_name)
 		update_engine_ui()
+		
+	$loadEnginpnl/Button.visible = false
+	$loadEnginpnl/OptionButton.visible = false
+	$loadEnginpnl/loadEnginebtn.visible = true
 	
 	
 	
@@ -1488,3 +1527,10 @@ func _on_savebtn_pressed() -> void:
 
 func _on_continuebtn_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/car_builder.tscn")
+
+
+func _on_load_enginebtn_pressed() -> void:
+	$loadEnginpnl/OptionButton.visible = true
+	$loadEnginpnl/Button.visible = true
+	$loadEnginpnl/loadEnginebtn.visible = false
+	

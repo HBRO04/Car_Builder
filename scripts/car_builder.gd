@@ -1,6 +1,9 @@
 extends Node2D
 
 @onready var errorlbl: Label = $lblError
+@onready var costlbl: Label = $costpnl/Costlbl
+@onready var weightlbl: Label = $weightpnl/weightlbl
+@onready var enginescene = preload("res://scenes/engine_builder.tscn")
 
 #only nessecary engine specs
 var enginename: String
@@ -12,7 +15,7 @@ var engineWeight: float
 var reliability: int
 var cylinders: int
 var enginetype: int
-var engineCost: int
+var engineCost: int = 0
 var turbo: bool = false
 var supercharged: bool = false
 var vvt: bool = false
@@ -53,18 +56,122 @@ var rear_sus_ride_stifnes: float
 var rear_sus_max_ride_stifnes: float
 var rear_sus_min_ride_stifnes: float
 
+#cost
+var basecost: int = 0
+var totalCost: int = 0
+
+#wheight
+var baseweight: int = 0
+var totalWeight: int = 0
+
 
 func _ready() -> void:
+	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = true
 	populate_engine_list($TabContainer/Engine/Enginepnl/OptionButton)
 	get_settings()
 	update_all()
+	$TabContainer/Engine/Enginepnl.visible = false
+	$"TabContainer/Car body".visible = true
+	$TabContainer/Engine/Enginepnl/OptionButton.select(-1)
+	
 	
 func update_all():
-	update_Ui()
 	get_settings()
 	populate_engine_list($TabContainer/Engine/Enginepnl/OptionButton)
 	display_all_confirmation_page()
+	update_Ui()
+	calc_cost()
+	calc_weight()
 	
+	
+func calc_cost():
+	basecost = 0
+	totalCost = 0
+	var exstraCost: int = 0
+	
+	match choosenBody:
+		0: basecost = 0
+		1: basecost = 2000
+		2: basecost = 4000
+		
+	match bodyMat:
+		0: exstraCost += 1000
+		1: exstraCost += 1500
+		2: exstraCost += 2000
+		3: exstraCost += 2500
+		
+	match chasyMat:
+		0: exstraCost += 1000
+		1: exstraCost += 1500
+		2: exstraCost += 2000
+		3: exstraCost += 2500
+		
+	match interiorType:
+		0: basecost += 100
+		1: basecost += 150
+		2: basecost += 200
+		3: basecost += 100
+		
+	match driveterrain:
+		"FWD": exstraCost += 100
+		"RWD": exstraCost += 160
+		"AWD": exstraCost += 250
+		
+	match brakestype:
+		0: exstraCost += 100
+		1: exstraCost += 150
+		2: exstraCost += 200
+		
+	match front_susp_type:
+		0: exstraCost += 100
+		1: exstraCost += 150
+		2: exstraCost += 200
+		
+	match rear_susp_type:
+		0: exstraCost += 100
+		1: exstraCost += 150
+		2: exstraCost += 200
+		
+	totalCost = basecost + engineCost + exstraCost
+	costlbl.text = "Cost: " + str(totalCost)
+		
+
+func calc_weight():
+	baseweight = 0
+	
+	match choosenBody:
+		0: baseweight = 0
+		1: baseweight = 100
+		2: baseweight = 200
+		
+	match bodyMat:
+		0: baseweight += 300
+		1: baseweight += 200
+		2: baseweight += 0
+		3: baseweight += 50
+		
+	match chasyMat:
+		0: baseweight += 300
+		1: baseweight += 200
+		2: baseweight += 0
+		3: baseweight += 50
+		
+	match driveterrain:
+		"FWD": baseweight += 100
+		"RWD": baseweight += 160
+		"AWD": baseweight += 250
+		
+	match interiorType:
+		0: baseweight += 150
+		1: baseweight += 100
+		2: baseweight += 20 
+		3: baseweight -= 10
+		
+	
+	totalWeight = baseweight + engineWeight
+	
+	weightlbl.text = "Wheight: " + str(totalWeight)
+
 func update_Ui():
 	errorlbl.text = ""
 	#update engine placement label
@@ -91,7 +198,7 @@ func update_Ui():
 func display_all_confirmation_page():
 	#car body settings
 	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label.text = "Car body settings:"
-	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label3.text = "Car body choosen: "
+	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label3.text = "Car body choosen: " + str(choosenBody)
 	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label4.text = "Body Material: " + sbodyMat
 	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label5.text = "Chasy Material: " + schasyMat
 	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label6.text = "Interior: " + sinterior
@@ -225,7 +332,7 @@ func get_settings():
 			front_sus_min_ride_stifnes = 45 #nm
 			
 	#rear suspension
-	rear_susp_type = $TabContainer/Suspension/front_Suspensionpnl/OptionButton.selected
+	rear_susp_type = $TabContainer/Suspension/rear_Suspensionpnl/OptionButton.selected
 	match rear_susp_type:
 		0:
 			rear_sus_max_ride_height = 120 #mm
@@ -389,6 +496,9 @@ func _on_option_button_item_selected(index: int) -> void:
 	var file_name = engine.get_item_text(selected)
 	load_engine_from_file(file_name)
 	update_all()
+	$TabContainer/Engine/Enginepnl.visible = false
+	$TabContainer/Engine/selectEnginebtn.visible = true
+	
 
 
 func _on_h_slider_value_changed(value: float) -> void:
@@ -416,24 +526,28 @@ func _on_rear_h_slider_2_value_changed(value: float) -> void:
 func _on_specs_option_button_item_selected(index: int) -> void:
 	update_all()
 
-
+func un_toggle_body_types():
+	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false
+	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
 
 func _on_body_1_toggled(toggled_on: bool) -> void:
+	choosenBody = 1
+	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
+	update_all()
 	
-	if toggled_on:
-		choosenBody = 1
-		update_all()
-	else:
-		choosenBody = 2
-		update_all()
-	print(str(choosenBody))
 
 
 func _on_body_2_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		choosenBody = 2
-		update_all()
-	else:
-		choosenBody = 1
-		update_all()
-	print(str(choosenBody))
+	choosenBody = 2
+	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false
+	update_all()
+
+
+func _on_build_enginebtn_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/engine_builder.tscn")
+
+
+func _on_select_enginebtn_pressed() -> void:
+	$TabContainer/Engine/Enginepnl.visible = true
+	$TabContainer/Engine/selectEnginebtn.visible = false
+	$TabContainer/Engine/Enginepnl/OptionButton.select(-1)
