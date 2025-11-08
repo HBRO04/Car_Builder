@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://wd54wnab53ck"]
+[gd_scene load_steps=8 format=3 uid="uid://wd54wnab53ck"]
 
 [ext_resource type="Script" uid="uid://b1o656v7k4ycp" path="res://scripts/car_builder.gd" id="1_hyjnl"]
 [ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="1_txq15"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="3_iiyue"]
+[ext_resource type="Texture2D" uid="uid://u7y1vgc3e15w" path="res://carBodies/Gemini_Generated_Image_shdgyfshdgyfshdg(even_smaller).png" id="4_xjnao"]
+[ext_resource type="Texture2D" uid="uid://mb3o1s4xw3op" path="res://carBodies/(pressed)Gemini_Generated_Image_shdgyfshdgyfshdg(even_smaller).png" id="5_mbslo"]
+[ext_resource type="Texture2D" uid="uid://b06hhoeroilmo" path="res://carBodies/(hover)Gemini_Generated_Image_shdgyfshdgyfshdg(even_smaller).png" id="6_6qgnm"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_fjaen"]
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
@@ -33,25 +36,160 @@ offset_right = 1567.0
 offset_bottom = 827.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 20
-current_tab = 4
+current_tab = 0
 
 [node name="Car body" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Car body"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="carBodypnl" type="Panel" parent="TabContainer/Car body"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 115.0
+offset_right = 1243.0
+offset_bottom = 288.0
 
-[node name="GridContainer" type="GridContainer" parent="TabContainer/Car body/ScrollContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Car body/carBodypnl"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 39.0
+offset_right = 1172.0
+offset_bottom = 158.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Car body/carBodypnl/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="body1" type="TextureButton" parent="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("4_xjnao")
+texture_pressed = ExtResource("5_mbslo")
+texture_hover = ExtResource("6_6qgnm")
+stretch_mode = 3
+
+[node name="body2" type="TextureButton" parent="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("4_xjnao")
+texture_pressed = ExtResource("5_mbslo")
+texture_hover = ExtResource("6_6qgnm")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="TabContainer/Car body/carBodypnl"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 10.0
+offset_right = 176.0
+offset_bottom = 33.0
+text = "Choose Car body:"
+label_settings = ExtResource("3_iiyue")
+
+[node name="bodyMatpnl" type="Panel" parent="TabContainer/Car body"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 335.0
+offset_right = 338.0
+offset_bottom = 523.0
+
+[node name="Label" type="Label" parent="TabContainer/Car body/bodyMatpnl"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 23.0
+offset_right = 118.0
+offset_bottom = 56.0
+text = "Body Material:"
+label_settings = ExtResource("3_iiyue")
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Car body/bodyMatpnl"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 78.0
+offset_right = 166.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+selected = 0
+item_count = 4
+popup/item_0/text = "Steel"
+popup/item_0/id = 0
+popup/item_1/text = "Aluminum"
+popup/item_1/id = 1
+popup/item_2/text = "Fiber glass"
+popup/item_2/id = 2
+popup/item_3/text = "Carbonfiber"
+popup/item_3/id = 3
+
+[node name="chasyMatpnl" type="Panel" parent="TabContainer/Car body"]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 335.0
+offset_right = 732.0
+offset_bottom = 523.0
+
+[node name="Label" type="Label" parent="TabContainer/Car body/chasyMatpnl"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 23.0
+offset_right = 118.0
+offset_bottom = 56.0
+text = "Chasy Material:"
+label_settings = ExtResource("3_iiyue")
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Car body/chasyMatpnl"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 78.0
+offset_right = 166.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+selected = 0
+item_count = 4
+popup/item_0/text = "Steel"
+popup/item_0/id = 0
+popup/item_1/text = "Aluminum"
+popup/item_1/id = 1
+popup/item_2/text = "Fiber glass"
+popup/item_2/id = 2
+popup/item_3/text = "Carbonfiber"
+popup/item_3/id = 3
+
+[node name="interiorTypepnl" type="Panel" parent="TabContainer/Car body"]
+layout_mode = 0
+offset_left = 834.0
+offset_top = 335.0
+offset_right = 1108.0
+offset_bottom = 523.0
+
+[node name="Label" type="Label" parent="TabContainer/Car body/interiorTypepnl"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 23.0
+offset_right = 118.0
+offset_bottom = 56.0
+text = "Interior:"
+label_settings = ExtResource("3_iiyue")
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Car body/interiorTypepnl"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 78.0
+offset_right = 166.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+selected = 0
+item_count = 4
+popup/item_0/text = "Normal"
+popup/item_0/id = 0
+popup/item_1/text = "Sport"
+popup/item_1/id = 1
+popup/item_2/text = "Race"
+popup/item_2/id = 2
+popup/item_3/text = "Stripped Interior"
+popup/item_3/id = 3
 
 [node name="Engine" type="TabBar" parent="TabContainer"]
 visible = false
@@ -224,6 +362,15 @@ offset_top = 8.0
 offset_right = 280.0
 offset_bottom = 31.0
 text = "Choose where to place engine:"
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label4" type="Label" parent="TabContainer/Drive Terrain/engineLocationpnl"]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 158.0
+offset_right = 333.0
+offset_bottom = 191.0
+text = "engine placed"
 label_settings = ExtResource("3_iiyue")
 
 [node name="Driveterrainpnl" type="Panel" parent="TabContainer/Drive Terrain"]
@@ -480,81 +627,262 @@ offset_right = 244.0
 offset_bottom = 321.0
 
 [node name="Confirmation" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="Panel" type="Panel" parent="TabContainer/Confirmation"]
+[node name="carsettingspnl" type="Panel" parent="TabContainer/Confirmation"]
 layout_mode = 0
-offset_left = 78.0
+offset_left = 859.0
 offset_top = 154.0
-offset_right = 416.0
+offset_right = 1197.0
 offset_bottom = 600.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/carsettingspnl"]
 layout_mode = 0
 offset_left = 18.0
 offset_top = 16.0
 offset_right = 325.0
 offset_bottom = 430.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Confirmation/Panel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label2" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label3" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label4" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label4" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label5" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label5" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label6" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label6" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label7" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label7" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label8" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label8" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label9" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label9" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label10" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label10" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label11" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label11" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label12" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label12" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
-[node name="Label13" type="Label" parent="TabContainer/Confirmation/Panel/ScrollContainer/VBoxContainer"]
+[node name="Label13" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 label_settings = ExtResource("3_iiyue")
 
+[node name="Label14" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label15" type="Label" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="enginepnl" type="Panel" parent="TabContainer/Confirmation"]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 154.0
+offset_right = 798.0
+offset_bottom = 600.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/enginepnl"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 16.0
+offset_right = 325.0
+offset_bottom = 430.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Confirmation/enginepnl/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label2" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label3" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label4" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label5" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label6" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label7" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label8" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label9" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label10" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label11" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label12" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label13" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label14" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label15" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label16" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label17" type="Label" parent="TabContainer/Confirmation/enginepnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="carbodypnl" type="Panel" parent="TabContainer/Confirmation"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 154.0
+offset_right = 391.0
+offset_bottom = 600.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/carbodypnl"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 16.0
+offset_right = 325.0
+offset_bottom = 430.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label2" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label3" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label4" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label5" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label6" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label7" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label8" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label9" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label10" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label11" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label12" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label13" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label14" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[node name="Label15" type="Label" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("3_iiyue")
+
+[connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1" to="." method="_on_body_1_toggled"]
+[connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2" to="." method="_on_body_2_toggled"]
+[connection signal="item_selected" from="TabContainer/Car body/bodyMatpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Car body/chasyMatpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Car body/interiorTypepnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Engine/Enginepnl/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="value_changed" from="TabContainer/Drive Terrain/engineLocationpnl/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="item_selected" from="TabContainer/Drive Terrain/Driveterrainpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Drive Terrain/Brakespnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Suspension/front_Suspensionpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
