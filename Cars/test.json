@@ -9,11 +9,19 @@
 	"engine Name": "Base_BS_engine",
 	"engine placement int": 100,
 	"engine placement string": "Front Engined",
-	"front ride height": 100.0,
+	"final_drive": 4.5,
+	"front ride height": 80.0,
 	"front ride stiffness": 15.0,
 	"front suspension Type": 0,
+	"gear_ratios": [
+		4.49,
+		2.44370620165355,
+		1.33
+	],
 	"interior Type": 0,
+	"num_gears": 3,
 	"rear ride height": 80.0,
 	"rear ride stiffness": 15.0,
-	"rear suspension Type": 0
+	"rear suspension Type": 0,
+	"wheel raduis": 13
 }

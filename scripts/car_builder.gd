@@ -42,6 +42,15 @@ var driveterrain: String #fwd, rwd or awd
 var brakestype: int #normal, sport, race 
 var wheelraduis: int #13 to 22
 
+#Gears
+@onready var spin_gears: SpinBox = $TabContainer/Gearbox/gearspnl/SpinBox
+@onready var gear_sliders_container: VBoxContainer = $TabContainer/Gearbox/gearratiospnl/ScrollContainer/VBoxContainer
+var gear_ratios: Array = []
+var numGears: int
+var base_first_gear: float = 3.5
+var base_top_gear: float = 0.9
+var final_drive: float = 3.5
+
 #front suspention variables
 var front_susp_type: int #normal, sport, race
 var front_sus_ride_height: float
@@ -83,8 +92,84 @@ func _ready() -> void:
 	$TabContainer/Engine/Enginepnl/OptionButton.select(-1)
 	$loadCarpnl/Button2.visible = false
 	$loadCarpnl/OptionButton.visible = false
+	spin_gears.value_changed.connect(_on_spin_gears_changed)
+	_generate_gear_ratios(int(spin_gears.value))
+	_refresh_sliders()
+	$TabContainer/Gearbox/gearspnl/HSlider.value_changed.connect(_on_final_drive_changed)
+	$TabContainer/Gearbox/gearspnl/HSlider.value = final_drive
+	$TabContainer/Gearbox/gearspnl/Label3.text = "Final Drive: %.2f" % final_drive
 	
+#gears
+func _on_spin_gears_changed(value: float) -> void:
+	numGears = value
+	_generate_gear_ratios(int(value))
+	_refresh_sliders()
 
+func _generate_gear_ratios(gear_count: int) -> void:
+	gear_ratios.clear()
+	if gear_count <= 1:
+		gear_ratios.append(base_first_gear)
+		return
+
+	var gap := pow(base_top_gear / base_first_gear, 1.0 / float(gear_count - 1))
+	for i in range(gear_count):
+		gear_ratios.append(base_first_gear * pow(gap, i))
+
+func _refresh_sliders() -> void:
+	# Remove old sliders
+	for child in gear_sliders_container.get_children():
+		child.queue_free()
+
+	# Rebuild sliders with value labels
+	for i in range(gear_ratios.size()):
+		var outer = VBoxContainer.new()
+
+		var title = Label.new()
+		title.text = "Gear %d:" % (i + 1)
+		outer.add_child(title)
+
+		var slider = HSlider.new()
+		slider.min_value = 0.5
+		slider.max_value = 5.0
+		slider.step = 0.01
+		slider.value = gear_ratios[i]
+		slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		outer.add_child(slider)
+
+		var value_label = Label.new()
+		value_label.text = "Ratio: %.2f" % gear_ratios[i]
+		outer.add_child(value_label)
+
+		var index := i
+		slider.value_changed.connect(func(v):
+			_on_gear_slider_changed(index, v)
+			value_label.text = "Ratio: %.2f" % v
+		)
+
+		gear_sliders_container.add_child(outer)
+
+
+func _on_gear_slider_changed(index: int, new_value: float) -> void:
+	# keep first gear locked, recalc spacing from changed gear
+	if index == 0:
+		base_first_gear = new_value
+		_generate_gear_ratios(gear_ratios.size())
+		_refresh_sliders()
+		return
+
+	var r1 := base_first_gear
+	var gap := pow(new_value / r1, 1.0 / float(index))
+	for i in range(gear_ratios.size()):
+		gear_ratios[i] = r1 * pow(gap, i)
+
+	_refresh_sliders()
+	
+func _on_final_drive_changed(value: float) -> void:
+	final_drive = value
+	$TabContainer/Gearbox/gearspnl/Label3.text = "Final Drive: %.2f" % value
+	update_all() # optional if you want UI/cost/weight recalculated
+	
+	
 func update_all():
 	get_settings()
 	populate_engine_list($TabContainer/Engine/Enginepnl/OptionButton)
@@ -603,7 +688,10 @@ func _on_build_car_button_pressed() -> void:
 		"car weight": totalWeight,
 		"engine placement int": engine_placement,
 		"engine placement string": splacement,
-		"wheel raduis": wheelraduis
+		"wheel raduis": wheelraduis,
+		"num_gears": numGears,
+		"gear_ratios": gear_ratios,
+		"final_drive": final_drive
 	}
 	
 	$TabContainer/Confirmation/LineEdit.text = ""
@@ -721,6 +809,11 @@ func load_car_from_file(file_name: String) -> void:
 	engine_placement = data.get("engine placement int", 0)
 	splacement = data.get("engine placement string", 0)
 	wheelraduis = data.get("wheel raduis", 0)
+	numGears = data.get("num_gears", 0)
+	gear_ratios = data.get("gear_ratios", [])
+	final_drive = data.get("final_drive", 0)
+
+	_refresh_sliders() # rebuild UI after loading
 	
 	display_car_specs()
 	
@@ -757,6 +850,10 @@ func display_car_specs():
 		
 	$"TabContainer/Drive Terrain/Brakespnl/OptionButton".select(brakestype)
 	
+	#gears
+	$TabContainer/Gearbox/gearspnl/SpinBox.value = numGears
+	$TabContainer/Gearbox/gearspnl/HSlider.value = final_drive
+	
 	#front suspension
 	$TabContainer/Suspension/front_Suspensionpnl/OptionButton.select(front_susp_type)
 	$TabContainer/Suspension/front_Suspensionpnl/HSlider.value = front_sus_ride_height
@@ -775,6 +872,3 @@ func display_car_specs():
 			_on_option_button_item_selected(i)
 			
 			
-	
-	
-	
