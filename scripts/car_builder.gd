@@ -101,6 +101,7 @@ func _ready() -> void:
 	
 #gears
 func _on_spin_gears_changed(value: float) -> void:
+	@warning_ignore("narrowing_conversion")
 	numGears = value
 	_generate_gear_ratios(int(value))
 	_refresh_sliders()
@@ -264,6 +265,7 @@ func calc_weight():
 		3: baseweight -= 10
 		
 	
+	@warning_ignore("narrowing_conversion")
 	totalWeight = baseweight + engineWeight
 	
 	weightlbl.text = "Wheight: " + str(totalWeight)
@@ -593,6 +595,7 @@ func display_enginespecs():
 			
 	
 	
+@warning_ignore("unused_parameter")
 func _on_option_button_item_selected(index: int) -> void:
 	#Here it will load the specs of the engine
 	var engine = $TabContainer/Engine/Enginepnl/OptionButton
@@ -630,6 +633,7 @@ func _on_rear_h_slider_2_value_changed(value: float) -> void:
 	update_all()
 
 
+@warning_ignore("unused_parameter")
 func _on_specs_option_button_item_selected(index: int) -> void:
 	update_all()
 
@@ -637,6 +641,7 @@ func un_toggle_body_types():
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
 
+@warning_ignore("unused_parameter")
 func _on_body_1_toggled(toggled_on: bool) -> void:
 	choosenBody = 1
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
@@ -644,6 +649,7 @@ func _on_body_1_toggled(toggled_on: bool) -> void:
 	
 
 
+@warning_ignore("unused_parameter")
 func _on_body_2_toggled(toggled_on: bool) -> void:
 	choosenBody = 2
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false

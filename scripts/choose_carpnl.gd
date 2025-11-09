@@ -4,7 +4,7 @@ extends Panel
 
 signal loaddyno
 
-#only nessecary engine specs
+# --- Engine Specs ---
 var enginename: String
 var engineSize: float
 var power: float
@@ -22,24 +22,20 @@ var camtype: int
 var numvalves: int
 var fuelType: int
 
-#body
+# --- Body Specs ---
 var choosenBody: int
-var bodyMat: int #steel, aluminum, fiber glass and carbon fiber
-var sbodyMat: String #mat in string for labels
-var chasyMat: int#steel, aluminum, fiber glass and carbon fiber
-var schasyMat: String #mat in string for labels
-var interiorType: int#normal, sport, race and stripped interior
-var sinterior: String #interior for labels
+var bodyMat: int
+var chasyMat: int
+var interiorType: int
 
-#drive terrain specs
-var engine_placement: int #0 is rear and 100 is front
+# --- Drive / Suspension Specs ---
+var engine_placement: int
 var splacement: String = ""
-var driveterrain: String #fwd, rwd or awd
-var brakestype: int #normal, sport, race 
-var wheelraduis: int #13 to 22
+var driveterrain: String
+var brakestype: int
+var wheelraduis: int
 
-#front suspention variables
-var front_susp_type: int #normal, sport, race
+var front_susp_type: int
 var front_sus_ride_height: float
 var front_sus_max_ride_height: float
 var front_sus_min_ride_height: float
@@ -47,8 +43,7 @@ var front_sus_ride_stifnes: float
 var front_sus_max_ride_stifnes: float
 var front_sus_min_ride_stifnes: float
 
-#rear suspention variables
-var rear_susp_type: int #normal, sport, race
+var rear_susp_type: int
 var rear_sus_ride_height: float
 var rear_sus_max_ride_height: float
 var rear_sus_min_ride_height: float
@@ -56,21 +51,28 @@ var rear_sus_ride_stifnes: float
 var rear_sus_max_ride_stifnes: float
 var rear_sus_min_ride_stifnes: float
 
-#cost
+# --- Gears ---
+var gear_ratios: Array = []
+var numGears: int
+var base_first_gear: float = 3.5
+var base_top_gear: float = 0.9
+var final_drive: float = 3.5
+
+# --- Cost & Weight ---
 var basecost: int = 0
 var totalCost: int = 0
-
-#wheight
 var baseweight: int = 0
 var totalWeight: int = 0
 
-#names
+# --- Names ---
 var carName: String = ""
 
 
 func _ready() -> void:
 	populate_car_list($OptionButton)
 
+
+# --- Populate car list from "res://Cars/" ---
 func populate_car_list(option_button: OptionButton) -> void:
 	option_button.clear() 
 	
@@ -80,55 +82,52 @@ func populate_car_list(option_button: OptionButton) -> void:
 		var file_name = dir.get_next()
 		while file_name != "":
 			if !dir.current_is_dir() and file_name.ends_with(".json"):
-				# remove the extension for display
-				var display_name = file_name.get_basename()
-				option_button.add_item(display_name)
+				option_button.add_item(file_name.get_basename())
 			file_name = dir.get_next()
 		dir.list_dir_end()
 	else:
 		lblError.text = "Error: Could not open car folder."
-		
 
 
+# --- Load car when button pressed ---
 func _on_button_pressed() -> void:
-	#Here it will load the specs of the car
 	var car = $OptionButton
 	var selected = car.get_selected_id()
 	if selected == -1:
-		lblError.text = "Please select an car first!"
+		lblError.text = "Please select a car first!"
 		return
-		
-	#don't remove for loop it works but can't work without it
-	for i in range(5):
-		var file_name = car.get_item_text(selected)
-		load_car_from_file(file_name)
-		carName = file_name
-		
-	save_currentcar()
+	
+	var file_name = car.get_item_text(selected)
+	load_car_from_file(file_name)
+	carName = file_name
+	
+	save_current_car()
+	
 	$"../main_menu/AnimationPlayer".play("start_up")
 	$AnimationPlayer.play("slide_out")
 	hide_body_sprites()
+	
 	if choosenBody == 1:
 		$"../bg/bodyType1".visible = true
 	elif choosenBody == 2:
 		$"../bg/bodyType2".visible = true
 		
 	emit_signal("loaddyno")
-		
+
+
 func hide_body_sprites():
 	$"../bg/bodyType1".visible = false
 	$"../bg/bodyType2".visible = false
-		
-func load_car_from_file(file_name: String) -> void:
-	
-	var path := "res://Cars/" + file_name + ".json"
 
-	# --- Check if file exists ---
+
+# --- Load car from file ---
+func load_car_from_file(file_name: String) -> void:
+	var path := "res://Cars/%s.json" % file_name
+
 	if not FileAccess.file_exists(path):
 		lblError.text = "Error: Car file not found at " + path
 		return
 
-	# --- Open file ---
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		lblError.text = "Error: Could not open car file."
@@ -137,11 +136,10 @@ func load_car_from_file(file_name: String) -> void:
 	var text := file.get_as_text()
 	file.close()
 
-	# --- Parse JSON ---
 	var json := JSON.new()
 	var err := json.parse(text)
 	if err != OK:
-		lblError.text = "Error parsing JSON file: " + str(err)
+		lblError.text = "Error parsing JSON: " + str(err)
 		return
 
 	var data: Dictionary = json.data as Dictionary
@@ -149,16 +147,16 @@ func load_car_from_file(file_name: String) -> void:
 		lblError.text = "Error: Loaded data is empty!"
 		return
 
-	#getting variables for car specs
-	choosenBody = data.get("body type", 0.0)
+	# --- Assign variables ---
+	choosenBody = data.get("body type", 0)
 	bodyMat = data.get("body Material", 0)
 	chasyMat = data.get("chasy Material", 0)
-	brakestype = data.get("brakes Type", 0.0)
-	totalWeight = data.get("car weight", 0.0)
-	totalCost = data.get("cost", 0.0)
-	driveterrain = data.get("driveterrain", 0.0)
-	enginename = data.get("engine Name", 0.0)
-	front_sus_ride_height = data.get("front ride height", 0.0)
+	brakestype = data.get("brakes Type", 0)
+	totalWeight = data.get("car weight", 0)
+	totalCost = data.get("cost", 0)
+	driveterrain = data.get("driveterrain", "")
+	enginename = data.get("engine Name", "")
+	front_sus_ride_height = data.get("front ride height", 0)
 	front_sus_ride_stifnes = data.get("front ride stiffness", 0)
 	front_susp_type = data.get("front suspension Type", 0)
 	interiorType = data.get("interior Type", 0)
@@ -166,22 +164,24 @@ func load_car_from_file(file_name: String) -> void:
 	rear_sus_ride_stifnes = data.get("rear ride stiffness", 0)
 	rear_susp_type = data.get("rear suspension Type", 0)
 	engine_placement = data.get("engine placement int", 0)
-	splacement = data.get("engine placement string", 0)
+	splacement = data.get("engine placement string", "")
 	wheelraduis = data.get("wheel raduis", 0)
-	
-	
-	
-	
-func save_currentcar():
-	var file_name: String = "current_car"
-	
-	if file_name == "":
-		lblError.text = "Error: Please enter a file name."
+	numGears = data.get("num_gears", 0)
+	gear_ratios = data.get("gear_ratios", [])
+	final_drive = data.get("final_drive", 0)
+
+
+# --- Save current car safely ---
+func save_current_car() -> void:
+	var dir_path = "res://current_car"
+
+	if not ensure_folder_exists(dir_path):
+		lblError.text = "Error: Could not create folder."
 		return
 
-	var file_path: String = "res://current_car/%s.json" % file_name
+	var file_path: String = "%s/%s.json" % [dir_path, "current_car"]
 
-	var engine_data: Dictionary = {
+	var car_data: Dictionary = {
 		"body type": choosenBody,
 		"body Material": bodyMat,
 		"chasy Material": chasyMat,
@@ -199,15 +199,31 @@ func save_currentcar():
 		"car weight": totalWeight,
 		"engine placement int": engine_placement,
 		"engine placement string": splacement,
-		"wheel raduis": wheelraduis
+		"wheel raduis": wheelraduis,
+		"num_gears": numGears,
+		"gear_ratios": gear_ratios,
+		"final_drive": final_drive
 	}
-	
-	
-	var file = FileAccess.open(file_path, FileAccess.WRITE_READ)
+
+	var file := FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
-		var json_text: String = JSON.stringify(engine_data, "\t")  # pretty print
-		file.store_string(json_text)
+		file.store_string(JSON.stringify(car_data, "\t"))
 		file.close()
-		lblError.text = "Car loaded successfully!"
+		lblError.text = "Car saved successfully!"
 	else:
-		lblError.text = "Error: Could not open file for writing."
+		lblError.text = "Error: Could not save current car."
+		
+func ensure_folder_exists(path: String) -> bool:
+	var dir := DirAccess.open(path)
+	if dir == null:
+		# Folder doesn't exist → create it using parent
+		var parent_path = path.get_base_dir()
+		var parent_dir := DirAccess.open(parent_path)
+		if parent_dir == null:
+			print("Error: Parent directory does not exist.")
+			return false
+		var err = parent_dir.make_dir(path.get_file())
+		if err != OK:
+			print("Error creating folder: ", err)
+			return false
+	return true
