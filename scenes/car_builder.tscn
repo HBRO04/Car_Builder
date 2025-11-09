@@ -945,6 +945,49 @@ offset_right = 185.0
 offset_bottom = 29.0
 label_settings = ExtResource("3_iiyue")
 
+[node name="loadCarpnl" type="Panel" parent="."]
+clip_contents = true
+offset_left = 43.0
+offset_top = 150.0
+offset_right = 237.0
+offset_bottom = 223.0
+
+[node name="Button" type="Button" parent="loadCarpnl"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 21.0
+offset_right = 183.0
+offset_bottom = 51.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+text = " Load existing car "
+
+[node name="Button2" type="Button" parent="loadCarpnl"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 116.0
+offset_right = 183.0
+offset_bottom = 146.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+text = " Load existing car "
+
+[node name="OptionButton" type="OptionButton" parent="loadCarpnl"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 74.0
+offset_right = 167.0
+offset_bottom = 98.0
+
+[node name="Label" type="Label" parent="loadCarpnl"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 159.0
+offset_right = 176.0
+offset_bottom = 224.0
+label_settings = ExtResource("3_iiyue")
+autowrap_mode = 2
+
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1" to="." method="_on_body_1_toggled"]
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2" to="." method="_on_body_2_toggled"]
 [connection signal="item_selected" from="TabContainer/Car body/bodyMatpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
@@ -962,3 +1005,6 @@ label_settings = ExtResource("3_iiyue")
 [connection signal="item_selected" from="TabContainer/Suspension/rear_Suspensionpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="value_changed" from="TabContainer/Suspension/rear_Suspensionpnl/HSlider" to="." method="_on_rear_h_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Suspension/rear_Suspensionpnl/HSlider2" to="." method="_on_rear_h_slider_2_value_changed"]
+[connection signal="pressed" from="TabContainer/Confirmation/Button" to="." method="_on_build_car_button_pressed"]
+[connection signal="pressed" from="loadCarpnl/Button" to="." method="_on_load_car_button_pressed"]
+[connection signal="pressed" from="loadCarpnl/Button2" to="." method="_on_final_load_car_button_pressed"]

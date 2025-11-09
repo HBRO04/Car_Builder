@@ -58,6 +58,9 @@ var exhaustType: int = 0 # only single or twin
 var exhaustManifoldType: int = 0 #normal, sports, performance or race
 var muffler: int = 0 #small, big, freeflow or straight pipe
 
+#extra stuff
+var engineName: String = ""
+
 func _ready() -> void:
 	hide_components_sprites()
 	hide_engine_sprites()
@@ -1335,6 +1338,9 @@ func _on_Load_button_pressed() -> void:
 	$loadEnginpnl/Button.visible = false
 	$loadEnginpnl/OptionButton.visible = false
 	$loadEnginpnl/loadEnginebtn.visible = true
+	engineName = $loadEnginpnl/OptionButton.get_item_text(selected)
+	$TabContainer/Confirmation/LineEdit.text = engineName
+	
 	
 	
 	
@@ -1533,4 +1539,5 @@ func _on_load_enginebtn_pressed() -> void:
 	$loadEnginpnl/OptionButton.visible = true
 	$loadEnginpnl/Button.visible = true
 	$loadEnginpnl/loadEnginebtn.visible = false
+	$loadEnginpnl/OptionButton.select(-1)
 	

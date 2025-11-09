@@ -3,6 +3,7 @@ extends Node2D
 @onready var errorlbl: Label = $lblError
 @onready var costlbl: Label = $costpnl/Costlbl
 @onready var weightlbl: Label = $weightpnl/weightlbl
+@onready var carLoaderrorlbl: Label = $loadCarpnl/Label
 @onready var enginescene = preload("res://scenes/engine_builder.tscn")
 
 #only nessecary engine specs
@@ -64,6 +65,9 @@ var totalCost: int = 0
 var baseweight: int = 0
 var totalWeight: int = 0
 
+#names
+var carName: String = ""
+
 
 func _ready() -> void:
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = true
@@ -74,10 +78,11 @@ func _ready() -> void:
 	$"TabContainer/Car body".visible = true
 	$TabContainer/Engine/Enginepnl/OptionButton.select(-1)
 	
-	
+
 func update_all():
 	get_settings()
 	populate_engine_list($TabContainer/Engine/Enginepnl/OptionButton)
+	populate_car_list($loadCarpnl/OptionButton)
 	display_all_confirmation_page()
 	update_Ui()
 	calc_cost()
@@ -504,7 +509,6 @@ func _on_option_button_item_selected(index: int) -> void:
 func _on_h_slider_value_changed(value: float) -> void:
 	front_sus_ride_height = value
 	update_all()
-	print(engine_placement)
 	
 
 
@@ -551,3 +555,185 @@ func _on_select_enginebtn_pressed() -> void:
 	$TabContainer/Engine/Enginepnl.visible = true
 	$TabContainer/Engine/selectEnginebtn.visible = false
 	$TabContainer/Engine/Enginepnl/OptionButton.select(-1)
+
+
+func _on_build_car_button_pressed() -> void:
+	var file_name: String = $TabContainer/Confirmation/LineEdit.text.strip_edges()
+	
+	if file_name == "":
+		errorlbl.text = "Error: Please enter a file name."
+		return
+
+	var file_path: String = "res://Cars/%s.json" % file_name
+
+	var engine_data: Dictionary = {
+		"body type": choosenBody,
+		"body Material": bodyMat,
+		"chasy Material": chasyMat,
+		"interior Type": interiorType,
+		"engine Name": enginename,
+		"driveterrain": driveterrain,
+		"brakes Type": brakestype,
+		"front suspension Type": front_susp_type,
+		"front ride height": front_sus_ride_height,
+		"front ride stiffness": front_sus_ride_stifnes,
+		"rear suspension Type": rear_susp_type,
+		"rear ride height": rear_sus_ride_height,
+		"rear ride stiffness": rear_sus_ride_stifnes,
+		"cost": totalCost,
+		"car weight": totalWeight,
+		"engine placement int": engine_placement,
+		"engine placement string": splacement
+	}
+	
+	$TabContainer/Confirmation/LineEdit.text = ""
+	update_all()
+	
+	var file = FileAccess.open(file_path, FileAccess.WRITE_READ)
+	if file:
+		var json_text: String = JSON.stringify(engine_data, "\t")  # pretty print
+		file.store_string(json_text)
+		file.close()
+		errorlbl.text = "Car saved successfully!"
+	else:
+		errorlbl.text = "Error: Could not open file for writing."
+		
+	
+
+
+func _on_load_car_button_pressed() -> void:
+	$loadCarpnl.size.y = 220
+	$loadCarpnl/Button.visible = false
+	update_all()
+	$loadCarpnl/OptionButton.select(-1)
+
+func populate_car_list(option_button: OptionButton) -> void:
+	option_button.clear() 
+	
+	var dir = DirAccess.open("res://Cars/")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir() and file_name.ends_with(".json"):
+				# remove the extension for display
+				var display_name = file_name.get_basename()
+				option_button.add_item(display_name)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	else:
+		carLoaderrorlbl.text = "Error: Could not open engines folder."
+		
+func _on_final_load_car_button_pressed() -> void:
+	#Here it will load the specs of the car
+	var car = $loadCarpnl/OptionButton
+	var selected = car.get_selected_id()
+	if selected == -1:
+		errorlbl.text = "Please select an car first!"
+		return
+		
+	#don't remove for loop it works but can't work without it
+	for i in range(5):
+		var file_name = car.get_item_text(selected)
+		load_car_from_file(file_name)
+		carName = file_name#get the car name 
+		$TabContainer/Confirmation/LineEdit.text = carName
+		
+	update_all()
+	$loadCarpnl.size.y = 73.0
+	$loadCarpnl/Button.visible = true
+	
+func load_car_from_file(file_name: String) -> void:
+	
+	var path := "res://Cars/" + file_name + ".json"
+
+	# --- Check if file exists ---
+	if not FileAccess.file_exists(path):
+		errorlbl.text = "Error: Car file not found at " + path
+		return
+
+	# --- Open file ---
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		errorlbl.text = "Error: Could not open car file."
+		return
+
+	var text := file.get_as_text()
+	file.close()
+
+	# --- Parse JSON ---
+	var json := JSON.new()
+	var err := json.parse(text)
+	if err != OK:
+		errorlbl.text = "Error parsing JSON file: " + str(err)
+		return
+
+	var data: Dictionary = json.data as Dictionary
+	if data.is_empty():
+		errorlbl.text = "Error: Loaded data is empty!"
+		return
+
+	#getting variables for car specs
+	choosenBody = data.get("body type", 0.0)
+	bodyMat = data.get("body Material", 0)
+	chasyMat = data.get("chasy Material", 0)
+	brakestype = data.get("brakes Type", 0.0)
+	totalWeight = data.get("car weight", 0.0)
+	totalCost = data.get("cost", 0.0)
+	driveterrain = data.get("driveterrain", 0.0)
+	enginename = data.get("engine Name", 0.0)
+	front_sus_ride_height = data.get("front ride height", 0.0)
+	front_sus_ride_stifnes = data.get("front ride stiffness", 0)
+	front_susp_type = data.get("front suspension Type", 0)
+	interiorType = data.get("interior Type", 0)
+	rear_sus_ride_height = data.get("rear ride height", 0)
+	rear_sus_ride_stifnes = data.get("rear ride stiffness", 0)
+	rear_susp_type = data.get("rear suspension Type", 0)
+	engine_placement = data.get("engine placement int", 0)
+	splacement = data.get("engine placement string", 0)
+	
+	display_car_specs()
+	
+func display_car_specs():
+	if choosenBody == 1 :
+		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = true
+		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
+	elif choosenBody == 2 :
+		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false
+		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = true
+		
+	$"TabContainer/Car body/bodyMatpnl/OptionButton".select(bodyMat)
+	$"TabContainer/Car body/chasyMatpnl/OptionButton".select(chasyMat)
+	$"TabContainer/Car body/interiorTypepnl/OptionButton".select(interiorType)
+
+	#driveterrain
+	$"TabContainer/Drive Terrain/engineLocationpnl/HSlider".value = engine_placement
+	match driveterrain:
+		"FWD": $"TabContainer/Drive Terrain/Driveterrainpnl/OptionButton".select(0)
+		"RWD": $"TabContainer/Drive Terrain/Driveterrainpnl/OptionButton".select(1)
+		"AWD": $"TabContainer/Drive Terrain/Driveterrainpnl/OptionButton".select(2)
+	
+		
+	$"TabContainer/Drive Terrain/Brakespnl/OptionButton".select(brakestype)
+	
+	#front suspension
+	$TabContainer/Suspension/front_Suspensionpnl/OptionButton.select(front_susp_type)
+	$TabContainer/Suspension/front_Suspensionpnl/HSlider.value = front_sus_ride_height
+	$TabContainer/Suspension/front_Suspensionpnl/HSlider2.value = front_sus_ride_stifnes
+	
+	#rear suspension
+	$TabContainer/Suspension/rear_Suspensionpnl/OptionButton.select(rear_susp_type)
+	$TabContainer/Suspension/rear_Suspensionpnl/HSlider.value = rear_sus_ride_height
+	$TabContainer/Suspension/rear_Suspensionpnl/HSlider2.value = rear_sus_ride_stifnes
+	
+	#engine
+	var opt = $TabContainer/Engine/Enginepnl/OptionButton
+	for i in range(opt.item_count):
+		if opt.get_item_text(i) == enginename:
+			opt.select(i)
+			_on_option_button_item_selected(i)
+			
+			
+	
+	
+	

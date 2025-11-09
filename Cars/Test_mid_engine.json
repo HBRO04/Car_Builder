@@ -1,0 +1,19 @@
+{
+	"body Material": 2,
+	"body type": 1,
+	"brakes Type": 1,
+	"car weight": 786,
+	"chasy Material": 0,
+	"cost": 13180,
+	"driveterrain": "AWD",
+	"engine Name": "i3_Ti_600cc",
+	"engine placement int": 30,
+	"engine placement string": "Mid Engined",
+	"front ride height": 30.0,
+	"front ride stiffness": 15.0,
+	"front suspension Type": 0,
+	"interior Type": 2,
+	"rear ride height": 106.0,
+	"rear ride stiffness": 25.0,
+	"rear suspension Type": 0
+}
