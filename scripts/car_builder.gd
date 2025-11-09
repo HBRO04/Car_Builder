@@ -4,7 +4,9 @@ extends Node2D
 @onready var costlbl: Label = $costpnl/Costlbl
 @onready var weightlbl: Label = $weightpnl/weightlbl
 @onready var carLoaderrorlbl: Label = $loadCarpnl/Label
-@onready var enginescene = preload("res://scenes/engine_builder.tscn")
+@onready var enginescene: PackedScene = preload("res://scenes/engine_builder.tscn")
+@onready var my_timer: Timer = $MyTimer
+
 
 #only nessecary engine specs
 var enginename: String
@@ -38,6 +40,7 @@ var engine_placement: int #0 is rear and 100 is front
 var splacement: String = ""
 var driveterrain: String #fwd, rwd or awd
 var brakestype: int #normal, sport, race 
+var wheelraduis: int #13 to 22
 
 #front suspention variables
 var front_susp_type: int #normal, sport, race
@@ -69,6 +72,7 @@ var totalWeight: int = 0
 var carName: String = ""
 
 
+
 func _ready() -> void:
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = true
 	populate_engine_list($TabContainer/Engine/Enginepnl/OptionButton)
@@ -77,6 +81,8 @@ func _ready() -> void:
 	$TabContainer/Engine/Enginepnl.visible = false
 	$"TabContainer/Car body".visible = true
 	$TabContainer/Engine/Enginepnl/OptionButton.select(-1)
+	$loadCarpnl/Button2.visible = false
+	$loadCarpnl/OptionButton.visible = false
 	
 
 func update_all():
@@ -317,6 +323,18 @@ func get_settings():
 		2: driveterrain = "AWD"
 	brakestype = $"TabContainer/Drive Terrain/Brakespnl/OptionButton".selected
 	
+	match $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".selected:
+		0: wheelraduis = 13
+		1: wheelraduis = 14
+		2: wheelraduis = 15
+		3: wheelraduis = 16
+		4: wheelraduis = 17
+		5: wheelraduis = 18
+		6: wheelraduis = 19
+		7: wheelraduis = 20
+		8: wheelraduis = 21
+		9: wheelraduis = 22
+	
 	#front suspension
 	front_susp_type = $TabContainer/Suspension/front_Suspensionpnl/OptionButton.selected
 	match front_susp_type:
@@ -548,7 +566,8 @@ func _on_body_2_toggled(toggled_on: bool) -> void:
 
 
 func _on_build_enginebtn_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/engine_builder.tscn")
+	preload("res://scenes/engine_builder.tscn")
+	get_tree().change_scene_to_packed(enginescene)
 
 
 func _on_select_enginebtn_pressed() -> void:
@@ -583,7 +602,8 @@ func _on_build_car_button_pressed() -> void:
 		"cost": totalCost,
 		"car weight": totalWeight,
 		"engine placement int": engine_placement,
-		"engine placement string": splacement
+		"engine placement string": splacement,
+		"wheel raduis": wheelraduis
 	}
 	
 	$TabContainer/Confirmation/LineEdit.text = ""
@@ -597,6 +617,11 @@ func _on_build_car_button_pressed() -> void:
 		errorlbl.text = "Car saved successfully!"
 	else:
 		errorlbl.text = "Error: Could not open file for writing."
+	
+	my_timer.start(1.5)
+	await my_timer.timeout
+	preload("res://scenes/parking_lot.tscn")
+	get_tree().change_scene_to_file("res://scenes/parking_lot.tscn")
 		
 	
 
@@ -606,6 +631,8 @@ func _on_load_car_button_pressed() -> void:
 	$loadCarpnl/Button.visible = false
 	update_all()
 	$loadCarpnl/OptionButton.select(-1)
+	$loadCarpnl/Button2.visible = true
+	$loadCarpnl/OptionButton.visible = true
 
 func populate_car_list(option_button: OptionButton) -> void:
 	option_button.clear() 
@@ -642,6 +669,8 @@ func _on_final_load_car_button_pressed() -> void:
 	update_all()
 	$loadCarpnl.size.y = 73.0
 	$loadCarpnl/Button.visible = true
+	$loadCarpnl/Button2.visible = false
+	$loadCarpnl/OptionButton.visible = false
 	
 func load_car_from_file(file_name: String) -> void:
 	
@@ -691,6 +720,7 @@ func load_car_from_file(file_name: String) -> void:
 	rear_susp_type = data.get("rear suspension Type", 0)
 	engine_placement = data.get("engine placement int", 0)
 	splacement = data.get("engine placement string", 0)
+	wheelraduis = data.get("wheel raduis", 0)
 	
 	display_car_specs()
 	
@@ -712,6 +742,17 @@ func display_car_specs():
 		"FWD": $"TabContainer/Drive Terrain/Driveterrainpnl/OptionButton".select(0)
 		"RWD": $"TabContainer/Drive Terrain/Driveterrainpnl/OptionButton".select(1)
 		"AWD": $"TabContainer/Drive Terrain/Driveterrainpnl/OptionButton".select(2)
+	match wheelraduis:
+		13: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(0)
+		14: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(1)
+		15: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(2)
+		16: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(3)
+		17: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(4)
+		18: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(5)
+		19: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(6)
+		20: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(7)
+		21: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(8)
+		22: $"TabContainer/Drive Terrain/wheelRaduispnl/OptionButton".select(9)
 	
 		
 	$"TabContainer/Drive Terrain/Brakespnl/OptionButton".select(brakestype)

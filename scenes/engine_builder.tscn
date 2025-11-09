@@ -20,15 +20,15 @@
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
 
 [node name="Engine Builder" type="Node2D" node_paths=PackedStringArray("lblErrorEngineBlock")]
-position = Vector2(-64, 181)
-scale = Vector2(0.98230493, 0.9693876)
+position = Vector2(-33, 181)
+scale = Vector2(0.9300253, 0.9721307)
 script = ExtResource("1_v3cha")
 lblErrorEngineBlock = NodePath("TabContainer/EngineBlock/lblError")
 
 [node name="background_Color" type="Sprite2D" parent="."]
 modulate = Color(0.23529412, 0.36862746, 0.43137255, 1)
-position = Vector2(1581.2552, 704.87256)
-scale = Vector2(3258.0757, 1803.3818)
+position = Vector2(1581.1604, 708.89764)
+scale = Vector2(3537.8315, 1960.1934)
 texture = SubResource("CanvasTexture_ectv5")
 
 [node name="EngineSpecspnl" type="Panel" parent="."]
@@ -1530,7 +1530,7 @@ max_length = 100
 offset_left = 106.894775
 offset_top = -62.45699
 offset_right = 341.89478
-offset_bottom = 257.543
+offset_bottom = 45.389477
 
 [node name="Button" type="Button" parent="loadEnginpnl"]
 layout_mode = 0

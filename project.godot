@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Car builder sim"
-run/main_scene="uid://wd54wnab53ck"
+run/main_scene="uid://ccosnf52i1l8t"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

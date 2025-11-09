@@ -2,7 +2,7 @@ extends Node2D
 
 @export var lblErrorEngineBlock: Label
 
-@onready var nextscenefile = preload("res://scenes/car_builder.tscn")
+@onready var car_builder_scene: PackedScene = preload("res://scenes/car_builder.tscn")
 
 var engineSize_L: float
 var cylinders: int #3,4,5,6 or 8
@@ -1340,6 +1340,7 @@ func _on_Load_button_pressed() -> void:
 	$loadEnginpnl/loadEnginebtn.visible = true
 	engineName = $loadEnginpnl/OptionButton.get_item_text(selected)
 	$TabContainer/Confirmation/LineEdit.text = engineName
+	$loadEnginpnl.size.y = 107.846
 	
 	
 	
@@ -1532,10 +1533,12 @@ func _on_savebtn_pressed() -> void:
 
 
 func _on_continuebtn_pressed() -> void:
+	preload("res://scenes/car_builder.tscn")
 	get_tree().change_scene_to_file("res://scenes/car_builder.tscn")
 
 
 func _on_load_enginebtn_pressed() -> void:
+	$loadEnginpnl.size.y = 320.0
 	$loadEnginpnl/OptionButton.visible = true
 	$loadEnginpnl/Button.visible = true
 	$loadEnginpnl/loadEnginebtn.visible = false

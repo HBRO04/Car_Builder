@@ -36,7 +36,7 @@ offset_right = 1567.0
 offset_bottom = 827.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 20
-current_tab = 4
+current_tab = 2
 
 [node name="Car body" type="TabBar" parent="TabContainer"]
 visible = false
@@ -332,7 +332,6 @@ theme_override_font_sizes/font_size = 17
 text = " Select existing engine"
 
 [node name="Drive Terrain" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -457,6 +456,52 @@ popup/item_1/text = "Sport"
 popup/item_1/id = 1
 popup/item_2/text = "Race"
 popup/item_2/id = 2
+
+[node name="wheelRaduispnl" type="Panel" parent="TabContainer/Drive Terrain"]
+layout_mode = 0
+offset_left = 687.0
+offset_top = 331.0
+offset_right = 926.0
+offset_bottom = 496.0
+
+[node name="Label" type="Label" parent="TabContainer/Drive Terrain/wheelRaduispnl"]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 191.0
+offset_bottom = 39.0
+text = "Choose wheel size:"
+label_settings = ExtResource("3_iiyue")
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Drive Terrain/wheelRaduispnl"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 78.0
+offset_right = 182.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+selected = 0
+item_count = 10
+popup/item_0/text = "13"
+popup/item_0/id = 0
+popup/item_1/text = "14"
+popup/item_1/id = 1
+popup/item_2/text = "15"
+popup/item_2/id = 2
+popup/item_3/text = "16"
+popup/item_3/id = 3
+popup/item_4/text = "17"
+popup/item_4/id = 4
+popup/item_5/text = "18"
+popup/item_5/id = 5
+popup/item_6/text = "19"
+popup/item_6/id = 6
+popup/item_7/text = "20"
+popup/item_7/id = 7
+popup/item_8/text = "21"
+popup/item_8/id = 8
+popup/item_9/text = "22"
+popup/item_9/id = 9
 
 [node name="Suspension" type="TabBar" parent="TabContainer"]
 visible = false
@@ -648,6 +693,7 @@ offset_right = 244.0
 offset_bottom = 321.0
 
 [node name="Confirmation" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
@@ -946,10 +992,9 @@ offset_bottom = 29.0
 label_settings = ExtResource("3_iiyue")
 
 [node name="loadCarpnl" type="Panel" parent="."]
-clip_contents = true
 offset_left = 43.0
 offset_top = 150.0
-offset_right = 237.0
+offset_right = 248.0
 offset_bottom = 223.0
 
 [node name="Button" type="Button" parent="loadCarpnl"]
@@ -974,10 +1019,12 @@ text = " Load existing car "
 
 [node name="OptionButton" type="OptionButton" parent="loadCarpnl"]
 layout_mode = 0
-offset_left = 27.0
+offset_left = 20.0
 offset_top = 74.0
-offset_right = 167.0
+offset_right = 160.0
 offset_bottom = 98.0
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
 
 [node name="Label" type="Label" parent="loadCarpnl"]
 layout_mode = 0
@@ -987,6 +1034,8 @@ offset_right = 176.0
 offset_bottom = 224.0
 label_settings = ExtResource("3_iiyue")
 autowrap_mode = 2
+
+[node name="MyTimer" type="Timer" parent="."]
 
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1" to="." method="_on_body_1_toggled"]
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2" to="." method="_on_body_2_toggled"]
@@ -999,6 +1048,7 @@ autowrap_mode = 2
 [connection signal="value_changed" from="TabContainer/Drive Terrain/engineLocationpnl/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="item_selected" from="TabContainer/Drive Terrain/Driveterrainpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Drive Terrain/Brakespnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Drive Terrain/wheelRaduispnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Suspension/front_Suspensionpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="value_changed" from="TabContainer/Suspension/front_Suspensionpnl/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Suspension/front_Suspensionpnl/HSlider2" to="." method="_on_h_slider_2_value_changed"]
