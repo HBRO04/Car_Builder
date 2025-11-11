@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1lqypiiw4pi"
-path="res://.godot/imported/Gemini_Generated_Image_shdgyfshdgyfshdg(smaller).png-f5aa9a9860b27ca3eb5d498d21617635.ctex"
+uid="uid://74v5v8lht46v"
+path="res://.godot/imported/car1.png-2dae9a6f07266715953ef06fb5793000.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://carBodies/Gemini_Generated_Image_shdgyfshdgyfshdg(smaller).png"
-dest_files=["res://.godot/imported/Gemini_Generated_Image_shdgyfshdgyfshdg(smaller).png-f5aa9a9860b27ca3eb5d498d21617635.ctex"]
+source_file="res://carBodies/car1.png"
+dest_files=["res://.godot/imported/car1.png-2dae9a6f07266715953ef06fb5793000.ctex"]
 
 [params]
 

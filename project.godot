@@ -15,6 +15,10 @@ run/main_scene="uid://ccosnf52i1l8t"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DragSimulation="*res://scripts/drag_simulation.gd"
+
 [display]
 
 window/size/viewport_width=1908

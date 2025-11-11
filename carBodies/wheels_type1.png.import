@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clqpw78nmrr88"
-path="res://.godot/imported/Gemini_Generated_Image_shdgyfshdgyfshdg.png-6465814a7ed62b5e2ad58eaa537eab5a.ctex"
+uid="uid://qvwphd48f5ha"
+path="res://.godot/imported/wheels_type1.png-7392b24d08afec908fc12d2868e71aeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://carBodies/Gemini_Generated_Image_shdgyfshdgyfshdg.png"
-dest_files=["res://.godot/imported/Gemini_Generated_Image_shdgyfshdgyfshdg.png-6465814a7ed62b5e2ad58eaa537eab5a.ctex"]
+source_file="res://carBodies/wheels_type1.png"
+dest_files=["res://.godot/imported/wheels_type1.png-7392b24d08afec908fc12d2868e71aeb.ctex"]
 
 [params]
 

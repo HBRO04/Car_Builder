@@ -112,7 +112,10 @@ func _on_button_pressed() -> void:
 	elif choosenBody == 2:
 		$"../bg/bodyType2".visible = true
 		
+	$"../bg/wheels".visible = true
 	emit_signal("loaddyno")
+	
+	
 
 
 func hide_body_sprites():
@@ -227,3 +230,20 @@ func ensure_folder_exists(path: String) -> bool:
 			print("Error creating folder: ", err)
 			return false
 	return true
+
+
+func _on_button_5_pressed() -> void:
+	$"../sim_resultspnl/AnimationPlayer".play("start")
+	$"../main_menu/AnimationPlayer".play("slide_out")
+	DragSimulation.run_sim("res://Cars/%s.json" % carName, "res://engines/%s.json" %enginename)
+	var zeroTo100: float = DragSimulation.get_0_100()
+	var quarterMileTime: float = DragSimulation.get_quarter_mile()
+	var speedtrap: float = DragSimulation.get_trap_speed()
+	$"../sim_resultspnl/ScrollContainer/VBoxContainer/Label2".text = "0-100 time: %.2f s" % zeroTo100
+	$"../sim_resultspnl/ScrollContainer/VBoxContainer/Label3".text = "Quarter mile time: %.2f s" % quarterMileTime
+	$"../sim_resultspnl/ScrollContainer/VBoxContainer/Label4".text = "Trap speed: %.2f km/h" % speedtrap
+
+
+func _on_backbutton_sim_pressed() -> void:
+	$"../sim_resultspnl/AnimationPlayer".play("end")
+	$"../main_menu/AnimationPlayer".play("start_up")

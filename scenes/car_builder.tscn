@@ -1,11 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://wd54wnab53ck"]
+[gd_scene load_steps=11 format=3 uid="uid://wd54wnab53ck"]
 
 [ext_resource type="Script" uid="uid://b1o656v7k4ycp" path="res://scripts/car_builder.gd" id="1_hyjnl"]
 [ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="1_txq15"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="3_iiyue"]
-[ext_resource type="Texture2D" uid="uid://u7y1vgc3e15w" path="res://carBodies/Gemini_Generated_Image_shdgyfshdgyfshdg(even_smaller).png" id="4_xjnao"]
-[ext_resource type="Texture2D" uid="uid://mb3o1s4xw3op" path="res://carBodies/(pressed)Gemini_Generated_Image_shdgyfshdgyfshdg(even_smaller).png" id="5_mbslo"]
-[ext_resource type="Texture2D" uid="uid://b06hhoeroilmo" path="res://carBodies/(hover)Gemini_Generated_Image_shdgyfshdgyfshdg(even_smaller).png" id="6_6qgnm"]
+[ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="4_tea5m"]
+[ext_resource type="Texture2D" uid="uid://beq4h7esuoc34" path="res://carBodies/car1(selected).png" id="5_ltoxu"]
+[ext_resource type="Texture2D" uid="uid://b4qhr31331hk5" path="res://carBodies/car1(hover).png" id="6_gcnyc"]
+[ext_resource type="Texture2D" uid="uid://8jkairaymfmk" path="res://carBodies/car2.png" id="7_j8nrc"]
+[ext_resource type="Texture2D" uid="uid://cqm66w5ougca" path="res://carBodies/car2(selected).png" id="8_snj8i"]
+[ext_resource type="Texture2D" uid="uid://bmynh5ey3un5d" path="res://carBodies/car2(hover).png" id="9_c1x5a"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_fjaen"]
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
@@ -36,10 +39,9 @@ offset_right = 1567.0
 offset_bottom = 827.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 20
-current_tab = 4
+current_tab = 0
 
 [node name="Car body" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -63,20 +65,22 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="body1" type="TextureButton" parent="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 toggle_mode = true
-texture_normal = ExtResource("4_xjnao")
-texture_pressed = ExtResource("5_mbslo")
-texture_hover = ExtResource("6_6qgnm")
+texture_normal = ExtResource("4_tea5m")
+texture_pressed = ExtResource("5_ltoxu")
+texture_hover = ExtResource("6_gcnyc")
 stretch_mode = 3
 
 [node name="body2" type="TextureButton" parent="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 toggle_mode = true
-texture_normal = ExtResource("4_xjnao")
-texture_pressed = ExtResource("5_mbslo")
-texture_hover = ExtResource("6_6qgnm")
-stretch_mode = 3
+texture_normal = ExtResource("7_j8nrc")
+texture_pressed = ExtResource("8_snj8i")
+texture_hover = ExtResource("9_c1x5a")
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="TabContainer/Car body/carBodypnl"]
 layout_mode = 0
@@ -694,6 +698,7 @@ offset_right = 244.0
 offset_bottom = 321.0
 
 [node name="Gearbox" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
