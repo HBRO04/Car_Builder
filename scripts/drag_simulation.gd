@@ -1,9 +1,8 @@
 extends Node
 
 const G: float = 9.81
-const IDLE_RPM: float = 900.0
+const IDLE_RPM: float = 600.0
 
-# These are now accessible from any scene:
 var last_0_100: float = -1.0
 var last_quarter_mile: float = -1.0
 var last_trap_speed: float = -1.0

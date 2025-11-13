@@ -1,0 +1,26 @@
+{
+	"body Material": 0,
+	"body type": 1,
+	"brakes Type": 0,
+	"car weight": 1995,
+	"chasy Material": 0,
+	"cost": 23114,
+	"driveterrain": "RWD",
+	"engine Name": "torque_v6_3",
+	"engine placement int": 100,
+	"engine placement string": "Front Engined",
+	"final_drive": 3.5,
+	"front ride height": 120.0,
+	"front ride stiffness": 15.0,
+	"front suspension Type": 0,
+	"gear_ratios": [
+		3.5,
+		0.9
+	],
+	"interior Type": 0,
+	"num_gears": 0,
+	"rear ride height": 40.0,
+	"rear ride stiffness": 45.0,
+	"rear suspension Type": 2,
+	"wheel raduis": 18
+}

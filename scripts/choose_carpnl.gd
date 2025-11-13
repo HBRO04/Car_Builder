@@ -4,7 +4,7 @@ extends Panel
 
 signal loaddyno
 
-# --- Engine Specs ---
+# engine specs
 var enginename: String
 var engineSize: float
 var power: float
@@ -22,13 +22,13 @@ var camtype: int
 var numvalves: int
 var fuelType: int
 
-# --- Body Specs ---
+#body specs
 var choosenBody: int
 var bodyMat: int
 var chasyMat: int
 var interiorType: int
 
-# --- Drive / Suspension Specs ---
+#Suspension Specs
 var engine_placement: int
 var splacement: String = ""
 var driveterrain: String
@@ -51,25 +51,28 @@ var rear_sus_ride_stifnes: float
 var rear_sus_max_ride_stifnes: float
 var rear_sus_min_ride_stifnes: float
 
-# --- Gears ---
+#Gears
 var gear_ratios: Array = []
 var numGears: int
 var base_first_gear: float = 3.5
 var base_top_gear: float = 0.9
 var final_drive: float = 3.5
 
-# --- Cost & Weight ---
+#cost & Weight
 var basecost: int = 0
 var totalCost: int = 0
 var baseweight: int = 0
 var totalWeight: int = 0
 
-# --- Names ---
+#Names
 var carName: String = ""
+var car: Node2D
+
 
 
 func _ready() -> void:
 	populate_car_list($OptionButton)
+	
 
 
 # --- Populate car list from "res://Cars/" ---
@@ -105,22 +108,18 @@ func _on_button_pressed() -> void:
 	
 	$"../main_menu/AnimationPlayer".play("start_up")
 	$AnimationPlayer.play("slide_out")
-	hide_body_sprites()
+	#hide_body_sprites()
 	
-	if choosenBody == 1:
-		$"../bg/bodyType1".visible = true
-	elif choosenBody == 2:
-		$"../bg/bodyType2".visible = true
-		
-	$"../bg/wheels".visible = true
+	
+	
 	emit_signal("loaddyno")
 	
 	
 
 
 func hide_body_sprites():
-	$"../bg/bodyType1".visible = false
-	$"../bg/bodyType2".visible = false
+	$body/body1.visible = false
+	$body/body2.visible = false
 
 
 # --- Load car from file ---

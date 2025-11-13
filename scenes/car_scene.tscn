@@ -1,0 +1,111 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8e572c42cn8m"]
+
+[ext_resource type="Script" uid="uid://cqy6i086ckfmw" path="res://scripts/car_scene.gd" id="1_0lg5q"]
+[ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="2_p5cy6"]
+[ext_resource type="Texture2D" uid="uid://8jkairaymfmk" path="res://carBodies/car2.png" id="3_5ssh2"]
+[ext_resource type="Texture2D" uid="uid://wlm1ugt76vgs" path="res://carBodies/wheel.png" id="4_p5cy6"]
+[ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="5_5ssh2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ssh2"]
+size = Vector2(108, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o37pe"]
+radius = 8.0
+
+[node name="Car_scene" type="RigidBody2D"]
+collision_layer = 2
+can_sleep = false
+script = ExtResource("1_0lg5q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(794, 384)
+shape = SubResource("RectangleShape2D_5ssh2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(804, 365)
+zoom = Vector2(2.5, 2.5)
+
+[node name="body" type="Node2D" parent="."]
+position = Vector2(-4, 3)
+
+[node name="body1" type="Sprite2D" parent="body"]
+position = Vector2(794, 384)
+texture = ExtResource("2_p5cy6")
+
+[node name="body2" type="Sprite2D" parent="body"]
+position = Vector2(794, 384)
+texture = ExtResource("3_5ssh2")
+
+[node name="suspension" type="Node2D" parent="."]
+
+[node name="back_suspension" type="DampedSpringJoint2D" parent="suspension"]
+position = Vector2(764, 388)
+node_a = NodePath("../..")
+node_b = NodePath("../../back_wheel")
+length = 5.0
+rest_length = 5.0
+
+[node name="front_suspension" type="DampedSpringJoint2D" parent="suspension"]
+position = Vector2(825, 388)
+node_a = NodePath("../..")
+node_b = NodePath("../../front_wheel")
+length = 5.0
+rest_length = 5.0
+
+[node name="back_wheel" type="AnimatableBody2D" parent="."]
+position = Vector2(763, 388)
+collision_layer = 2
+sync_to_physics = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="back_wheel"]
+position = Vector2(2, 11)
+shape = SubResource("CircleShape2D_o37pe")
+
+[node name="back_wheel" type="Sprite2D" parent="back_wheel"]
+texture = ExtResource("4_p5cy6")
+
+[node name="front_wheel" type="AnimatableBody2D" parent="."]
+position = Vector2(824, 387)
+collision_layer = 2
+sync_to_physics = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="front_wheel"]
+position = Vector2(2, 11)
+shape = SubResource("CircleShape2D_o37pe")
+
+[node name="front_wheel" type="Sprite2D" parent="front_wheel"]
+texture = ExtResource("4_p5cy6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="lblRPM" type="Label" parent="CanvasLayer"]
+offset_left = 23.0
+offset_top = 869.0
+offset_right = 171.0
+offset_bottom = 913.0
+text = "RPM: "
+label_settings = ExtResource("5_5ssh2")
+
+[node name="lblSpeed" type="Label" parent="CanvasLayer"]
+offset_left = 324.0
+offset_top = 869.0
+offset_right = 472.0
+offset_bottom = 913.0
+text = "Speed: "
+label_settings = ExtResource("5_5ssh2")
+
+[node name="lblthrottle" type="Label" parent="CanvasLayer"]
+offset_left = 622.0
+offset_top = 869.0
+offset_right = 770.0
+offset_bottom = 913.0
+text = "throttle: "
+label_settings = ExtResource("5_5ssh2")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = 508.0
+offset_top = 816.0
+offset_right = 659.0
+offset_bottom = 856.0
+tint_over = Color(0.6957634, 0.022983853, 9.62615e-08, 1)
+tint_progress = Color(0, 0.53298724, 0.15945026, 1)

@@ -1,0 +1,29 @@
+{
+	"body Material": 2,
+	"body type": 2,
+	"brakes Type": 2,
+	"car weight": 576,
+	"chasy Material": 2,
+	"cost": 16090,
+	"driveterrain": "RWD",
+	"engine Name": "i3_Ti_600cc",
+	"engine placement int": 100,
+	"engine placement string": "Front Engined",
+	"final_drive": 3.5,
+	"front ride height": 80.0,
+	"front ride stiffness": 15.0,
+	"front suspension Type": 0,
+	"gear_ratios": [
+		3.5,
+		2.49236509609941,
+		1.77482393492989,
+		1.26385977918316,
+		0.9
+	],
+	"interior Type": 1,
+	"num_gears": 5,
+	"rear ride height": 80.0,
+	"rear ride stiffness": 15.0,
+	"rear suspension Type": 0,
+	"wheel raduis": 13
+}

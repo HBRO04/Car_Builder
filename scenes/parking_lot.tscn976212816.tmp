@@ -1,0 +1,581 @@
+[gd_scene load_steps=29 format=3 uid="uid://ccosnf52i1l8t"]
+
+[ext_resource type="Script" uid="uid://cdvjm8lecvxjc" path="res://scripts/parking_lot.gd" id="1_67ek6"]
+[ext_resource type="Script" uid="uid://cgbnmm25uovu4" path="res://scripts/main_menu.gd" id="2_h57tm"]
+[ext_resource type="Texture2D" uid="uid://brj8815oajte" path="res://assets/parkinglot.png" id="2_nq1o5"]
+[ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="2_rmsgb"]
+[ext_resource type="Texture2D" uid="uid://dqfpunbu2mx5n" path="res://assets/track.png" id="3_nq1o5"]
+[ext_resource type="Script" uid="uid://bj8gt1ydeei8o" path="res://scripts/choose_carpnl.gd" id="4_4gwln"]
+[ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="5_fpfd3"]
+[ext_resource type="Texture2D" uid="uid://cjxt53f2bj03m" path="res://assets/parkinglotunderneath.png" id="6_4moqh"]
+[ext_resource type="Script" uid="uid://bhofe0kcafq41" path="res://scripts/dynopnl.gd" id="9_127ow"]
+[ext_resource type="PackedScene" uid="uid://1yf7225ss5sc" path="res://scenes/car_scene_without_camera.tscn" id="10_nq1o5"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d6i7b"]
+texture = ExtResource("3_nq1o5")
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+13:6/0 = 0
+14:6/0 = 0
+15:6/0 = 0
+0:7/0 = 0
+0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:7/0 = 0
+1:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:7/0 = 0
+2:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:7/0 = 0
+3:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:7/0 = 0
+4:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:7/0 = 0
+5:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:7/0 = 0
+6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:7/0 = 0
+7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+8:7/0 = 0
+8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:7/0 = 0
+9:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+10:7/0 = 0
+10:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+11:7/0 = 0
+11:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+12:7/0 = 0
+12:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+13:7/0 = 0
+13:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+14:7/0 = 0
+14:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+15:7/0 = 0
+15:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_e1jv1"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+sources/0 = SubResource("TileSetAtlasSource_d6i7b")
+
+[sub_resource type="Animation" id="Animation_4gwln"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4000, 220)]
+}
+
+[sub_resource type="Animation" id="Animation_ppvmu"]
+resource_name = "slide_out"
+length = 0.5
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1800, 220), Vector2(4000, 220)]
+}
+
+[sub_resource type="Animation" id="Animation_pekt7"]
+resource_name = "start_up"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4000, 220), Vector2(1800, 220)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fpfd3"]
+_data = {
+&"RESET": SubResource("Animation_4gwln"),
+&"slide_out": SubResource("Animation_ppvmu"),
+&"start_up": SubResource("Animation_pekt7")
+}
+
+[sub_resource type="Animation" id="Animation_67ek6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-434, 374)]
+}
+
+[sub_resource type="Animation" id="Animation_fpfd3"]
+resource_name = "slide_in"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-434, 374), Vector2(1500, 374)]
+}
+
+[sub_resource type="Animation" id="Animation_127ow"]
+resource_name = "slide_out"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1500, 374), Vector2(-434, 374)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ppvmu"]
+_data = {
+&"RESET": SubResource("Animation_67ek6"),
+&"slide_in": SubResource("Animation_fpfd3"),
+&"slide_out": SubResource("Animation_127ow")
+}
+
+[sub_resource type="Animation" id="Animation_4moqh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1880, 142)]
+}
+
+[sub_resource type="Animation" id="Animation_d6i7b"]
+resource_name = "close_dyno"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1100, 142), Vector2(-1880, 142)]
+}
+
+[sub_resource type="Animation" id="Animation_nq1o5"]
+resource_name = "open_dyno"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1880, 142), Vector2(1100, 142)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e1jv1"]
+_data = {
+&"RESET": SubResource("Animation_4moqh"),
+&"close_dyno": SubResource("Animation_d6i7b"),
+&"open_dyno": SubResource("Animation_nq1o5")
+}
+
+[sub_resource type="Animation" id="Animation_dhc4m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-584, 311)]
+}
+
+[sub_resource type="Animation" id="Animation_ucdbd"]
+resource_name = "end"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1600, 311), Vector2(-584, 311)]
+}
+
+[sub_resource type="Animation" id="Animation_e1jv1"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-584, 311), Vector2(1600, 311)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cpd32"]
+_data = {
+&"RESET": SubResource("Animation_dhc4m"),
+&"end": SubResource("Animation_ucdbd"),
+&"start": SubResource("Animation_e1jv1")
+}
+
+[node name="Parking_lot" type="Node2D"]
+position = Vector2(-405, 238)
+script = ExtResource("1_67ek6")
+
+[node name="bg" type="Sprite2D" parent="."]
+position = Vector2(1042.0001, 297)
+scale = Vector2(10, 6.317)
+texture = ExtResource("2_nq1o5")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 128)
+
+[node name="TileMap" type="TileMap" parent="bg"]
+scale = Vector2(0.99999994, 1)
+tile_set = SubResource("TileSet_e1jv1")
+format = 2
+layer_0/tile_data = PackedInt32Array(262140, 655360, 7, 262141, 720896, 7, 262142, 786432, 7, 262143, 851968, 7, 196608, 917504, 7, 196609, 655360, 7, 196610, 720896, 7, 196611, 786432, 7, 196612, 851968, 7, 196613, 917504, 7, 196614, 655360, 7, 196615, 720896, 7, 196616, 786432, 7, 196617, 851968, 7, 196618, 917504, 7, 196619, 983040, 7)
+
+[node name="bg2" type="Sprite2D" parent="bg"]
+position = Vector2(127.89998, 0)
+scale = Vector2(0.99999994, 1)
+texture = ExtResource("2_nq1o5")
+region_enabled = true
+region_rect = Rect2(128, 0, 128, 128)
+
+[node name="Sprite2D" type="Sprite2D" parent="bg"]
+position = Vector2(63.899982, 127.75052)
+texture = ExtResource("6_4moqh")
+
+[node name="main_menu" type="Panel" parent="."]
+offset_left = 4000.0
+offset_top = 220.0
+offset_right = 4342.0
+offset_bottom = 614.0
+script = ExtResource("2_h57tm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_menu"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 26.0
+offset_right = 325.0
+offset_bottom = 374.0
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+text = " Build car"
+
+[node name="Button2" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+text = " Build engine"
+
+[node name="Button3" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+text = "Select car"
+
+[node name="Button4" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+text = "dyno the car"
+
+[node name="Button5" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+text = "Test car"
+
+[node name="Button6" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+text = "Test car yourself"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="main_menu"]
+libraries = {
+&"": SubResource("AnimationLibrary_fpfd3")
+}
+autoplay = "start_up"
+
+[node name="chooseCarpnl" type="Panel" parent="."]
+offset_left = -434.0
+offset_top = 374.0
+offset_right = -129.0
+offset_bottom = 547.0
+script = ExtResource("4_4gwln")
+
+[node name="Label" type="Label" parent="chooseCarpnl"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 22.0
+offset_right = 189.0
+offset_bottom = 55.0
+text = "Choose your car:"
+label_settings = ExtResource("5_fpfd3")
+
+[node name="OptionButton" type="OptionButton" parent="chooseCarpnl"]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 66.0
+offset_right = 254.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="chooseCarpnl"]
+libraries = {
+&"": SubResource("AnimationLibrary_ppvmu")
+}
+
+[node name="Button" type="Button" parent="chooseCarpnl"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 108.0
+offset_right = 172.0
+offset_bottom = 138.0
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+text = "Choose car"
+
+[node name="errorlbl" type="Label" parent="."]
+offset_left = 569.0
+offset_top = 53.0
+offset_right = 1185.0
+offset_bottom = 149.0
+label_settings = ExtResource("5_fpfd3")
+
+[node name="dynopnl" type="Panel" parent="."]
+offset_left = -1880.0
+offset_top = 142.0
+offset_right = -704.0
+offset_bottom = 881.0
+script = ExtResource("9_127ow")
+
+[node name="GraphBackground" type="ColorRect" parent="dynopnl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 16.0
+offset_right = -14.0
+offset_bottom = -117.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.32915837, 0.3291584, 0.3291584, 1)
+
+[node name="TorqueLine" type="Line2D" parent="dynopnl"]
+width = 2.0
+default_color = Color(0, 0.44412082, 0.78860873, 1)
+
+[node name="PowerLine" type="Line2D" parent="dynopnl"]
+width = 2.0
+default_color = Color(0.8260124, 0, 0.08243292, 1)
+
+[node name="RPM_Marker" type="Line2D" parent="dynopnl"]
+width = 2.0
+default_color = Color(0.4940132, 0.3422607, 0.0119498065, 1)
+
+[node name="currentRPM" type="HSlider" parent="dynopnl"]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 636.0
+offset_right = 1088.0
+offset_bottom = 673.0
+step = 100.0
+
+[node name="lblCurrentTorque" type="Label" parent="dynopnl"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 419.0
+offset_right = 92.0
+offset_bottom = 442.0
+label_settings = ExtResource("5_fpfd3")
+
+[node name="lblCurrentPower" type="Label" parent="dynopnl"]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 419.0
+offset_right = 185.0
+offset_bottom = 442.0
+label_settings = ExtResource("5_fpfd3")
+
+[node name="Label" type="Label" parent="dynopnl"]
+layout_mode = 0
+offset_left = 473.00003
+offset_top = 669.0
+offset_right = 603.0
+offset_bottom = 699.21985
+text = "Current RPM: 0"
+label_settings = ExtResource("5_fpfd3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="dynopnl"]
+libraries = {
+&"": SubResource("AnimationLibrary_e1jv1")
+}
+
+[node name="Button" type="Button" parent="dynopnl"]
+layout_mode = 0
+offset_left = 1048.0
+offset_top = 696.0
+offset_right = 1158.0
+offset_bottom = 726.0
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+text = " close dyno"
+
+[node name="sim_resultspnl" type="Panel" parent="."]
+offset_left = -584.0
+offset_top = 311.0
+offset_right = -255.0
+offset_bottom = 640.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="sim_resultspnl"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 14.0
+offset_right = 321.0
+offset_bottom = 309.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sim_resultspnl/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="sim_resultspnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Simulation results:"
+label_settings = ExtResource("5_fpfd3")
+
+[node name="Label2" type="Label" parent="sim_resultspnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Simulation results:"
+label_settings = ExtResource("5_fpfd3")
+
+[node name="Label3" type="Label" parent="sim_resultspnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Simulation results:"
+label_settings = ExtResource("5_fpfd3")
+
+[node name="Label4" type="Label" parent="sim_resultspnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Simulation results:"
+label_settings = ExtResource("5_fpfd3")
+
+[node name="Button" type="Button" parent="sim_resultspnl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 17
+text = " go back"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="sim_resultspnl"]
+libraries = {
+&"": SubResource("AnimationLibrary_cpd32")
+}
+
+[node name="Car_scene" parent="." instance=ExtResource("10_nq1o5")]
+position = Vector2(-2469, -1134)
+scale = Vector2(4, 4)
+
+[connection signal="pressed" from="main_menu/VBoxContainer/Button" to="main_menu" method="_on_button_pressed"]
+[connection signal="pressed" from="main_menu/VBoxContainer/Button2" to="main_menu" method="_on_button_2_pressed"]
+[connection signal="pressed" from="main_menu/VBoxContainer/Button3" to="main_menu" method="_on_button_3_pressed"]
+[connection signal="pressed" from="main_menu/VBoxContainer/Button4" to="main_menu" method="_on_button_4_pressed"]
+[connection signal="pressed" from="main_menu/VBoxContainer/Button5" to="chooseCarpnl" method="_on_button_5_pressed"]
+[connection signal="pressed" from="main_menu/VBoxContainer/Button6" to="main_menu" method="_on_button_6_pressed"]
+[connection signal="pressed" from="chooseCarpnl/Button" to="chooseCarpnl" method="_on_button_pressed"]
+[connection signal="value_changed" from="dynopnl/currentRPM" to="dynopnl" method="_on_current_rpm_value_changed"]
+[connection signal="pressed" from="dynopnl/Button" to="main_menu" method="_on_close_dyno_button_pressed"]
+[connection signal="pressed" from="sim_resultspnl/ScrollContainer/VBoxContainer/Button" to="chooseCarpnl" method="_on_backbutton_sim_pressed"]
