@@ -162,7 +162,7 @@ position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_f2ite")
 
 [node name="Car_scene" parent="." instance=ExtResource("2_c6jrw")]
-position = Vector2(-717, 377)
+position = Vector2(-715, 440)
 
 [connection signal="animation_finished" from="track/robot/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="track/robot/AnimationPlayer" to="Car_scene" method="_on_animation_player_animation_finished"]

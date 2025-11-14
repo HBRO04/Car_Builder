@@ -1,16 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://1yf7225ss5sc"]
+[gd_scene load_steps=10 format=3 uid="uid://1yf7225ss5sc"]
 
 [ext_resource type="Script" uid="uid://cqy6i086ckfmw" path="res://scripts/car_scene.gd" id="1_3e1iw"]
 [ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="2_6r7u8"]
 [ext_resource type="Texture2D" uid="uid://8jkairaymfmk" path="res://carBodies/car2.png" id="3_fv6di"]
 [ext_resource type="Texture2D" uid="uid://wlm1ugt76vgs" path="res://carBodies/wheel.png" id="4_8q48v"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="5_6r7u8"]
+[ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="6_fv6di"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ssh2"]
 size = Vector2(536, 141)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o37pe"]
 radius = 8.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_8q48v"]
+font = ExtResource("6_fv6di")
+font_size = 24
+outline_color = Color(0.556953, 0.556953, 0.556953, 1)
 
 [node name="Car_scene_without_camera" type="RigidBody2D"]
 collision_layer = 2
@@ -108,3 +114,11 @@ offset_right = 659.0
 offset_bottom = 856.0
 tint_over = Color(0.6957634, 0.022983853, 9.62615e-08, 1)
 tint_progress = Color(0, 0.53298724, 0.15945026, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 772.0
+offset_top = 242.0
+offset_right = 1129.0
+offset_bottom = 326.0
+text = "Race finished!"
+label_settings = SubResource("LabelSettings_8q48v")

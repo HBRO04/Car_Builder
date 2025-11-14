@@ -38,7 +38,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 offset_left = 1543.325
 offset_top = -67.70548
-offset_right = 1923.8121
+offset_right = 2028.1483
 offset_bottom = 784.6496
 grow_horizontal = 0
 scale = Vector2(1.0150163, 0.9526546)
@@ -47,7 +47,7 @@ scale = Vector2(1.0150163, 0.9526546)
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
-offset_right = 353.0
+offset_right = 464.69592
 offset_bottom = 757.0
 theme_override_constants/separation = 10
 
@@ -146,10 +146,9 @@ scale = Vector2(1.0150163, 0.9526546)
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 20
-current_tab = 7
+current_tab = 0
 
 [node name="EngineBlock" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 18
@@ -287,7 +286,7 @@ label_settings = ExtResource("2_85mox")
 layout_mode = 0
 offset_left = 422.0
 offset_top = 399.0
-offset_right = 710.0
+offset_right = 766.3996
 offset_bottom = 609.0
 
 [node name="Label" type="Label" parent="TabContainer/EngineBlock/EngineMaterialspnl"]
@@ -339,10 +338,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -114.0
-offset_top = 150.0
-offset_right = 114.0
-offset_bottom = 181.0
+offset_left = -124.41323
+offset_top = 156.3356
+offset_right = 124.58676
+offset_bottom = 187.3356
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
@@ -363,7 +362,7 @@ popup/item_4/id = 4
 layout_mode = 0
 offset_left = 748.0
 offset_top = 120.0
-offset_right = 1135.0
+offset_right = 1147.7593
 offset_bottom = 330.0
 
 [node name="Label" type="Label" parent="TabContainer/EngineBlock/EngineSizepnl"]
@@ -1419,6 +1418,7 @@ popup/item_3/text = "straight pipe"
 popup/item_3/id = 3
 
 [node name="Confirmation" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 7
 
@@ -1496,6 +1496,7 @@ text = "Current RPM: 0"
 label_settings = ExtResource("2_85mox")
 
 [node name="Savebtn" type="Button" parent="TabContainer/Confirmation"]
+visible = false
 layout_mode = 0
 offset_left = 93.10189
 offset_top = 132.22816
@@ -1513,14 +1514,14 @@ offset_right = 454.10687
 offset_bottom = 206.75659
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
-text = " continue"
+text = " Build Engine"
 
 [node name="LineEdit" type="LineEdit" parent="TabContainer/Confirmation"]
 layout_mode = 0
-offset_left = 100.98352
-offset_top = 75.54445
-offset_right = 402.4565
-offset_bottom = 106.54445
+offset_left = 276.9881
+offset_top = 70.509254
+offset_right = 578.46106
+offset_bottom = 101.509254
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
 placeholder_text = "Name the engine..."

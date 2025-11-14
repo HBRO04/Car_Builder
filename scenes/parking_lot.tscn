@@ -13,6 +13,69 @@
 [ext_resource type="Script" uid="uid://bhofe0kcafq41" path="res://scripts/dynopnl.gd" id="9_127ow"]
 [ext_resource type="Texture2D" uid="uid://yoe0ma06k8a" path="res://assets/parkinglot_tilemap.png" id="11_4moqh"]
 
+[sub_resource type="Animation" id="Animation_3ducg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cloud:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, -108)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cloud2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, -244)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cloud5:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, 116)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("cloud3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, 198)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("cloud4:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, 221)]
+}
+
 [sub_resource type="Animation" id="Animation_cpd32"]
 resource_name = "clouds"
 length = 10.0
@@ -76,69 +139,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(2189, 220.99998), Vector2(4378, 221)]
-}
-
-[sub_resource type="Animation" id="Animation_3ducg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("cloud:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(232, -108)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("cloud2:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(232, -244)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("cloud5:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(232, 116)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("cloud3:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(232, 198)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("cloud4:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(232, 221)]
 }
 
 [sub_resource type="Animation" id="Animation_i064x"]
@@ -735,8 +735,8 @@ script = ExtResource("1_67ek6")
 [node name="sky" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="sky"]
-position = Vector2(1556.0001, 60.999985)
-scale = Vector2(6, 6)
+position = Vector2(1677, 60.999985)
+scale = Vector2(6.630208, 6)
 texture = ExtResource("2_4moqh")
 
 [node name="cloud" type="Sprite2D" parent="sky"]
@@ -814,37 +814,37 @@ layout_mode = 2
 [node name="Button" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = " Build car"
 
 [node name="Button2" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = " Build engine"
 
 [node name="Button3" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = "Select car"
 
 [node name="Button4" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = "dyno the car"
 
 [node name="Button5" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = "Test car"
 
 [node name="Button6" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = "Test car yourself"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main_menu"]
@@ -876,7 +876,8 @@ offset_top = 66.0
 offset_right = 254.0
 offset_bottom = 87.0
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="chooseCarpnl"]
 libraries = {
@@ -890,7 +891,7 @@ offset_top = 108.0
 offset_right = 172.0
 offset_bottom = 138.0
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = "Choose car"
 
 [node name="errorlbl" type="Label" parent="."]
@@ -972,12 +973,12 @@ libraries = {
 
 [node name="Button" type="Button" parent="dynopnl"]
 layout_mode = 0
-offset_left = 1048.0
-offset_top = 696.0
-offset_right = 1158.0
-offset_bottom = 726.0
+offset_left = 1007.0
+offset_top = 689.0
+offset_right = 1159.0
+offset_bottom = 727.0
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = " close dyno"
 
 [node name="sim_resultspnl" type="Panel" parent="."]
@@ -1022,7 +1023,7 @@ label_settings = ExtResource("5_fpfd3")
 [node name="Button" type="Button" parent="sim_resultspnl/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_rmsgb")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = " go back"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="sim_resultspnl"]

@@ -14,12 +14,13 @@
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
 
 [node name="Car_Builder" type="Node2D"]
+scale = Vector2(1.2, 1.2)
 script = ExtResource("1_hyjnl")
 
 [node name="BackgroundColor" type="Sprite2D" parent="."]
 modulate = Color(0.23529412, 0.36862746, 0.43137255, 1)
-position = Vector2(978.91315, 476.52438)
-scale = Vector2(-1991.9034, 1043.6898)
+position = Vector2(893.62756, 469.56238)
+scale = Vector2(-2740.327, 1370.9077)
 texture = SubResource("CanvasTexture_fjaen")
 
 [node name="lblError" type="Label" parent="."]
@@ -39,9 +40,10 @@ offset_right = 1567.0
 offset_bottom = 827.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 20
-current_tab = 0
+current_tab = 5
 
 [node name="Car body" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -205,7 +207,7 @@ metadata/_tab_index = 1
 layout_mode = 0
 offset_left = 113.0
 offset_top = 202.0
-offset_right = 352.0
+offset_right = 399.6666
 offset_bottom = 367.0
 
 [node name="Label" type="Label" parent="TabContainer/Engine/Enginepnl"]
@@ -230,14 +232,14 @@ theme_override_font_sizes/font_size = 17
 layout_mode = 0
 offset_left = 715.0
 offset_top = 116.0
-offset_right = 1078.0
+offset_right = 1220.4999
 offset_bottom = 561.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Engine/enginespecspnl"]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 21.0
-offset_right = 328.0
+offset_right = 480.49988
 offset_bottom = 428.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Engine/enginespecspnl/ScrollContainer"]
@@ -344,14 +346,14 @@ metadata/_tab_index = 2
 layout_mode = 0
 offset_left = 95.0
 offset_top = 90.0
-offset_right = 649.0
+offset_right = 687.1666
 offset_bottom = 307.0
 
 [node name="HSlider" type="HSlider" parent="TabContainer/Drive Terrain/engineLocationpnl"]
 layout_mode = 0
-offset_left = 2.0
+offset_left = 15.5
 offset_top = 58.0
-offset_right = 552.0
+offset_right = 581.3333
 offset_bottom = 183.0
 step = 10.0
 value = 100.0
@@ -402,7 +404,7 @@ label_settings = ExtResource("3_iiyue")
 layout_mode = 0
 offset_left = 94.0
 offset_top = 331.0
-offset_right = 333.0
+offset_right = 375.5
 offset_bottom = 496.0
 
 [node name="Label" type="Label" parent="TabContainer/Drive Terrain/Driveterrainpnl"]
@@ -434,7 +436,7 @@ popup/item_2/id = 2
 layout_mode = 0
 offset_left = 400.0
 offset_top = 331.0
-offset_right = 639.0
+offset_right = 680.5
 offset_bottom = 496.0
 
 [node name="Label" type="Label" parent="TabContainer/Drive Terrain/Brakespnl"]
@@ -464,9 +466,9 @@ popup/item_2/id = 2
 
 [node name="wheelRaduispnl" type="Panel" parent="TabContainer/Drive Terrain"]
 layout_mode = 0
-offset_left = 687.0
+offset_left = 705.49994
 offset_top = 331.0
-offset_right = 926.0
+offset_right = 961.3332
 offset_bottom = 496.0
 
 [node name="Label" type="Label" parent="TabContainer/Drive Terrain/wheelRaduispnl"]
@@ -517,7 +519,7 @@ metadata/_tab_index = 3
 layout_mode = 0
 offset_left = 105.0
 offset_top = 92.0
-offset_right = 360.0
+offset_right = 395.5
 offset_bottom = 490.0
 
 [node name="Label" type="Label" parent="TabContainer/Suspension/front_Suspensionpnl"]
@@ -609,7 +611,7 @@ offset_bottom = 321.0
 layout_mode = 0
 offset_left = 512.0
 offset_top = 92.0
-offset_right = 767.0
+offset_right = 801.33325
 offset_bottom = 490.0
 
 [node name="Label" type="Label" parent="TabContainer/Suspension/rear_Suspensionpnl"]
@@ -706,7 +708,7 @@ metadata/_tab_index = 4
 layout_mode = 0
 offset_left = 118.0
 offset_top = 188.0
-offset_right = 430.0
+offset_right = 457.1666
 offset_bottom = 467.0
 
 [node name="Label" type="Label" parent="TabContainer/Gearbox/gearspnl"]
@@ -761,7 +763,7 @@ label_settings = ExtResource("3_iiyue")
 layout_mode = 0
 offset_left = 598.0
 offset_top = 188.0
-offset_right = 910.0
+offset_right = 925.5
 offset_bottom = 467.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Gearbox/gearratiospnl"]
@@ -798,7 +800,6 @@ label_settings = ExtResource("3_iiyue")
 layout_mode = 2
 
 [node name="Confirmation" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
@@ -806,14 +807,14 @@ metadata/_tab_index = 5
 layout_mode = 0
 offset_left = 859.0
 offset_top = 154.0
-offset_right = 1197.0
+offset_right = 1242.1666
 offset_bottom = 600.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/carsettingspnl"]
 layout_mode = 0
 offset_left = 18.0
 offset_top = 16.0
-offset_right = 325.0
+offset_right = 366.5
 offset_bottom = 430.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Confirmation/carsettingspnl/ScrollContainer"]
@@ -885,14 +886,14 @@ label_settings = ExtResource("3_iiyue")
 layout_mode = 0
 offset_left = 460.0
 offset_top = 154.0
-offset_right = 798.0
+offset_right = 828.83325
 offset_bottom = 600.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/enginepnl"]
 layout_mode = 0
 offset_left = 18.0
 offset_top = 16.0
-offset_right = 325.0
+offset_right = 353.0
 offset_bottom = 430.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Confirmation/enginepnl/ScrollContainer"]
@@ -972,14 +973,14 @@ label_settings = ExtResource("3_iiyue")
 layout_mode = 0
 offset_left = 53.0
 offset_top = 154.0
-offset_right = 391.0
+offset_right = 425.49997
 offset_bottom = 600.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/carbodypnl"]
 layout_mode = 0
 offset_left = 18.0
 offset_top = 16.0
-offset_right = 325.0
+offset_right = 356.6666
 offset_bottom = 430.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Confirmation/carbodypnl/ScrollContainer"]

@@ -1533,8 +1533,80 @@ func _on_savebtn_pressed() -> void:
 
 
 func _on_continuebtn_pressed() -> void:
-	preload("res://scenes/car_builder.tscn")
-	get_tree().change_scene_to_file("res://scenes/car_builder.tscn")
+	var file_name: String = $TabContainer/Confirmation/LineEdit.text.strip_edges()
+	
+	if file_name == "":
+		lblErrorEngineBlock.text = "Error: Please enter a file name."
+		return
+
+	var file_path: String = "res://engines/%s.json" % file_name
+
+	var engine_data: Dictionary = {
+		"engineSize_L": engineSize_L,
+		"cylinders": cylinders,
+		"pistonStroke_mm": pistonStroke_mm,
+		"pistonDiameter_mm": pistonDiameter_mm,
+		"EngineMat": EngineMat,
+		"cylinderMat": cylinderMat,
+		"EngineType": EngineType,
+		"engineCost": engineCost,
+		"extraCost": extraCost,
+		"baseMaterialCost": baseMaterialCost,
+		"complexity_Multiplier": complexity_Multiplier,
+		"camType": camType,
+		"kw_per_l": kw_per_l,
+		"kw": kw,
+		"numValve": numValve,
+		"vvt": vvt,
+		"turbo": turbo,
+		"supercharged": supercharged,
+		"tsetup": tsetup,
+		"ttune": ttune,
+		"torque": torque,
+		"reliability": reliability,
+		"reliabilityScore": reliabilityScore,
+		"engine_weight": engine_weight,
+		"max_kw": max_kw,
+		"max_Torque_nm": max_Torque_nm,
+		"pistonsType": pistonsType,
+		"conrodsType": conrodsType,
+		"crankshaftType": crankshaftType,
+		"fuelsystem": fuelsystem,
+		"fuelType": fuelType,
+		"rpm": rpm,
+		"currentRPM": currentRPM,
+		"fuelmix": fuelmix,
+		"fueleconomy": fueleconomy,
+		"Stringfueleconomy": Stringfueleconomy,
+		"kmperl": kmperl,
+		"intakeType": intakeType,
+		"radiatorType": radiatorType,
+		"oilCooler": oilCooler,
+		"cat": cat,
+		"catType": catType,
+		"exhaustType": exhaustType,
+		"exhaustManifoldType": exhaustManifoldType,
+		"muffler": muffler
+	}
+
+	var file = FileAccess.open(file_path, FileAccess.WRITE_READ)
+	if file:
+		var json_text: String = JSON.stringify(engine_data, "\t")  # pretty print
+		file.store_string(json_text)
+		file.close()
+		lblErrorEngineBlock.text = "Engine saved successfully!"
+	else:
+		lblErrorEngineBlock.text = "Error: Could not open file for writing."
+		
+	$TabContainer/Confirmation/LineEdit.text = ""
+	update_UI()
+	
+	var timer = get_tree().create_timer(1.0)
+	timer.timeout.connect(func(): 
+		preload("res://scenes/car_builder.tscn")
+		get_tree().change_scene_to_file("res://scenes/car_builder.tscn")
+	)
+	
 
 
 func _on_load_enginebtn_pressed() -> void:

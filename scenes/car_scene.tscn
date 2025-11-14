@@ -1,13 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8e572c42cn8m"]
+[gd_scene load_steps=11 format=3 uid="uid://c8e572c42cn8m"]
 
 [ext_resource type="Script" uid="uid://cqy6i086ckfmw" path="res://scripts/car_scene.gd" id="1_0lg5q"]
 [ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="2_p5cy6"]
 [ext_resource type="Texture2D" uid="uid://8jkairaymfmk" path="res://carBodies/car2.png" id="3_5ssh2"]
 [ext_resource type="Texture2D" uid="uid://wlm1ugt76vgs" path="res://carBodies/wheel.png" id="4_p5cy6"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="5_5ssh2"]
+[ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="6_o37pe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ssh2"]
 size = Vector2(108, 38)
+
+[sub_resource type="LabelSettings" id="LabelSettings_o37pe"]
+font = ExtResource("6_o37pe")
+font_size = 24
+outline_color = Color(0.556953, 0.556953, 0.556953, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6k6c3"]
+font = ExtResource("6_o37pe")
+font_size = 24
+outline_color = Color(0.556953, 0.556953, 0.556953, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cukhm"]
+font = ExtResource("6_o37pe")
+font_size = 36
+outline_color = Color(0.556953, 0.556953, 0.556953, 1)
 
 [node name="Car_scene" type="RigidBody2D" groups=["car"]]
 collision_layer = 2
@@ -22,7 +38,7 @@ shape = SubResource("RectangleShape2D_5ssh2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(804, 365)
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(3, 3)
 
 [node name="body" type="Node2D" parent="."]
 position = Vector2(-4, 3)
@@ -66,6 +82,7 @@ texture = ExtResource("4_p5cy6")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="lblRPM" type="Label" parent="CanvasLayer"]
+visible = false
 offset_left = 23.0
 offset_top = 869.0
 offset_right = 171.0
@@ -79,7 +96,7 @@ offset_top = 869.0
 offset_right = 472.0
 offset_bottom = 913.0
 text = "Speed: "
-label_settings = ExtResource("5_5ssh2")
+label_settings = SubResource("LabelSettings_o37pe")
 
 [node name="lblthrottle" type="Label" parent="CanvasLayer"]
 offset_left = 622.0
@@ -87,7 +104,7 @@ offset_top = 869.0
 offset_right = 770.0
 offset_bottom = 913.0
 text = "throttle: "
-label_settings = ExtResource("5_5ssh2")
+label_settings = SubResource("LabelSettings_6k6c3")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
 offset_left = 508.0
@@ -96,3 +113,13 @@ offset_right = 659.0
 offset_bottom = 856.0
 tint_over = Color(0.6957634, 0.022983853, 9.62615e-08, 1)
 tint_progress = Color(0, 0.53298724, 0.15945026, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = 785.0
+offset_top = 321.0
+offset_right = 1142.0
+offset_bottom = 405.0
+size_flags_horizontal = 4
+text = "Race finished!"
+label_settings = SubResource("LabelSettings_cukhm")
