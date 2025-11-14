@@ -190,6 +190,7 @@ func calc_cost():
 		0: basecost = 0
 		1: basecost = 2000
 		2: basecost = 4000
+		3: basecost = 6000
 		
 	match bodyMat:
 		0: exstraCost += 1000
@@ -240,6 +241,7 @@ func calc_weight():
 		0: baseweight = 0
 		1: baseweight = 100
 		2: baseweight = 200
+		3: baseweight = 180
 		
 	match bodyMat:
 		0: baseweight += 300
@@ -645,6 +647,7 @@ func un_toggle_body_types():
 func _on_body_1_toggled(toggled_on: bool) -> void:
 	choosenBody = 1
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
+	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body3".button_pressed = false
 	update_all()
 	
 
@@ -653,6 +656,7 @@ func _on_body_1_toggled(toggled_on: bool) -> void:
 func _on_body_2_toggled(toggled_on: bool) -> void:
 	choosenBody = 2
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false
+	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body3".button_pressed = false
 	update_all()
 
 
@@ -827,9 +831,15 @@ func display_car_specs():
 	if choosenBody == 1 :
 		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = true
 		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
+		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body3".button_pressed = false
 	elif choosenBody == 2 :
 		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false
 		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = true
+		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body3".button_pressed = false
+	elif choosenBody == 3 :
+		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false
+		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
+		$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body3".button_pressed = true
 		
 	$"TabContainer/Car body/bodyMatpnl/OptionButton".select(bodyMat)
 	$"TabContainer/Car body/chasyMatpnl/OptionButton".select(chasyMat)
@@ -878,3 +888,11 @@ func display_car_specs():
 			_on_option_button_item_selected(i)
 			
 			
+
+
+@warning_ignore("unused_parameter")
+func _on_body_3_toggled(toggled_on: bool) -> void:
+	choosenBody = 3
+	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false
+	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
+	update_all()

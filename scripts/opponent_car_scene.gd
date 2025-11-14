@@ -1,5 +1,4 @@
 extends RigidBody2D
-class_name car_show
 
 var can_act: bool = false
 var race_finished: bool = false
@@ -18,6 +17,10 @@ var speed_ms: float = 0.0
 var displayed_speed: float = 0.0
 var shifting: bool = false
 
+# AI shifting control
+var shift_cooldown: float = 0.0
+var shift_cooldown_time: float = 1.2  # Wait 1.2 seconds between shifts
+
 # Physics properties for DRAG RACING
 var drag_coefficient: float = 0.35
 var rolling_resistance: float = 30.0
@@ -32,13 +35,12 @@ var rev_bar: TextureProgressBar = null
 var race_distance: float = 0.0
 var race_time: float = 0.0
 var race_active: bool = false
-var race_start_time: float = 0.0  # NEW: Track when race actually started
+var race_start_time: float = 0.0
 
 # CurrentCar instance
 var current_car
 
 @onready var track = $".."
-@onready var scene: PackedScene = preload("res://scenes/parking_lot.tscn")
 
 func _ready() -> void:
 	$CanvasLayer/Label.visible = false
@@ -119,72 +121,66 @@ func _physics_process(delta: float) -> void:
 	if !can_act:
 		return
 
-	# Update race tracking - only if race is active and not finished
 	if race_active and !race_finished:
-		race_time = get_elapsed_race_time()  # Calculate elapsed time
+		race_time = get_elapsed_race_time()
 
-	# Input handling
-	handle_input(delta)
+	handle_ai_input(delta)
 	
-	# Gear shifting - don't allow shifting after race finished
 	if !race_finished:
-		handle_gear_shifting()
+		handle_ai_gear_shifting()
 	
-	# RPM calculation
 	update_rpm(delta)
 	
-	# Apply driving forces - only if race not finished
 	if !race_finished:
 		apply_driving_forces(delta)
 	
-	# Apply resistance - this works both during and after race
 	apply_resistance_forces()
 	
-	# Update speed and UI
 	update_speed_and_ui(delta)
 	
 	if race_finished:
 		finish_race()
 
-# NEW: Calculate elapsed race time
-func get_elapsed_race_time() -> float:
-	return Time.get_ticks_msec() / 1000.0 - race_start_time
-
-func handle_input(delta: float):
-	# If race is finished, force throttle to 0 and ignore input
+func handle_ai_input(delta: float):
 	if race_finished:
 		throttle_input = 0.0
 		return
 	
-	var is_throttle_pressed = Input.is_action_pressed("throttle")
-	var target_throttle = 1.0 if is_throttle_pressed else 0.0
-	throttle_input = lerp(throttle_input, target_throttle, delta * 10.0)
+	if race_active:
+		throttle_input = 1.0
+	else:
+		throttle_input = 0.0
 
-func handle_gear_shifting():
+func handle_ai_gear_shifting():
 	if shifting || race_finished:
 		return
 	
-	if Input.is_action_just_pressed("gear_up"):
-		if current_gear < gear_ratios.size():
-			current_gear += 1
-			start_shift_effect()
-			
-	elif Input.is_action_just_pressed("gear_down"):
-		if current_gear > 1:
-			current_gear -= 1
-			start_shift_effect()
+	if shift_cooldown > 0:
+		shift_cooldown -= get_physics_process_delta_time()
+		return
+	
+	if current_rpm > max_rpm * 0.88 && current_gear < gear_ratios.size():
+		current_gear += 1
+		start_shift_effect()
+		shift_cooldown = shift_cooldown_time
+	
+	elif current_rpm < max_rpm * 0.35 && current_gear > 1:
+		current_gear -= 1
+		start_shift_effect()
+		shift_cooldown = shift_cooldown_time
+
+func get_elapsed_race_time() -> float:
+	return Time.get_ticks_msec() / 1000.0 - race_start_time
 
 func update_rpm(delta: float):
 	if shifting:
 		current_rpm = lerp(current_rpm, min_rpm + 1500, delta * 5.0)
 		return
 	
-	# If race is finished, drop RPM to idle quickly
 	if race_finished:
 		current_rpm = lerp(current_rpm, min_rpm, delta * 8.0)
 		return
 	
-	# Calculate RPM based on wheel speed
 	var wheel_rpm = calculate_wheel_rpm_from_speed()
 	var gear_ratio = gear_ratios[current_gear - 1]
 	var calculated_rpm = wheel_rpm * gear_ratio * final_drive
@@ -197,14 +193,12 @@ func update_rpm(delta: float):
 	
 	current_rpm = clamp(current_rpm, min_rpm, max_rpm)
 
-@warning_ignore("unused_parameter")
 func apply_driving_forces(delta: float):
 	if throttle_input < 0.05 || race_finished:
 		return
 	
 	var gear_ratio = gear_ratios[current_gear - 1]
 	
-	# Get engine torque from your engine simulation
 	var engine_torque = 0.0
 	if current_car:
 		engine_torque = current_car.get_torque_at_rpm(current_rpm) * throttle_input
@@ -241,20 +235,14 @@ func apply_resistance_forces():
 	
 	var direction = sign(velocity_x)
 	
-	# Air resistance
 	var drag_force = drag_coefficient * speed_abs * speed_abs
-	
-	# Rolling resistance
 	var rolling_force = rolling_resistance * speed_abs
 	
-	# SIGNIFICANTLY INCREASE RESISTANCE WHEN RACE IS FINISHED
 	if race_finished:
-		# Apply strong braking force - much higher than normal resistance
-		var braking_force = mass * 15.0  # Strong deceleration
+		var braking_force = mass * 15.0
 		drag_force += braking_force
 		rolling_force *= 10.0
 	
-	# Engine braking when off throttle
 	if throttle_input < 0.05:
 		rolling_force *= 4.0
 	
@@ -276,7 +264,6 @@ func update_speed_and_ui(delta: float):
 	elif current_gear >= 6:
 		actual_speed_kmh = speed_ms / 3
 	
-	
 	displayed_speed = lerp(displayed_speed, actual_speed_kmh, delta * 5.0)
 	displayed_speed = clamp(displayed_speed, 0.0, 500.0)
 	
@@ -294,9 +281,9 @@ func calculate_wheel_rpm_from_speed() -> float:
 func update_ui(speed_kmh: float):
 	if throttle_lbl:
 		if race_finished:
-			throttle_lbl.text = "RACE FINISHED! | Final Speed: %d km/h | Time: %.2fs" % [int(speed_kmh), race_time]
+			throttle_lbl.text = "AI - RACE FINISHED! | Final Speed: %d km/h | Time: %.2fs" % [int(speed_kmh), race_time]
 		else:
-			throttle_lbl.text = "Throttle: %d%% | Gear: %d/%d | RPM: %d | Time: %.2fs" % [
+			throttle_lbl.text = "AI - Throttle: %d%% | Gear: %d/%d | RPM: %d | Time: %.2fs" % [
 				int(throttle_input * 100), 
 				current_gear, 
 				gear_ratios.size(),
@@ -305,7 +292,7 @@ func update_ui(speed_kmh: float):
 			]
 	
 	if speedlbl:
-		speedlbl.text = "Speed: %d km/h" % int(speed_kmh)
+		speedlbl.text = "AI Speed: %d km/h" % int(speed_kmh)
 	
 	update_rev_bar(current_rpm)
 
@@ -344,71 +331,30 @@ func set_can_act_false():
 	race_active = false
 
 func finish_race():
-	if race_finished:  # Don't process if already finished
+	if race_finished:
 		return
 	
 	race_finished = true
 	race_active = false
 	throttle_input = 0.0
 	
-	# Final race time calculation
 	race_time = get_elapsed_race_time()
 	
 	$CanvasLayer/Label.visible = true
-	$CanvasLayer/Label.text = "Race finished in: %.2fs" % race_time
+	$CanvasLayer/Label.text = "AI finished in: %.2fs" % race_time
 	
-	print("=== RACE FINISHED ===")
-	print("Final time: %.2f seconds" % race_time)
-	print("Final distance: %.1f meters" % race_distance)
-	print("Final speed: %d km/h" % int(displayed_speed))
-	
-	# Apply immediate strong braking force
 	var current_speed = linear_velocity.x
 	if abs(current_speed) > 1.0:
-		# Calculate force needed to stop quickly (opposite direction of movement)
 		var stop_direction = -sign(current_speed)
-		var braking_force = mass * 25.0  # Very strong deceleration
+		var braking_force = mass * 25.0
 		apply_central_force(Vector2(stop_direction * braking_force, 0))
 	
 	update_ui(displayed_speed)
-	
-	var timer = get_tree().create_timer(3.5)
-	timer.timeout.connect(change_to_parking_lot)
 
-# NEW FUNCTION: Handle scene change properly
-func change_to_parking_lot():
-	get_tree().change_scene_to_file("res://scenes/parking_lot.tscn")
-	
-@warning_ignore("unused_parameter")
 func _on_animation_player_animation_finished(anim_name: StringName):
 	can_act = true
 	race_start_time = Time.get_ticks_msec() / 1000.0
 	race_active = true
 
-func get_race_stats() -> Dictionary:
-	return {
-		"time": race_time,
-		"distance": race_distance,
-		"speed_kmh": displayed_speed,
-		"speed_mph": displayed_speed * 0.621371,
-		"finished": race_finished
-	}
-
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		match event.keycode:
-			KEY_R:
-				linear_velocity = Vector2.ZERO
-				angular_velocity = 0
-				current_gear = 1
-				current_rpm = min_rpm
-				race_distance = 0.0
-				race_time = 0.0
-				race_finished = false
-				race_active = false
-				position.x = -715.0
-				rotation = 0
-
 func _on_finishline_body_entered(body: Node2D) -> void:
-	if body.is_in_group("car"):
-		finish_race()
+	finish_race()

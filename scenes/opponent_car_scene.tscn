@@ -1,61 +1,56 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8e572c42cn8m"]
+[gd_scene load_steps=12 format=3 uid="uid://cv4qywuckom18"]
 
-[ext_resource type="Script" uid="uid://cqy6i086ckfmw" path="res://scripts/car_scene.gd" id="1_0lg5q"]
-[ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="2_p5cy6"]
-[ext_resource type="Texture2D" uid="uid://8jkairaymfmk" path="res://carBodies/car2.png" id="3_5ssh2"]
-[ext_resource type="Texture2D" uid="uid://baicevj5ev7w4" path="res://carBodies/car3.png" id="4_cukhm"]
-[ext_resource type="Texture2D" uid="uid://wlm1ugt76vgs" path="res://carBodies/wheel.png" id="4_p5cy6"]
-[ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="5_5ssh2"]
-[ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="6_o37pe"]
+[ext_resource type="Script" uid="uid://p6g5rm6cmo3y" path="res://scripts/opponent_car_scene.gd" id="1_uju81"]
+[ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="2_d5rxi"]
+[ext_resource type="Texture2D" uid="uid://8jkairaymfmk" path="res://carBodies/car2.png" id="3_56ogv"]
+[ext_resource type="Texture2D" uid="uid://wlm1ugt76vgs" path="res://carBodies/wheel.png" id="4_23tw4"]
+[ext_resource type="Texture2D" uid="uid://baicevj5ev7w4" path="res://carBodies/car3.png" id="4_d5rxi"]
+[ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="5_2i1wm"]
+[ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="6_m8f76"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ssh2"]
 size = Vector2(108, 38)
 
 [sub_resource type="LabelSettings" id="LabelSettings_o37pe"]
-font = ExtResource("6_o37pe")
+font = ExtResource("6_m8f76")
 font_size = 24
 outline_color = Color(0.556953, 0.556953, 0.556953, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_6k6c3"]
-font = ExtResource("6_o37pe")
+font = ExtResource("6_m8f76")
 font_size = 24
 outline_color = Color(0.556953, 0.556953, 0.556953, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cukhm"]
-font = ExtResource("6_o37pe")
+font = ExtResource("6_m8f76")
 font_size = 36
 outline_color = Color(0.556953, 0.556953, 0.556953, 1)
 
-[node name="Car_scene" type="RigidBody2D" groups=["car"]]
-collision_layer = 2
+[node name="Opponent_Car_scene" type="RigidBody2D" groups=["car"]]
+collision_layer = 4
 gravity_scale = 0.3
 can_sleep = false
 angular_damp = 0.1
-script = ExtResource("1_0lg5q")
+script = ExtResource("1_uju81")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(794, 387)
 shape = SubResource("RectangleShape2D_5ssh2")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(804, 365)
-offset = Vector2(0, -50)
-zoom = Vector2(3, 3)
 
 [node name="body" type="Node2D" parent="."]
 position = Vector2(-4, 3)
 
 [node name="body1" type="Sprite2D" parent="body"]
 position = Vector2(794, 384)
-texture = ExtResource("2_p5cy6")
+texture = ExtResource("2_d5rxi")
 
 [node name="body2" type="Sprite2D" parent="body"]
 position = Vector2(794, 384)
-texture = ExtResource("3_5ssh2")
+texture = ExtResource("3_56ogv")
 
 [node name="body3" type="Sprite2D" parent="body"]
 position = Vector2(794, 384)
-texture = ExtResource("4_cukhm")
+texture = ExtResource("4_d5rxi")
 
 [node name="suspension" type="Node2D" parent="."]
 
@@ -77,15 +72,16 @@ rest_length = 5.0
 position = Vector2(763, 388)
 
 [node name="back_wheel" type="Sprite2D" parent="back_wheel"]
-texture = ExtResource("4_p5cy6")
+texture = ExtResource("4_23tw4")
 
 [node name="front_wheel" type="AnimatedSprite2D" parent="."]
 position = Vector2(824, 387)
 
 [node name="front_wheel" type="Sprite2D" parent="front_wheel"]
-texture = ExtResource("4_p5cy6")
+texture = ExtResource("4_23tw4")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="lblRPM" type="Label" parent="CanvasLayer"]
 visible = false
@@ -94,7 +90,7 @@ offset_top = 869.0
 offset_right = 171.0
 offset_bottom = 913.0
 text = "RPM: "
-label_settings = ExtResource("5_5ssh2")
+label_settings = ExtResource("5_2i1wm")
 
 [node name="lblSpeed" type="Label" parent="CanvasLayer"]
 offset_left = 324.0

@@ -12,6 +12,5 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 
 func _on_finishline_body_entered(body: Node2D) -> void:
-	
 	if body.is_in_group("car"):
 		emit_signal("race_over")

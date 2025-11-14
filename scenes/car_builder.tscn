@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://wd54wnab53ck"]
+[gd_scene load_steps=14 format=3 uid="uid://wd54wnab53ck"]
 
 [ext_resource type="Script" uid="uid://b1o656v7k4ycp" path="res://scripts/car_builder.gd" id="1_hyjnl"]
 [ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="1_txq15"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://8jkairaymfmk" path="res://carBodies/car2.png" id="7_j8nrc"]
 [ext_resource type="Texture2D" uid="uid://cqm66w5ougca" path="res://carBodies/car2(selected).png" id="8_snj8i"]
 [ext_resource type="Texture2D" uid="uid://bmynh5ey3un5d" path="res://carBodies/car2(hover).png" id="9_c1x5a"]
+[ext_resource type="Texture2D" uid="uid://baicevj5ev7w4" path="res://carBodies/car3.png" id="10_j8nrc"]
+[ext_resource type="Texture2D" uid="uid://c8w5mdr2vnpon" path="res://carBodies/car3(pressed).png" id="11_snj8i"]
+[ext_resource type="Texture2D" uid="uid://dlhx86ut1043s" path="res://carBodies/car3(hover).png" id="12_c1x5a"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_fjaen"]
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
@@ -40,10 +43,9 @@ offset_right = 1567.0
 offset_bottom = 827.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 20
-current_tab = 5
+current_tab = 0
 
 [node name="Car body" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -82,6 +84,15 @@ toggle_mode = true
 texture_normal = ExtResource("7_j8nrc")
 texture_pressed = ExtResource("8_snj8i")
 texture_hover = ExtResource("9_c1x5a")
+stretch_mode = 0
+
+[node name="body3" type="TextureButton" parent="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("10_j8nrc")
+texture_pressed = ExtResource("11_snj8i")
+texture_hover = ExtResource("12_c1x5a")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="TabContainer/Car body/carBodypnl"]
@@ -800,6 +811,7 @@ label_settings = ExtResource("3_iiyue")
 layout_mode = 2
 
 [node name="Confirmation" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
@@ -1145,6 +1157,7 @@ autowrap_mode = 2
 
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1" to="." method="_on_body_1_toggled"]
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2" to="." method="_on_body_2_toggled"]
+[connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body3" to="." method="_on_body_3_toggled"]
 [connection signal="item_selected" from="TabContainer/Car body/bodyMatpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Car body/chasyMatpnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Car body/interiorTypepnl/OptionButton" to="." method="_on_specs_option_button_item_selected"]

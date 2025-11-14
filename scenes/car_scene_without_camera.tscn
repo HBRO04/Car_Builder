@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://1yf7225ss5sc"]
+[gd_scene load_steps=11 format=3 uid="uid://1yf7225ss5sc"]
 
 [ext_resource type="Script" uid="uid://cqy6i086ckfmw" path="res://scripts/car_scene.gd" id="1_3e1iw"]
 [ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="2_6r7u8"]
 [ext_resource type="Texture2D" uid="uid://8jkairaymfmk" path="res://carBodies/car2.png" id="3_fv6di"]
 [ext_resource type="Texture2D" uid="uid://wlm1ugt76vgs" path="res://carBodies/wheel.png" id="4_8q48v"]
+[ext_resource type="Texture2D" uid="uid://baicevj5ev7w4" path="res://carBodies/car3.png" id="4_vfp5m"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="5_6r7u8"]
 [ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="6_fv6di"]
 
@@ -34,6 +35,9 @@ texture = ExtResource("2_6r7u8")
 
 [node name="body2" type="Sprite2D" parent="body"]
 texture = ExtResource("3_fv6di")
+
+[node name="body3" type="Sprite2D" parent="body"]
+texture = ExtResource("4_vfp5m")
 
 [node name="suspension" type="Node2D" parent="."]
 scale = Vector2(5, 5)
