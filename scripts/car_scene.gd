@@ -286,6 +286,9 @@ func update_speed_and_ui(delta: float):
 		actual_speed_kmh = speed_ms / 5
 	elif current_gear == 5:
 		actual_speed_kmh = speed_ms / 4
+	elif current_gear >= 6:
+		actual_speed_kmh = speed_ms / 3
+	
 	
 	displayed_speed = lerp(displayed_speed, actual_speed_kmh, delta * 5.0)
 	displayed_speed = clamp(displayed_speed, 0.0, 500.0)

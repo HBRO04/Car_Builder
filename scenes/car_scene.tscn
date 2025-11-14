@@ -38,6 +38,7 @@ shape = SubResource("RectangleShape2D_5ssh2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(804, 365)
+offset = Vector2(0, -50)
 zoom = Vector2(3, 3)
 
 [node name="body" type="Node2D" parent="."]
