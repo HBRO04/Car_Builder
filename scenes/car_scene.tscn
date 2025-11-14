@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8e572c42cn8m"]
+[gd_scene load_steps=7 format=3 uid="uid://c8e572c42cn8m"]
 
 [ext_resource type="Script" uid="uid://cqy6i086ckfmw" path="res://scripts/car_scene.gd" id="1_0lg5q"]
 [ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="2_p5cy6"]
@@ -7,18 +7,17 @@
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="5_5ssh2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ssh2"]
-size = Vector2(108, 32)
+size = Vector2(108, 38)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_o37pe"]
-radius = 8.0
-
-[node name="Car_scene" type="RigidBody2D"]
+[node name="Car_scene" type="RigidBody2D" groups=["car"]]
 collision_layer = 2
+gravity_scale = 0.3
 can_sleep = false
+angular_damp = 0.1
 script = ExtResource("1_0lg5q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(794, 384)
+position = Vector2(794, 387)
 shape = SubResource("RectangleShape2D_5ssh2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -52,26 +51,14 @@ node_b = NodePath("../../front_wheel")
 length = 5.0
 rest_length = 5.0
 
-[node name="back_wheel" type="AnimatableBody2D" parent="."]
+[node name="back_wheel" type="AnimatedSprite2D" parent="."]
 position = Vector2(763, 388)
-collision_layer = 2
-sync_to_physics = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="back_wheel"]
-position = Vector2(2, 11)
-shape = SubResource("CircleShape2D_o37pe")
 
 [node name="back_wheel" type="Sprite2D" parent="back_wheel"]
 texture = ExtResource("4_p5cy6")
 
-[node name="front_wheel" type="AnimatableBody2D" parent="."]
+[node name="front_wheel" type="AnimatedSprite2D" parent="."]
 position = Vector2(824, 387)
-collision_layer = 2
-sync_to_physics = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="front_wheel"]
-position = Vector2(2, 11)
-shape = SubResource("CircleShape2D_o37pe")
 
 [node name="front_wheel" type="Sprite2D" parent="front_wheel"]
 texture = ExtResource("4_p5cy6")

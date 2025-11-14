@@ -54,15 +54,15 @@ scale = Vector2(5, 5)
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="back_wheel"]
-position = Vector2(36, 13)
+position = Vector2(36, 11.400001)
 shape = SubResource("CircleShape2D_o37pe")
 
 [node name="back_wheel" type="Sprite2D" parent="back_wheel"]
-position = Vector2(34, 2)
+position = Vector2(34, 0.4000001)
 texture = ExtResource("4_8q48v")
 
 [node name="front_wheel" type="AnimatableBody2D" parent="."]
-position = Vector2(-0.99999994, -13.999999)
+position = Vector2(-5.9604645e-08, -13)
 scale = Vector2(5, 5)
 collision_layer = 4
 
@@ -75,6 +75,7 @@ position = Vector2(-27, 3)
 texture = ExtResource("4_8q48v")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="lblRPM" type="Label" parent="CanvasLayer"]
 offset_left = 23.0

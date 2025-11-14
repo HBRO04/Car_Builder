@@ -29,6 +29,7 @@ window/size/initial_position_type=4
 [global_group]
 
 car_show=""
+car=""
 
 [input]
 

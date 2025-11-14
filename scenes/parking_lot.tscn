@@ -1,15 +1,218 @@
-[gd_scene load_steps=30 format=3 uid="uid://ccosnf52i1l8t"]
+[gd_scene load_steps=36 format=3 uid="uid://ccosnf52i1l8t"]
 
 [ext_resource type="Script" uid="uid://cdvjm8lecvxjc" path="res://scripts/parking_lot.gd" id="1_67ek6"]
+[ext_resource type="Texture2D" uid="uid://og6iv2213wpx" path="res://assets/sky.png" id="2_4moqh"]
 [ext_resource type="Script" uid="uid://cgbnmm25uovu4" path="res://scripts/main_menu.gd" id="2_h57tm"]
 [ext_resource type="Texture2D" uid="uid://brj8815oajte" path="res://assets/parkinglot.png" id="2_nq1o5"]
 [ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="2_rmsgb"]
+[ext_resource type="Texture2D" uid="uid://d2w4pvdj0400o" path="res://assets/clouds.png" id="3_d6i7b"]
 [ext_resource type="Texture2D" uid="uid://dqfpunbu2mx5n" path="res://assets/track.png" id="3_nq1o5"]
 [ext_resource type="Script" uid="uid://bj8gt1ydeei8o" path="res://scripts/choose_carpnl.gd" id="4_4gwln"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="5_fpfd3"]
 [ext_resource type="Texture2D" uid="uid://cjxt53f2bj03m" path="res://assets/parkinglotunderneath.png" id="6_4moqh"]
 [ext_resource type="Script" uid="uid://bhofe0kcafq41" path="res://scripts/dynopnl.gd" id="9_127ow"]
 [ext_resource type="Texture2D" uid="uid://yoe0ma06k8a" path="res://assets/parkinglot_tilemap.png" id="11_4moqh"]
+
+[sub_resource type="Animation" id="Animation_cpd32"]
+resource_name = "clouds"
+length = 10.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cloud:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(957.00006, -107.99997), Vector2(2871, -108)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cloud2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2249, -243.99998), Vector2(4498, -244)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cloud5:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(363.00037, 115.99999), Vector2(3267, 116)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("cloud3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1487.0002, 197.99998), Vector2(2974, 198)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("cloud4:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2189, 220.99998), Vector2(4378, 221)]
+}
+
+[sub_resource type="Animation" id="Animation_3ducg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cloud:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, -108)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cloud2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, -244)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cloud5:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, 116)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("cloud3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, 198)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("cloud4:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, 221)]
+}
+
+[sub_resource type="Animation" id="Animation_i064x"]
+resource_name = "new_clouds"
+length = 100.0
+loop_mode = 1
+step = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cloud5:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 100),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(232.00002, 115.99999), Vector2(4055, 116)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cloud:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4, 100),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(232, -108), Vector2(265.00006, -108), Vector2(3355, -108)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cloud3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 12, 100),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(232, 198), Vector2(240.00012, 197.99998), Vector2(3055, 198)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("cloud4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 6, 100),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(232, 221), Vector2(207.00037, 220.99998), Vector2(3755, 221)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("cloud2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 15, 100),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(232, -244), Vector2(257.00037, -244), Vector2(4005, -244)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i064x"]
+_data = {
+&"RESET": SubResource("Animation_3ducg"),
+&"clouds": SubResource("Animation_cpd32"),
+&"new_clouds": SubResource("Animation_i064x")
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nq1o5"]
 texture = ExtResource("3_nq1o5")
@@ -528,6 +731,44 @@ _data = {
 [node name="Parking_lot" type="Node2D"]
 position = Vector2(-405, 238)
 script = ExtResource("1_67ek6")
+
+[node name="sky" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="sky"]
+position = Vector2(1556.0001, 60.999985)
+scale = Vector2(6, 6)
+texture = ExtResource("2_4moqh")
+
+[node name="cloud" type="Sprite2D" parent="sky"]
+position = Vector2(232, -108)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_d6i7b")
+
+[node name="cloud2" type="Sprite2D" parent="sky"]
+position = Vector2(232, -244)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_d6i7b")
+
+[node name="cloud3" type="Sprite2D" parent="sky"]
+position = Vector2(232, 198)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_d6i7b")
+
+[node name="cloud4" type="Sprite2D" parent="sky"]
+position = Vector2(232, 221)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_d6i7b")
+
+[node name="cloud5" type="Sprite2D" parent="sky"]
+position = Vector2(232, 116)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_d6i7b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="sky"]
+libraries = {
+&"": SubResource("AnimationLibrary_i064x")
+}
+autoplay = "new_clouds"
 
 [node name="bg" type="Sprite2D" parent="."]
 position = Vector2(1042.0001, 297)
