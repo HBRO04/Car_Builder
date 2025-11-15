@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b1o656v7k4ycp" path="res://scripts/car_builder.gd" id="1_hyjnl"]
 [ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="1_txq15"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="3_iiyue"]
+[ext_resource type="Texture2D" uid="uid://crgqtp54bxm6n" path="res://assets/inside garage.png" id="3_snj8i"]
 [ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="4_tea5m"]
 [ext_resource type="Texture2D" uid="uid://beq4h7esuoc34" path="res://carBodies/car1(selected).png" id="5_ltoxu"]
 [ext_resource type="Texture2D" uid="uid://b4qhr31331hk5" path="res://carBodies/car1(hover).png" id="6_gcnyc"]
@@ -12,9 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://baicevj5ev7w4" path="res://carBodies/car3.png" id="10_j8nrc"]
 [ext_resource type="Texture2D" uid="uid://c8w5mdr2vnpon" path="res://carBodies/car3(pressed).png" id="11_snj8i"]
 [ext_resource type="Texture2D" uid="uid://dlhx86ut1043s" path="res://carBodies/car3(hover).png" id="12_c1x5a"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_fjaen"]
-specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
 
 [node name="Car_Builder" type="Node2D"]
 position = Vector2(-23, -105)
@@ -32,10 +30,10 @@ label_settings = ExtResource("3_iiyue")
 autowrap_mode = 2
 
 [node name="BackgroundColor" type="Sprite2D" parent="."]
-modulate = Color(0.23529412, 0.36862746, 0.43137255, 1)
-position = Vector2(893.62756, 469.56238)
-scale = Vector2(-2740.327, 1370.9077)
-texture = SubResource("CanvasTexture_fjaen")
+modulate = Color(1, 1, 1, 0.8392157)
+position = Vector2(870.83325, 512.5)
+scale = Vector2(6.7, 6.7)
+texture = ExtResource("3_snj8i")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 offset_left = 262.0

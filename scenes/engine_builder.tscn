@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dubtipy8j5h8c" path="res://scripts/engine_builder.gd" id="1_v3cha"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="2_85mox"]
 [ext_resource type="Texture2D" uid="uid://bsw6hcnbi3kj0" path="res://assets/engine_block i3 i4.png" id="2_fpiu6"]
+[ext_resource type="Texture2D" uid="uid://crgqtp54bxm6n" path="res://assets/inside garage.png" id="2_gwq5s"]
 [ext_resource type="StyleBox" uid="uid://dqpp4vrn3paqk" path="res://scenes/test_preview_box.tres" id="2_ku17k"]
 [ext_resource type="Texture2D" uid="uid://d0ee4bxoocsf7" path="res://assets/inline i5 i6.png" id="3_pjmh8"]
 [ext_resource type="Texture2D" uid="uid://cgsgeam4kym8g" path="res://assets/v-engines.png" id="4_pjmh8"]
@@ -16,19 +17,16 @@
 [ext_resource type="Texture2D" uid="uid://jbt8tt1j4dgo" path="res://assets/exhaust.png" id="13_rq1st"]
 [ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="15_gwq5s"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_ectv5"]
-specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
-
 [node name="Engine Builder" type="Node2D" node_paths=PackedStringArray("lblErrorEngineBlock")]
 position = Vector2(-124, 138)
 script = ExtResource("1_v3cha")
 lblErrorEngineBlock = NodePath("TabContainer/EngineBlock/lblError")
 
 [node name="background_Color" type="Sprite2D" parent="."]
-modulate = Color(0.23529412, 0.36862746, 0.43137255, 1)
-position = Vector2(1581.1604, 708.89764)
-scale = Vector2(3537.8315, 1960.1934)
-texture = SubResource("CanvasTexture_ectv5")
+modulate = Color(1, 1, 1, 0.8509804)
+position = Vector2(1135, 343)
+scale = Vector2(8, 8)
+texture = ExtResource("2_gwq5s")
 
 [node name="EngineSpecspnl" type="Panel" parent="."]
 z_index = 4
