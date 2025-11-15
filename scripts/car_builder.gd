@@ -105,6 +105,7 @@ func _on_spin_gears_changed(value: float) -> void:
 	numGears = value
 	_generate_gear_ratios(int(value))
 	_refresh_sliders()
+	update_all()
 
 func _generate_gear_ratios(gear_count: int) -> void:
 	gear_ratios.clear()
@@ -126,6 +127,9 @@ func _refresh_sliders() -> void:
 		var outer = VBoxContainer.new()
 
 		var title = Label.new()
+		var title_font = load("res://fonts/Kenney Mini Square.ttf")
+		title.add_theme_font_override("font", title_font)
+		title.add_theme_font_size_override("font_size", 24)
 		title.text = "Gear %d:" % (i + 1)
 		outer.add_child(title)
 
@@ -138,6 +142,9 @@ func _refresh_sliders() -> void:
 		outer.add_child(slider)
 
 		var value_label = Label.new()
+		var value_font = load("res://fonts/Kenney Mini Square.ttf")
+		value_label.add_theme_font_override("font", value_font)
+		value_label.add_theme_font_size_override("font_size", 24)
 		value_label.text = "Ratio: %.2f" % gear_ratios[i]
 		outer.add_child(value_label)
 
@@ -148,6 +155,7 @@ func _refresh_sliders() -> void:
 		)
 
 		gear_sliders_container.add_child(outer)
+		update_all()
 
 
 func _on_gear_slider_changed(index: int, new_value: float) -> void:
@@ -168,18 +176,18 @@ func _on_gear_slider_changed(index: int, new_value: float) -> void:
 func _on_final_drive_changed(value: float) -> void:
 	final_drive = value
 	$TabContainer/Gearbox/gearspnl/Label3.text = "Final Drive: %.2f" % value
-	update_all() # optional if you want UI/cost/weight recalculated
+	update_all() 
 	
 	
 func update_all():
 	get_settings()
 	populate_engine_list($TabContainer/Engine/Enginepnl/OptionButton)
 	populate_car_list($loadCarpnl/OptionButton)
-	display_all_confirmation_page()
 	update_Ui()
 	calc_cost()
 	calc_weight()
-	
+	display_all_confirmation_page()
+	numGears = $TabContainer/Gearbox/gearspnl/SpinBox.value
 	
 func calc_cost():
 	basecost = 0
@@ -302,6 +310,11 @@ func display_all_confirmation_page():
 	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label4.text = "Body Material: " + sbodyMat
 	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label5.text = "Chasy Material: " + schasyMat
 	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label6.text = "Interior: " + sinterior
+	
+	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label8.text = "Gears:"
+	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label9.text = "Amount of gears: " + str(numGears)
+	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label10.text = "Final drive: " + str(final_drive)
+	$TabContainer/Confirmation/carbodypnl/ScrollContainer/VBoxContainer/Label11.text = "Gear ratios: " + str(gear_ratios)
 	
 	#car settings
 	$TabContainer/Confirmation/carsettingspnl/ScrollContainer/VBoxContainer/Label.text = "Car settings:"
@@ -548,7 +561,6 @@ func load_engine_from_file(file_name: String) -> void:
 
 	
 func display_enginespecs():
-	print(enginename)
 	$TabContainer/Engine/enginespecspnl/ScrollContainer/VBoxContainer/engineSize.text = "engine size: " + str(snapped(engineSize, 0.01))
 	$TabContainer/Engine/enginespecspnl/ScrollContainer/VBoxContainer/cylinderslbl.text = "Cylinders: " + str(cylinders)
 	match enginetype:
@@ -709,7 +721,7 @@ func _on_build_car_button_pressed() -> void:
 	
 	var file = FileAccess.open(file_path, FileAccess.WRITE_READ)
 	if file:
-		var json_text: String = JSON.stringify(engine_data, "\t")  # pretty print
+		var json_text: String = JSON.stringify(engine_data, "\t") 
 		file.store_string(json_text)
 		file.close()
 		errorlbl.text = "Car saved successfully!"
@@ -896,3 +908,7 @@ func _on_body_3_toggled(toggled_on: bool) -> void:
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1".button_pressed = false
 	$"TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2".button_pressed = false
 	update_all()
+
+
+func _on_back_to_parkinglot_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/parking_lot.tscn")

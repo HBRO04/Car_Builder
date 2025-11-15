@@ -60,6 +60,7 @@ var engineName: String = ""
 @onready var choose_car_panel = $"../chooseCarpnl" # Adjust the node path
 
 func _ready() -> void:
+	dyno()
 	choose_car_panel.connect("loaddyno",Callable(self, "dyno"))
 	
 	

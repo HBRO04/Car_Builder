@@ -3,6 +3,7 @@ extends Node2D
 @export var lblErrorEngineBlock: Label
 
 @onready var car_builder_scene: PackedScene = preload("res://scenes/car_builder.tscn")
+@onready var parkinglot: PackedScene = preload("res://scenes/parking_lot.tscn")
 
 var engineSize_L: float
 var cylinders: int #3,4,5,6 or 8
@@ -93,7 +94,7 @@ func calc_cost():
 
 	var material_core: float = 0.0
 	var upgrade_cost: float = 0.0
-	var complexity_Multiplier: float = 1.0
+	complexity_Multiplier = 1.0
 
 	# Core engine block material
 	match EngineMat:
@@ -1521,7 +1522,7 @@ func _on_savebtn_pressed() -> void:
 
 	var file = FileAccess.open(file_path, FileAccess.WRITE_READ)
 	if file:
-		var json_text: String = JSON.stringify(engine_data, "\t")  # pretty print
+		var json_text: String = JSON.stringify(engine_data, "\t") 
 		file.store_string(json_text)
 		file.close()
 		lblErrorEngineBlock.text = "Engine saved successfully!"
@@ -1533,6 +1534,11 @@ func _on_savebtn_pressed() -> void:
 
 
 func _on_continuebtn_pressed() -> void:
+	$TabContainer/Confirmation/lblError.visible = true
+	if $TabContainer/Confirmation/LineEdit.text == "":
+		$TabContainer/Confirmation/lblError.text = "Name your engine first"
+		return
+		
 	var file_name: String = $TabContainer/Confirmation/LineEdit.text.strip_edges()
 	
 	if file_name == "":
@@ -1591,7 +1597,7 @@ func _on_continuebtn_pressed() -> void:
 
 	var file = FileAccess.open(file_path, FileAccess.WRITE_READ)
 	if file:
-		var json_text: String = JSON.stringify(engine_data, "\t")  # pretty print
+		var json_text: String = JSON.stringify(engine_data, "\t")  
 		file.store_string(json_text)
 		file.close()
 		lblErrorEngineBlock.text = "Engine saved successfully!"
@@ -1603,8 +1609,7 @@ func _on_continuebtn_pressed() -> void:
 	
 	var timer = get_tree().create_timer(1.0)
 	timer.timeout.connect(func(): 
-		preload("res://scenes/car_builder.tscn")
-		get_tree().change_scene_to_file("res://scenes/car_builder.tscn")
+		get_tree().change_scene_to_packed(car_builder_scene)
 	)
 	
 
@@ -1616,3 +1621,12 @@ func _on_load_enginebtn_pressed() -> void:
 	$loadEnginpnl/loadEnginebtn.visible = false
 	$loadEnginpnl/OptionButton.select(-1)
 	
+
+
+func _on_back_button_pressed() -> void:
+	#get_tree().change_scene_to_packed(parkinglot)
+	get_tree().change_scene_to_file("res://scenes/parking_lot.tscn")
+
+
+func _on_back_to_car_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/car_builder.tscn")

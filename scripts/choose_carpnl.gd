@@ -66,7 +66,6 @@ var totalWeight: int = 0
 
 #Names
 var carName: String = ""
-var car: Node2D
 
 
 

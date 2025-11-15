@@ -2,7 +2,8 @@ extends Panel
 
 @onready var car_builder_scene: PackedScene = preload("res://scenes/car_builder.tscn")
 @onready var engine_builder_scene: PackedScene = preload("res://scenes/engine_builder.tscn")
-@onready var test_car_scene: PackedScene = preload("res://scenes/test_track.tscn")
+@onready var quarter_mile_drag: PackedScene = preload("res://scenes/test_track.tscn")
+@onready var eight_mile_drag: PackedScene = preload("res://scenes/an_8th_mile_track.tscn")
 
 func _on_button_pressed() -> void:
 	get_tree().change_scene_to_packed(car_builder_scene)
@@ -32,4 +33,8 @@ func _on_close_dyno_button_pressed() -> void:
 
 
 func _on_button_6_pressed() -> void:
-	get_tree().change_scene_to_packed(test_car_scene)
+	get_tree().change_scene_to_packed(quarter_mile_drag)
+
+
+func _on_button_7_pressed() -> void:
+	get_tree().change_scene_to_packed(eight_mile_drag)

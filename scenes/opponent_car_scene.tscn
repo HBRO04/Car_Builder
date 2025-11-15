@@ -26,7 +26,7 @@ font = ExtResource("6_m8f76")
 font_size = 36
 outline_color = Color(0.556953, 0.556953, 0.556953, 1)
 
-[node name="Opponent_Car_scene" type="RigidBody2D" groups=["car"]]
+[node name="Opponent_Car_scene" type="RigidBody2D" groups=["opponent"]]
 collision_layer = 4
 gravity_scale = 0.3
 can_sleep = false

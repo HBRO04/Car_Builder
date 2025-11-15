@@ -30,6 +30,7 @@ window/size/initial_position_type=4
 
 car_show=""
 car=""
+opponent=""
 
 [input]
 

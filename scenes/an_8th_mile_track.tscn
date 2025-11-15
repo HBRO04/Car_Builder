@@ -1,35 +1,35 @@
-[gd_scene load_steps=26 format=3 uid="uid://bl5ugy7dyi8o5"]
+[gd_scene load_steps=26 format=3 uid="uid://b25v27ykkr477"]
 
-[ext_resource type="Script" uid="uid://dqdg4sxricobu" path="res://scripts/test_track.gd" id="1_7knst"]
-[ext_resource type="PackedScene" uid="uid://c8e572c42cn8m" path="res://scenes/car_scene.tscn" id="2_c6jrw"]
-[ext_resource type="Texture2D" uid="uid://cjxt53f2bj03m" path="res://assets/parkinglotunderneath.png" id="2_c6rpe"]
-[ext_resource type="Texture2D" uid="uid://dqfpunbu2mx5n" path="res://assets/track.png" id="2_d1w0v"]
-[ext_resource type="Texture2D" uid="uid://cdfbwqs0hbltf" path="res://assets/blank_crowd_stands.png" id="2_k43wr"]
-[ext_resource type="Texture2D" uid="uid://df42ikmcs25l3" path="res://assets/stars.png" id="2_l2ern"]
-[ext_resource type="Texture2D" uid="uid://ba680i16u0fd1" path="res://assets/background_crowd.png" id="3_at531"]
-[ext_resource type="Texture2D" uid="uid://1y0tvln26q00" path="res://assets/robot.png" id="3_fj3rk"]
-[ext_resource type="Texture2D" uid="uid://c20ufkvtan0im" path="res://assets/track_lights.png" id="4_at531"]
-[ext_resource type="PackedScene" uid="uid://cv4qywuckom18" path="res://scenes/opponent_car_scene.tscn" id="6_c6rpe"]
-[ext_resource type="Script" uid="uid://skkyh6l14kao" path="res://scripts/finishline.gd" id="9_70tbd"]
+[ext_resource type="Script" uid="uid://dqdg4sxricobu" path="res://scripts/test_track.gd" id="1_f15fx"]
+[ext_resource type="Texture2D" uid="uid://df42ikmcs25l3" path="res://assets/stars.png" id="2_hrrgq"]
+[ext_resource type="Texture2D" uid="uid://cdfbwqs0hbltf" path="res://assets/blank_crowd_stands.png" id="3_vtiov"]
+[ext_resource type="Texture2D" uid="uid://ba680i16u0fd1" path="res://assets/background_crowd.png" id="4_guft6"]
+[ext_resource type="Texture2D" uid="uid://c20ufkvtan0im" path="res://assets/track_lights.png" id="5_td48y"]
+[ext_resource type="Texture2D" uid="uid://cjxt53f2bj03m" path="res://assets/parkinglotunderneath.png" id="6_40hqj"]
+[ext_resource type="Texture2D" uid="uid://dqfpunbu2mx5n" path="res://assets/track.png" id="7_wyeky"]
+[ext_resource type="Texture2D" uid="uid://1y0tvln26q00" path="res://assets/robot.png" id="8_kpngv"]
+[ext_resource type="Script" uid="uid://skkyh6l14kao" path="res://scripts/finishline.gd" id="9_hrrgq"]
+[ext_resource type="PackedScene" uid="uid://c8e572c42cn8m" path="res://scenes/car_scene.tscn" id="9_in0rw"]
+[ext_resource type="PackedScene" uid="uid://cv4qywuckom18" path="res://scenes/opponent_car_scene.tscn" id="10_brbfw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l2ern"]
-atlas = ExtResource("3_at531")
+atlas = ExtResource("4_guft6")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_70tbd"]
-atlas = ExtResource("3_at531")
+atlas = ExtResource("4_guft6")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1rywj"]
-atlas = ExtResource("3_at531")
+atlas = ExtResource("4_guft6")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6kgm5"]
-atlas = ExtResource("3_at531")
+atlas = ExtResource("4_guft6")
 region = Rect2(0, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aniw7"]
-atlas = ExtResource("3_at531")
+atlas = ExtResource("4_guft6")
 region = Rect2(128, 128, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_of88p"]
@@ -56,7 +56,7 @@ animations = [{
 }]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj3rk"]
-texture = ExtResource("2_d1w0v")
+texture = ExtResource("7_wyeky")
 0:4/0 = 0
 1:4/0 = 0
 2:4/0 = 0
@@ -155,11 +155,11 @@ _data = {
 size = Vector2(28363.25, 38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f2ite"]
-size = Vector2(13, 164)
+size = Vector2(93, 164)
 
 [node name="test track" type="Node2D"]
 position = Vector2(5, -2)
-script = ExtResource("1_7knst")
+script = ExtResource("1_f15fx")
 
 [node name="big_crowd" type="Node2D" parent="."]
 
@@ -168,62 +168,62 @@ script = ExtResource("1_7knst")
 [node name="stars" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(845.5, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars10" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(-1226, 657)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars11" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(-1216.9999, 407)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars12" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(-1211, 161)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars2" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(2918, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars3" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(4990, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars4" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(7037, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars5" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(9069, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars6" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(11121, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars7" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(13167, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars8" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(15179.999, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars9" type="Sprite2D" parent="big_crowd/stars_background"]
 position = Vector2(17243, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars_background2" type="Node2D" parent="big_crowd/stars_background"]
 position = Vector2(-2, -248)
@@ -231,47 +231,47 @@ position = Vector2(-2, -248)
 [node name="stars" type="Sprite2D" parent="big_crowd/stars_background/stars_background2"]
 position = Vector2(845.5, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars2" type="Sprite2D" parent="big_crowd/stars_background/stars_background2"]
 position = Vector2(2918, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars3" type="Sprite2D" parent="big_crowd/stars_background/stars_background2"]
 position = Vector2(4990, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars4" type="Sprite2D" parent="big_crowd/stars_background/stars_background2"]
 position = Vector2(7037, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars5" type="Sprite2D" parent="big_crowd/stars_background/stars_background2"]
 position = Vector2(9069, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars6" type="Sprite2D" parent="big_crowd/stars_background/stars_background2"]
 position = Vector2(11121, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars7" type="Sprite2D" parent="big_crowd/stars_background/stars_background2"]
 position = Vector2(13167, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars8" type="Sprite2D" parent="big_crowd/stars_background/stars_background2"]
 position = Vector2(15179.999, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars9" type="Sprite2D" parent="big_crowd/stars_background/stars_background2"]
 position = Vector2(17243, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars_background3" type="Node2D" parent="big_crowd/stars_background"]
 position = Vector2(-4, -488)
@@ -279,53 +279,53 @@ position = Vector2(-4, -488)
 [node name="stars" type="Sprite2D" parent="big_crowd/stars_background/stars_background3"]
 position = Vector2(845.5, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars2" type="Sprite2D" parent="big_crowd/stars_background/stars_background3"]
 position = Vector2(2918, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars3" type="Sprite2D" parent="big_crowd/stars_background/stars_background3"]
 position = Vector2(4990, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars4" type="Sprite2D" parent="big_crowd/stars_background/stars_background3"]
 position = Vector2(7037, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars5" type="Sprite2D" parent="big_crowd/stars_background/stars_background3"]
 position = Vector2(9069, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars6" type="Sprite2D" parent="big_crowd/stars_background/stars_background3"]
 position = Vector2(11121, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars7" type="Sprite2D" parent="big_crowd/stars_background/stars_background3"]
 position = Vector2(13167, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars8" type="Sprite2D" parent="big_crowd/stars_background/stars_background3"]
 position = Vector2(15179.999, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="stars9" type="Sprite2D" parent="big_crowd/stars_background/stars_background3"]
 position = Vector2(17243, 661)
 scale = Vector2(1.4737215, 2.0000002)
-texture = ExtResource("2_l2ern")
+texture = ExtResource("2_hrrgq")
 
 [node name="crowd" type="Node2D" parent="big_crowd"]
 
 [node name="blankCrowd_stands8" type="Sprite2D" parent="big_crowd/crowd"]
 position = Vector2(44, 721)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd1" type="AnimatedSprite2D" parent="big_crowd/crowd"]
 position = Vector2(172, 697)
@@ -354,19 +354,19 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands7" type="Sprite2D" parent="big_crowd/crowd"]
 position = Vector2(44, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd"]
 position = Vector2(1073, 697)
@@ -395,15 +395,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd2" type="Node2D" parent="big_crowd"]
 position = Vector2(1807, 0)
@@ -435,15 +435,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd2"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd2"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd2"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd2"]
 position = Vector2(1073, 697)
@@ -472,15 +472,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd2"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd2"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd2"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd3" type="Node2D" parent="big_crowd"]
 position = Vector2(3729, -1)
@@ -512,15 +512,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd3"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd3"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd3"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd3"]
 position = Vector2(1073, 697)
@@ -549,15 +549,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd3"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd3"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd3"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd4" type="Node2D" parent="big_crowd"]
 position = Vector2(5536, -1)
@@ -589,15 +589,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd4"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd4"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd4"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd4"]
 position = Vector2(1073, 697)
@@ -626,15 +626,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd4"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd4"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd4"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd5" type="Node2D" parent="big_crowd"]
 position = Vector2(7456, 0)
@@ -666,15 +666,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd5"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd5"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd5"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd5"]
 position = Vector2(1073, 697)
@@ -703,15 +703,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd5"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd5"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd5"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="Node2D" parent="big_crowd"]
 position = Vector2(9263, 0)
@@ -743,15 +743,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd6"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd6"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd6"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd6"]
 position = Vector2(1073, 697)
@@ -780,15 +780,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd6"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd6"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd6"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd7" type="Node2D" parent="big_crowd"]
 position = Vector2(11185, -1)
@@ -820,15 +820,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd7"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd7"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd7"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd7"]
 position = Vector2(1073, 697)
@@ -857,15 +857,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd7"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd7"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd7"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd8" type="Node2D" parent="big_crowd"]
 position = Vector2(12992, -1)
@@ -897,15 +897,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd8"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd8"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd8"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd8"]
 position = Vector2(1073, 697)
@@ -934,15 +934,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd8"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd8"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd8"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd9" type="Node2D" parent="big_crowd"]
 position = Vector2(14912, -1)
@@ -974,15 +974,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd9"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd9"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd9"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd9"]
 position = Vector2(1073, 697)
@@ -1011,15 +1011,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd9"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd9"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd9"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd10" type="Node2D" parent="big_crowd"]
 position = Vector2(16719, -1)
@@ -1051,15 +1051,15 @@ autoplay = "default"
 
 [node name="blankCrowd_stands" type="Sprite2D" parent="big_crowd/crowd10"]
 position = Vector2(299, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands2" type="Sprite2D" parent="big_crowd/crowd10"]
 position = Vector2(555, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands3" type="Sprite2D" parent="big_crowd/crowd10"]
 position = Vector2(1065, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="crowd6" type="AnimatedSprite2D" parent="big_crowd/crowd10"]
 position = Vector2(1073, 697)
@@ -1088,45 +1088,45 @@ autoplay = "default"
 
 [node name="blankCrowd_stands4" type="Sprite2D" parent="big_crowd/crowd10"]
 position = Vector2(1200, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands5" type="Sprite2D" parent="big_crowd/crowd10"]
 position = Vector2(1456, 697)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="blankCrowd_stands6" type="Sprite2D" parent="big_crowd/crowd10"]
 position = Vector2(1966, 695)
-texture = ExtResource("2_k43wr")
+texture = ExtResource("3_vtiov")
 
 [node name="lights" type="Node2D" parent="big_crowd"]
 
 [node name="Sprite2D" type="Sprite2D" parent="big_crowd/lights"]
 position = Vector2(54, 703)
-texture = ExtResource("4_at531")
+texture = ExtResource("5_td48y")
 
 [node name="Sprite2D2" type="Sprite2D" parent="big_crowd/lights"]
 position = Vector2(2984, 703)
-texture = ExtResource("4_at531")
+texture = ExtResource("5_td48y")
 
 [node name="Sprite2D3" type="Sprite2D" parent="big_crowd/lights"]
 position = Vector2(5841, 700)
-texture = ExtResource("4_at531")
+texture = ExtResource("5_td48y")
 
 [node name="Sprite2D4" type="Sprite2D" parent="big_crowd/lights"]
 position = Vector2(8654, 700)
-texture = ExtResource("4_at531")
+texture = ExtResource("5_td48y")
 
 [node name="Sprite2D5" type="Sprite2D" parent="big_crowd/lights"]
 position = Vector2(11735, 700)
-texture = ExtResource("4_at531")
+texture = ExtResource("5_td48y")
 
 [node name="Sprite2D6" type="Sprite2D" parent="big_crowd/lights"]
 position = Vector2(15468, 700)
-texture = ExtResource("4_at531")
+texture = ExtResource("5_td48y")
 
 [node name="Sprite2D7" type="Sprite2D" parent="big_crowd/lights"]
 position = Vector2(17038, 700)
-texture = ExtResource("4_at531")
+texture = ExtResource("5_td48y")
 
 [node name="track" type="Node2D" parent="."]
 position = Vector2(0, 807)
@@ -1134,20 +1134,20 @@ position = Vector2(0, 807)
 [node name="Sprite2D4" type="Sprite2D" parent="track"]
 position = Vector2(-199.5, 71)
 scale = Vector2(1.9570313, 1.609375)
-texture = ExtResource("2_c6rpe")
+texture = ExtResource("6_40hqj")
 
 [node name="Sprite2D3" type="Sprite2D" parent="track"]
 position = Vector2(14164.501, 109)
 scale = Vector2(110.660164, 1)
-texture = ExtResource("2_c6rpe")
+texture = ExtResource("6_40hqj")
 
 [node name="Sprite2D" type="Sprite2D" parent="track"]
 position = Vector2(128, 109)
-texture = ExtResource("2_c6rpe")
+texture = ExtResource("6_40hqj")
 
 [node name="Sprite2D2" type="Sprite2D" parent="track"]
 position = Vector2(28208, 109)
-texture = ExtResource("2_c6rpe")
+texture = ExtResource("6_40hqj")
 
 [node name="TileMap2" type="TileMap" parent="track"]
 tile_set = SubResource("TileSet_f2ite")
@@ -1161,7 +1161,7 @@ layer_0/tile_data = PackedInt32Array(65536, 524288, 6, 131072, 524288, 7, 65537,
 
 [node name="robot" type="Sprite2D" parent="track"]
 position = Vector2(193, -120)
-texture = ExtResource("3_fj3rk")
+texture = ExtResource("8_kpngv")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 128)
 
@@ -1191,16 +1191,16 @@ shape = SubResource("RectangleShape2D_y5a1h")
 [node name="finishline" type="Area2D" parent="track"]
 position = Vector2(15601, -5)
 collision_mask = 6
-script = ExtResource("9_70tbd")
+script = ExtResource("9_hrrgq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="track/finishline"]
-position = Vector2(3.5, 0)
+position = Vector2(-5969, 0)
 shape = SubResource("RectangleShape2D_f2ite")
 
-[node name="Car_scene" parent="." instance=ExtResource("2_c6jrw")]
+[node name="Car_scene" parent="." instance=ExtResource("9_in0rw")]
 position = Vector2(-715, 440)
 
-[node name="Opponent_Car_scene" parent="." instance=ExtResource("6_c6rpe")]
+[node name="Opponent_Car_scene" parent="." instance=ExtResource("10_brbfw")]
 position = Vector2(-717, 394)
 
 [connection signal="animation_finished" from="track/robot/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

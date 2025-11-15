@@ -17,6 +17,7 @@
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
 
 [node name="Car_Builder" type="Node2D"]
+position = Vector2(-23, -105)
 scale = Vector2(1.2, 1.2)
 script = ExtResource("1_hyjnl")
 
@@ -1155,6 +1156,16 @@ autowrap_mode = 2
 
 [node name="MyTimer" type="Timer" parent="."]
 
+[node name="Button" type="Button" parent="."]
+offset_left = 47.499992
+offset_top = 717.6666
+offset_right = 216.5
+offset_bottom = 806.6666
+theme_override_fonts/font = ExtResource("1_txq15")
+theme_override_font_sizes/font_size = 17
+text = "Back to parkinglot without saving"
+autowrap_mode = 2
+
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body1" to="." method="_on_body_1_toggled"]
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body2" to="." method="_on_body_2_toggled"]
 [connection signal="toggled" from="TabContainer/Car body/carBodypnl/ScrollContainer/HBoxContainer/body3" to="." method="_on_body_3_toggled"]
@@ -1177,3 +1188,4 @@ autowrap_mode = 2
 [connection signal="pressed" from="TabContainer/Confirmation/Button" to="." method="_on_build_car_button_pressed"]
 [connection signal="pressed" from="loadCarpnl/Button" to="." method="_on_load_car_button_pressed"]
 [connection signal="pressed" from="loadCarpnl/Button2" to="." method="_on_final_load_car_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_back_to_parkinglot_button_pressed"]

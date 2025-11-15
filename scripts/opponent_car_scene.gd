@@ -17,9 +17,15 @@ var speed_ms: float = 0.0
 var displayed_speed: float = 0.0
 var shifting: bool = false
 
+# Physics scale constants
+const SPEED_SCALE: float = 0.098  # Converts physics velocity to km/h
+const WHEEL_RPM_SCALE: float = 0.42  # Adjusted for proper gear speed progression
+
 # AI shifting control
 var shift_cooldown: float = 0.0
-var shift_cooldown_time: float = 1.2  # Wait 1.2 seconds between shifts
+var shift_cooldown_time: float = 1  
+var previous_speed: float = 0.0
+var speed_check_timer: float = 0.0
 
 # Physics properties for DRAG RACING
 var drag_coefficient: float = 0.35
@@ -44,6 +50,7 @@ var current_car
 
 func _ready() -> void:
 	$CanvasLayer/Label.visible = false
+	
 	# Initialize CurrentCar
 	current_car = CurrentCar
 	if current_car:
@@ -57,7 +64,6 @@ func _ready() -> void:
 	set_weight()
 	setup_physics_properties()
 	update_rev_bar(0)
-	
 	update_ui(displayed_speed)
 
 func find_ui_elements():
@@ -102,7 +108,6 @@ func set_data():
 	
 	if gear_ratios.size() > 1:
 		gear_ratios.sort()
-		gear_ratios.reverse()
 
 func show_correct_body():
 	if not current_car:
@@ -121,56 +126,115 @@ func _physics_process(delta: float) -> void:
 	if !can_act:
 		return
 
+	# Update race tracking
 	if race_active and !race_finished:
 		race_time = get_elapsed_race_time()
 
+	# AI handles its own input
 	handle_ai_input(delta)
 	
+	# AI gear shifting
 	if !race_finished:
-		handle_ai_gear_shifting()
+		handle_ai_gear_shifting(delta)
 	
+	# RPM calculation
 	update_rpm(delta)
 	
+	# Apply driving forces
 	if !race_finished:
 		apply_driving_forces(delta)
 	
+	# Apply resistance forces
 	apply_resistance_forces()
 	
+	# Update speed and UI
 	update_speed_and_ui(delta)
 	
 	if race_finished:
 		finish_race()
 
+func get_elapsed_race_time() -> float:
+	return Time.get_ticks_msec() / 1000.0 - race_start_time
+
+@warning_ignore("unused_parameter")
 func handle_ai_input(delta: float):
 	if race_finished:
 		throttle_input = 0.0
 		return
 	
+	# AI always floors it when racing
 	if race_active:
 		throttle_input = 1.0
 	else:
 		throttle_input = 0.0
 
-func handle_ai_gear_shifting():
+func handle_ai_gear_shifting(delta: float):
 	if shifting || race_finished:
 		return
 	
+	# Update shift cooldown
 	if shift_cooldown > 0:
-		shift_cooldown -= get_physics_process_delta_time()
+		shift_cooldown -= delta
 		return
 	
-	if current_rpm > max_rpm * 0.88 && current_gear < gear_ratios.size():
+	# Track speed changes for acceleration-based shifting
+	speed_check_timer += delta
+	
+	# Check if we should shift based on multiple conditions
+	var should_shift_up = false
+	var should_shift_down = false
+	
+	# Method 1: Shift at high RPM (traditional method)
+	if current_rpm > max_rpm * 0.88:
+		should_shift_up = true
+	
+	# Method 2: Shift if acceleration is poor (speed plateauing)
+	# Check every 0.5 seconds if speed gain is too low
+	if speed_check_timer >= 0.5:
+		var speed_gain = speed_ms - previous_speed
+		var acceleration = speed_gain / 0.5  # m/s²
+		
+		# If acceleration is very low and we're not in top gear, shift up
+		# This catches cases where RPM doesn't climb enough
+		if acceleration < 2.0 && current_gear < gear_ratios.size() && speed_ms > 5.0:
+			should_shift_up = true
+			print("AI shifting up due to low acceleration: %.2f m/s²" % acceleration)
+		
+		previous_speed = speed_ms
+		speed_check_timer = 0.0
+	
+	# Method 3: Force shift based on speed thresholds (backup method)
+	# Ensures AI always progresses through gears
+	var speed_kmh = speed_ms * SPEED_SCALE
+	match current_gear:
+		1:
+			if speed_kmh > 40.0:  # Force 2nd gear at 40 km/h
+				should_shift_up = true
+		2:
+			if speed_kmh > 70.0:  # Force 3rd gear at 70 km/h
+				should_shift_up = true
+		3:
+			if speed_kmh > 100.0:  # Force 4th gear at 100 km/h
+				should_shift_up = true
+		4:
+			if speed_kmh > 130.0:  # Force 5th gear at 130 km/h
+				should_shift_up = true
+	
+	# Downshift if RPM too low
+	if current_rpm < max_rpm * 0.30 && current_gear > 1:
+		should_shift_down = true
+	
+	# Execute shifts
+	if should_shift_up && current_gear < gear_ratios.size():
 		current_gear += 1
 		start_shift_effect()
 		shift_cooldown = shift_cooldown_time
+		print("AI shifted to gear %d (Speed: %.1f km/h, RPM: %d)" % [current_gear, speed_kmh, int(current_rpm)])
 	
-	elif current_rpm < max_rpm * 0.35 && current_gear > 1:
+	elif should_shift_down:
 		current_gear -= 1
 		start_shift_effect()
 		shift_cooldown = shift_cooldown_time
-
-func get_elapsed_race_time() -> float:
-	return Time.get_ticks_msec() / 1000.0 - race_start_time
 
 func update_rpm(delta: float):
 	if shifting:
@@ -181,10 +245,12 @@ func update_rpm(delta: float):
 		current_rpm = lerp(current_rpm, min_rpm, delta * 8.0)
 		return
 	
+	# Calculate RPM based on wheel speed and gear ratio
 	var wheel_rpm = calculate_wheel_rpm_from_speed()
 	var gear_ratio = gear_ratios[current_gear - 1]
 	var calculated_rpm = wheel_rpm * gear_ratio * final_drive
 	
+	# Apply smooth RPM changes
 	if throttle_input > 0.1:
 		var target_rpm = max(calculated_rpm, min_rpm + 1500)
 		current_rpm = lerp(current_rpm, target_rpm, delta * 5.0)
@@ -193,36 +259,37 @@ func update_rpm(delta: float):
 	
 	current_rpm = clamp(current_rpm, min_rpm, max_rpm)
 
+@warning_ignore("unused_parameter")
 func apply_driving_forces(delta: float):
 	if throttle_input < 0.05 || race_finished:
 		return
 	
 	var gear_ratio = gear_ratios[current_gear - 1]
 	
+	# Get engine torque
 	var engine_torque = 0.0
 	if current_car:
 		engine_torque = current_car.get_torque_at_rpm(current_rpm) * throttle_input
 	else:
+		# Fallback torque curve
 		var peak_torque_rpm = max_rpm * 0.55
 		var torque_factor = 1.0
 		
 		if current_rpm < peak_torque_rpm:
-			torque_factor = (current_rpm - min_rpm) / (peak_torque_rpm - min_rpm)
-			torque_factor = clamp(torque_factor, 0.3, 1.0)
+			torque_factor = clamp((current_rpm - min_rpm) / (peak_torque_rpm - min_rpm), 0.3, 1.0)
 		else:
 			var falloff = (current_rpm - peak_torque_rpm) / (max_rpm - peak_torque_rpm)
 			torque_factor = 1.0 - (falloff * 0.4)
 		
 		engine_torque = current_car.torque * torque_factor * throttle_input
 	
+	# Calculate wheel force
 	var wheel_torque = engine_torque * gear_ratio * final_drive
 	var theoretical_force = wheel_torque / wheel_radius
 	
-	var traction_coefficient = 1.1
-	var max_force = mass * 9.81 * traction_coefficient
-	var actual_force = min(theoretical_force, max_force)
-	
-	actual_force *= 200.0
+	# Apply traction limit
+	var max_force = mass * 9.81 * 1.1
+	var actual_force = min(theoretical_force, max_force) * 200.0
 	
 	apply_central_force(Vector2.RIGHT * actual_force)
 
@@ -235,14 +302,19 @@ func apply_resistance_forces():
 	
 	var direction = sign(velocity_x)
 	
+	# Air resistance
 	var drag_force = drag_coefficient * speed_abs * speed_abs
+	
+	# Rolling resistance
 	var rolling_force = rolling_resistance * speed_abs
 	
+	# Strong braking when race is finished
 	if race_finished:
 		var braking_force = mass * 15.0
 		drag_force += braking_force
 		rolling_force *= 10.0
 	
+	# Engine braking when off throttle
 	if throttle_input < 0.05:
 		rolling_force *= 4.0
 	
@@ -251,32 +323,21 @@ func apply_resistance_forces():
 
 func update_speed_and_ui(delta: float):
 	speed_ms = abs(linear_velocity.x)
-	var actual_speed_kmh = speed_ms / 15
 	
-	if current_gear == 2:
-		actual_speed_kmh = speed_ms / 10
-	elif current_gear == 3:
-		actual_speed_kmh = speed_ms / 7.2
-	elif current_gear == 4:
-		actual_speed_kmh = speed_ms / 5
-	elif current_gear == 5:
-		actual_speed_kmh = speed_ms / 4
-	elif current_gear >= 6:
-		actual_speed_kmh = speed_ms / 3
+	# Single consistent speed conversion - no more gear-based divisors!
+	# This prevents speed spikes when AI shifts gears
+	var actual_speed_kmh = speed_ms * SPEED_SCALE
 	
+	# Smooth the displayed speed
 	displayed_speed = lerp(displayed_speed, actual_speed_kmh, delta * 5.0)
 	displayed_speed = clamp(displayed_speed, 0.0, 500.0)
 	
 	update_ui(displayed_speed)
 
 func calculate_wheel_rpm_from_speed() -> float:
-	var speed_abs = abs(linear_velocity.x)
-	if speed_abs < 0.1:
+	if speed_ms < 0.1:
 		return 0.0
-	
-	var circumference = 2.0 * PI * wheel_radius
-	var wheel_rpm = (speed_abs / circumference) * 40.0
-	return wheel_rpm
+	return speed_ms * WHEEL_RPM_SCALE
 
 func update_ui(speed_kmh: float):
 	if throttle_lbl:
@@ -343,6 +404,7 @@ func finish_race():
 	$CanvasLayer/Label.visible = true
 	$CanvasLayer/Label.text = "AI finished in: %.2fs" % race_time
 	
+	# Apply immediate strong braking force
 	var current_speed = linear_velocity.x
 	if abs(current_speed) > 1.0:
 		var stop_direction = -sign(current_speed)
@@ -350,11 +412,22 @@ func finish_race():
 		apply_central_force(Vector2(stop_direction * braking_force, 0))
 	
 	update_ui(displayed_speed)
+	
+func get_race_stats() -> Dictionary:
+	return {
+		"time": race_time,
+		"distance": race_distance,
+		"speed_kmh": displayed_speed,
+		"speed_mph": displayed_speed * 0.621371,
+		"finished": race_finished
+	}
 
+@warning_ignore("unused_parameter")
 func _on_animation_player_animation_finished(anim_name: StringName):
 	can_act = true
 	race_start_time = Time.get_ticks_msec() / 1000.0
 	race_active = true
 
 func _on_finishline_body_entered(body: Node2D) -> void:
+	print("AI crossed finish line: ", body)
 	finish_race()

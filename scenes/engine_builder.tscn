@@ -20,8 +20,7 @@
 specular_color = Color(0.23529412, 0.36862746, 0.43137255, 1)
 
 [node name="Engine Builder" type="Node2D" node_paths=PackedStringArray("lblErrorEngineBlock")]
-position = Vector2(-33, 181)
-scale = Vector2(0.9300253, 0.9721307)
+position = Vector2(-124, 138)
 script = ExtResource("1_v3cha")
 lblErrorEngineBlock = NodePath("TabContainer/EngineBlock/lblError")
 
@@ -36,10 +35,10 @@ z_index = 4
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 1543.325
-offset_top = -67.70548
-offset_right = 2028.1483
-offset_bottom = 784.6496
+offset_left = 1527.5
+offset_top = -67.7831
+offset_right = 2012.3234
+offset_bottom = 784.572
 grow_horizontal = 0
 scale = Vector2(1.0150163, 0.9526546)
 
@@ -142,13 +141,14 @@ offset_right = 1512.7925
 offset_bottom = 787.4774
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.0150163, 0.9526546)
+scale = Vector2(1, 0.939)
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 20
-current_tab = 0
+current_tab = 7
 
 [node name="EngineBlock" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 18
@@ -1418,16 +1418,16 @@ popup/item_3/text = "straight pipe"
 popup/item_3/id = 3
 
 [node name="Confirmation" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 7
 
 [node name="lblError" type="Label" parent="TabContainer/Confirmation"]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 338.0
-offset_right = 708.0
-offset_bottom = 386.0
+offset_left = 149.86823
+offset_top = 242.19609
+offset_right = 794.8682
+offset_bottom = 290.1961
+label_settings = ExtResource("2_85mox")
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -1528,10 +1528,10 @@ placeholder_text = "Name the engine..."
 max_length = 100
 
 [node name="loadEnginpnl" type="Panel" parent="."]
-offset_left = 106.894775
-offset_top = -62.45699
-offset_right = 341.89478
-offset_bottom = 45.389477
+offset_left = 94.99999
+offset_top = -62.200962
+offset_right = 330.0
+offset_bottom = 45.645504
 
 [node name="Button" type="Button" parent="loadEnginpnl"]
 layout_mode = 0
@@ -1570,6 +1570,26 @@ theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
 text = " Load engine "
 
+[node name="Button" type="Button" parent="."]
+offset_left = 142.0
+offset_top = 647.0
+offset_right = 311.0
+offset_bottom = 736.0
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
+text = "Back to parkinglot without saving"
+autowrap_mode = 2
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 142.0
+offset_top = 541.0
+offset_right = 311.0
+offset_bottom = 630.0
+theme_override_fonts/font = ExtResource("15_gwq5s")
+theme_override_font_sizes/font_size = 17
+text = "Back to car builder without saving"
+autowrap_mode = 2
+
 [connection signal="item_selected" from="TabContainer/EngineBlock/EngineTypepnl/EnginTypeOptbtn" to="." method="_on_engin_type_optbtn_item_selected"]
 [connection signal="item_selected" from="TabContainer/EngineBlock/EngineTypepnl/CylinderOptbtn" to="." method="_on_cylinder_optbtn_item_selected"]
 [connection signal="item_selected" from="TabContainer/EngineBlock/EngineMaterialspnl/EngineMatOptbtn" to="." method="_on_engine_mat_optbtn_item_selected"]
@@ -1601,3 +1621,5 @@ text = " Load engine "
 [connection signal="pressed" from="TabContainer/Confirmation/Continuebtn" to="." method="_on_continuebtn_pressed"]
 [connection signal="pressed" from="loadEnginpnl/Button" to="." method="_on_Load_button_pressed"]
 [connection signal="pressed" from="loadEnginpnl/loadEnginebtn" to="." method="_on_load_enginebtn_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_back_to_car_button_pressed"]
