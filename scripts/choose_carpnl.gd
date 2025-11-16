@@ -210,7 +210,7 @@ func save_current_car() -> void:
 	if file:
 		file.store_string(JSON.stringify(car_data, "\t"))
 		file.close()
-		lblError.text = "Car saved successfully!"
+		lblError.text = "Car selected successfully!"
 	else:
 		lblError.text = "Error: Could not save current car."
 		
@@ -240,6 +240,9 @@ func _on_button_5_pressed() -> void:
 	$"../sim_resultspnl/ScrollContainer/VBoxContainer/Label2".text = "0-100 time: %.2f s" % zeroTo100
 	$"../sim_resultspnl/ScrollContainer/VBoxContainer/Label3".text = "Quarter mile time: %.2f s" % quarterMileTime
 	$"../sim_resultspnl/ScrollContainer/VBoxContainer/Label4".text = "Trap speed: %.2f km/h" % speedtrap
+	
+	if quarterMileTime == -1 and speedtrap == -1:
+		$"../errorlbl".text = "Select a car first"
 
 
 func _on_backbutton_sim_pressed() -> void:

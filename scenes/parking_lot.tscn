@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://ccosnf52i1l8t"]
+[gd_scene load_steps=52 format=3 uid="uid://ccosnf52i1l8t"]
 
 [ext_resource type="Script" uid="uid://cdvjm8lecvxjc" path="res://scripts/parking_lot.gd" id="1_67ek6"]
 [ext_resource type="Texture2D" uid="uid://og6iv2213wpx" path="res://assets/sky.png" id="2_4moqh"]
@@ -15,6 +15,34 @@
 [ext_resource type="Texture2D" uid="uid://b182dnmnuhlax" path="res://assets/garage.png" id="8_ucdbd"]
 [ext_resource type="Script" uid="uid://bhofe0kcafq41" path="res://scripts/dynopnl.gd" id="9_127ow"]
 [ext_resource type="Texture2D" uid="uid://yoe0ma06k8a" path="res://assets/parkinglot_tilemap.png" id="11_4moqh"]
+[ext_resource type="StyleBox" uid="uid://cg1kkoh65nb34" path="res://scenes/btn.tres" id="11_cpd32"]
+
+[sub_resource type="Animation" id="Animation_maqex"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2030, 451)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(128, 0, 128, 128)]
+}
 
 [sub_resource type="Animation" id="Animation_n6lxd"]
 resource_name = "moon1"
@@ -43,33 +71,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Rect2(0, 0, 128, 128)]
-}
-
-[sub_resource type="Animation" id="Animation_maqex"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2030, 451)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:region_rect")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(128, 0, 128, 128)]
 }
 
 [sub_resource type="Animation" id="Animation_gli25"]
@@ -1018,7 +1019,8 @@ z_index = 4
 offset_left = 4000.0
 offset_top = 220.0
 offset_right = 4342.0
-offset_bottom = 631.0
+offset_bottom = 680.0
+theme_override_styles/panel = ExtResource("11_cpd32")
 script = ExtResource("2_h57tm")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_menu"]
@@ -1031,6 +1033,8 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="main_menu/VBoxContainer"]
 layout_mode = 2
+text = "Menu:"
+label_settings = ExtResource("5_fpfd3")
 
 [node name="Button" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
@@ -1074,6 +1078,12 @@ theme_override_fonts/font = ExtResource("2_rmsgb")
 theme_override_font_sizes/font_size = 24
 text = "1/8 mile drag Race"
 
+[node name="Button8" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rmsgb")
+theme_override_font_sizes/font_size = 24
+text = "Quit game"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main_menu"]
 libraries = {
 &"": SubResource("AnimationLibrary_fpfd3")
@@ -1086,6 +1096,7 @@ offset_left = -434.0
 offset_top = 374.0
 offset_right = -129.0
 offset_bottom = 547.0
+theme_override_styles/panel = ExtResource("11_cpd32")
 script = ExtResource("4_4gwln")
 
 [node name="Label" type="Label" parent="chooseCarpnl"]
@@ -1135,6 +1146,7 @@ offset_left = -1880.0
 offset_top = 142.0
 offset_right = -704.0
 offset_bottom = 881.0
+theme_override_styles/panel = ExtResource("11_cpd32")
 script = ExtResource("9_127ow")
 
 [node name="GraphBackground" type="ColorRect" parent="dynopnl"]
@@ -1216,6 +1228,7 @@ offset_left = -584.0
 offset_top = 311.0
 offset_right = -255.0
 offset_bottom = 640.0
+theme_override_styles/panel = ExtResource("11_cpd32")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="sim_resultspnl"]
 layout_mode = 0
@@ -1268,6 +1281,7 @@ libraries = {
 [connection signal="pressed" from="main_menu/VBoxContainer/Button5" to="chooseCarpnl" method="_on_button_5_pressed"]
 [connection signal="pressed" from="main_menu/VBoxContainer/Button6" to="main_menu" method="_on_button_6_pressed"]
 [connection signal="pressed" from="main_menu/VBoxContainer/Button7" to="main_menu" method="_on_button_7_pressed"]
+[connection signal="pressed" from="main_menu/VBoxContainer/Button8" to="main_menu" method="_on_button_8_pressed"]
 [connection signal="pressed" from="chooseCarpnl/Button" to="chooseCarpnl" method="_on_button_pressed"]
 [connection signal="value_changed" from="dynopnl/currentRPM" to="dynopnl" method="_on_current_rpm_value_changed"]
 [connection signal="pressed" from="dynopnl/Button" to="main_menu" method="_on_close_dyno_button_pressed"]

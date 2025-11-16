@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://wd54wnab53ck"]
+[gd_scene load_steps=19 format=3 uid="uid://wd54wnab53ck"]
 
 [ext_resource type="Script" uid="uid://b1o656v7k4ycp" path="res://scripts/car_builder.gd" id="1_hyjnl"]
 [ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="1_txq15"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="3_iiyue"]
 [ext_resource type="Texture2D" uid="uid://crgqtp54bxm6n" path="res://assets/inside garage.png" id="3_snj8i"]
 [ext_resource type="Texture2D" uid="uid://74v5v8lht46v" path="res://carBodies/car1.png" id="4_tea5m"]
+[ext_resource type="StyleBox" uid="uid://b7qcid1a454nv" path="res://scenes/panel_style2.tres" id="5_ku6hm"]
 [ext_resource type="Texture2D" uid="uid://beq4h7esuoc34" path="res://carBodies/car1(selected).png" id="5_ltoxu"]
 [ext_resource type="Texture2D" uid="uid://b4qhr31331hk5" path="res://carBodies/car1(hover).png" id="6_gcnyc"]
 [ext_resource type="Texture2D" uid="uid://8jkairaymfmk" path="res://carBodies/car2.png" id="7_j8nrc"]
@@ -13,6 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://baicevj5ev7w4" path="res://carBodies/car3.png" id="10_j8nrc"]
 [ext_resource type="Texture2D" uid="uid://c8w5mdr2vnpon" path="res://carBodies/car3(pressed).png" id="11_snj8i"]
 [ext_resource type="Texture2D" uid="uid://dlhx86ut1043s" path="res://carBodies/car3(hover).png" id="12_c1x5a"]
+[ext_resource type="StyleBox" uid="uid://lh5dgxddqfk3" path="res://scenes/panel_style1.tres" id="15_hfjus"]
+[ext_resource type="StyleBox" uid="uid://dfqyx1ym60cil" path="res://scenes/btn_pressed.tres" id="16_qdomj"]
+[ext_resource type="StyleBox" uid="uid://cg1kkoh65nb34" path="res://scenes/btn.tres" id="16_v0agv"]
+[ext_resource type="StyleBox" uid="uid://kodo07t5ja8q" path="res://scenes/btn_hover.tres" id="17_v0agv"]
 
 [node name="Car_Builder" type="Node2D"]
 position = Vector2(-23, -105)
@@ -31,8 +36,8 @@ autowrap_mode = 2
 
 [node name="BackgroundColor" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.8392157)
-position = Vector2(870.83325, 512.5)
-scale = Vector2(6.7, 6.7)
+position = Vector2(1038.6998, 657.6833)
+scale = Vector2(8.011457, 8.968489)
 texture = ExtResource("3_snj8i")
 
 [node name="TabContainer" type="TabContainer" parent="."]
@@ -42,6 +47,7 @@ offset_right = 1567.0
 offset_bottom = 827.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 20
+theme_override_styles/panel = ExtResource("5_ku6hm")
 current_tab = 0
 
 [node name="Car body" type="TabBar" parent="TabContainer"]
@@ -54,6 +60,7 @@ offset_left = 57.0
 offset_top = 115.0
 offset_right = 1243.0
 offset_bottom = 288.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Car body/carBodypnl"]
 layout_mode = 0
@@ -109,6 +116,7 @@ offset_left = 64.0
 offset_top = 335.0
 offset_right = 338.0
 offset_bottom = 523.0
+theme_override_styles/panel = ExtResource("5_ku6hm")
 
 [node name="Label" type="Label" parent="TabContainer/Car body/bodyMatpnl"]
 layout_mode = 0
@@ -144,6 +152,7 @@ offset_left = 458.0
 offset_top = 335.0
 offset_right = 732.0
 offset_bottom = 523.0
+theme_override_styles/panel = ExtResource("5_ku6hm")
 
 [node name="Label" type="Label" parent="TabContainer/Car body/chasyMatpnl"]
 layout_mode = 0
@@ -179,6 +188,7 @@ offset_left = 834.0
 offset_top = 335.0
 offset_right = 1108.0
 offset_bottom = 523.0
+theme_override_styles/panel = ExtResource("5_ku6hm")
 
 [node name="Label" type="Label" parent="TabContainer/Car body/interiorTypepnl"]
 layout_mode = 0
@@ -219,6 +229,7 @@ offset_left = 113.0
 offset_top = 202.0
 offset_right = 399.6666
 offset_bottom = 367.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="Label" type="Label" parent="TabContainer/Engine/Enginepnl"]
 layout_mode = 0
@@ -244,6 +255,7 @@ offset_left = 715.0
 offset_top = 116.0
 offset_right = 1220.4999
 offset_bottom = 561.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Engine/enginespecspnl"]
 layout_mode = 0
@@ -335,6 +347,9 @@ offset_right = 251.0
 offset_bottom = 156.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("16_v0agv")
+theme_override_styles/pressed = ExtResource("16_qdomj")
+theme_override_styles/hover = ExtResource("17_v0agv")
 text = " Build new engine"
 
 [node name="selectEnginebtn" type="Button" parent="TabContainer/Engine"]
@@ -345,6 +360,9 @@ offset_right = 539.0
 offset_bottom = 156.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("16_v0agv")
+theme_override_styles/pressed = ExtResource("16_qdomj")
+theme_override_styles/hover = ExtResource("17_v0agv")
 text = " Select existing engine"
 
 [node name="Drive Terrain" type="TabBar" parent="TabContainer"]
@@ -358,6 +376,7 @@ offset_left = 95.0
 offset_top = 90.0
 offset_right = 687.1666
 offset_bottom = 307.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="HSlider" type="HSlider" parent="TabContainer/Drive Terrain/engineLocationpnl"]
 layout_mode = 0
@@ -416,12 +435,13 @@ offset_left = 94.0
 offset_top = 331.0
 offset_right = 375.5
 offset_bottom = 496.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="Label" type="Label" parent="TabContainer/Drive Terrain/Driveterrainpnl"]
 layout_mode = 0
 offset_top = 16.0
-offset_right = 191.0
-offset_bottom = 39.0
+offset_right = 270.0
+offset_bottom = 46.0
 text = "Choose drive terrain:"
 label_settings = ExtResource("3_iiyue")
 
@@ -448,6 +468,7 @@ offset_left = 400.0
 offset_top = 331.0
 offset_right = 680.5
 offset_bottom = 496.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="Label" type="Label" parent="TabContainer/Drive Terrain/Brakespnl"]
 layout_mode = 0
@@ -480,6 +501,7 @@ offset_left = 705.49994
 offset_top = 331.0
 offset_right = 961.3332
 offset_bottom = 496.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="Label" type="Label" parent="TabContainer/Drive Terrain/wheelRaduispnl"]
 layout_mode = 0
@@ -531,6 +553,7 @@ offset_left = 105.0
 offset_top = 92.0
 offset_right = 395.5
 offset_bottom = 490.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="Label" type="Label" parent="TabContainer/Suspension/front_Suspensionpnl"]
 layout_mode = 0
@@ -623,6 +646,7 @@ offset_left = 512.0
 offset_top = 92.0
 offset_right = 801.33325
 offset_bottom = 490.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="Label" type="Label" parent="TabContainer/Suspension/rear_Suspensionpnl"]
 layout_mode = 0
@@ -720,6 +744,7 @@ offset_left = 118.0
 offset_top = 188.0
 offset_right = 457.1666
 offset_bottom = 467.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="Label" type="Label" parent="TabContainer/Gearbox/gearspnl"]
 layout_mode = 0
@@ -775,6 +800,7 @@ offset_left = 598.0
 offset_top = 188.0
 offset_right = 925.5
 offset_bottom = 467.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Gearbox/gearratiospnl"]
 layout_mode = 0
@@ -820,6 +846,7 @@ offset_left = 859.0
 offset_top = 154.0
 offset_right = 1242.1666
 offset_bottom = 600.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/carsettingspnl"]
 layout_mode = 0
@@ -899,6 +926,7 @@ offset_left = 460.0
 offset_top = 154.0
 offset_right = 828.83325
 offset_bottom = 600.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/enginepnl"]
 layout_mode = 0
@@ -986,6 +1014,7 @@ offset_left = 53.0
 offset_top = 154.0
 offset_right = 425.49997
 offset_bottom = 600.0
+theme_override_styles/panel = ExtResource("15_hfjus")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Confirmation/carbodypnl"]
 layout_mode = 0
@@ -1078,6 +1107,9 @@ offset_right = 726.0
 offset_bottom = 663.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("16_v0agv")
+theme_override_styles/pressed = ExtResource("16_qdomj")
+theme_override_styles/hover = ExtResource("17_v0agv")
 text = " Built car "
 
 [node name="costpnl" type="Panel" parent="."]
@@ -1113,6 +1145,7 @@ offset_left = 43.0
 offset_top = 150.0
 offset_right = 248.0
 offset_bottom = 223.0
+theme_override_styles/panel = ExtResource("5_ku6hm")
 
 [node name="Button" type="Button" parent="loadCarpnl"]
 layout_mode = 0
@@ -1122,6 +1155,9 @@ offset_right = 183.0
 offset_bottom = 51.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("16_v0agv")
+theme_override_styles/pressed = ExtResource("16_qdomj")
+theme_override_styles/hover = ExtResource("17_v0agv")
 text = " Load existing car "
 
 [node name="Button2" type="Button" parent="loadCarpnl"]
@@ -1132,6 +1168,9 @@ offset_right = 183.0
 offset_bottom = 146.0
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("16_v0agv")
+theme_override_styles/pressed = ExtResource("16_qdomj")
+theme_override_styles/hover = ExtResource("17_v0agv")
 text = " Load existing car "
 
 [node name="OptionButton" type="OptionButton" parent="loadCarpnl"]
@@ -1155,12 +1194,15 @@ autowrap_mode = 2
 [node name="MyTimer" type="Timer" parent="."]
 
 [node name="Button" type="Button" parent="."]
-offset_left = 47.499992
-offset_top = 717.6666
+offset_left = 47.5
+offset_top = 1071.6666
 offset_right = 216.5
-offset_bottom = 806.6666
+offset_bottom = 1160.6666
 theme_override_fonts/font = ExtResource("1_txq15")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("16_v0agv")
+theme_override_styles/pressed = ExtResource("16_qdomj")
+theme_override_styles/hover = ExtResource("17_v0agv")
 text = "Back to parkinglot without saving"
 autowrap_mode = 2
 

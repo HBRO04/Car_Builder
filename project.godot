@@ -24,6 +24,7 @@ CurrentCar="*res://scripts/current_car.gd"
 
 window/size/viewport_width=1908
 window/size/viewport_height=916
+window/size/mode=3
 window/size/initial_position_type=4
 
 [global_group]

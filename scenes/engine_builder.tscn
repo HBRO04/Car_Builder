@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://cef7sayyf852u"]
+[gd_scene load_steps=22 format=3 uid="uid://cef7sayyf852u"]
 
 [ext_resource type="Script" uid="uid://dubtipy8j5h8c" path="res://scripts/engine_builder.gd" id="1_v3cha"]
 [ext_resource type="LabelSettings" uid="uid://cu2kxdh38wd7e" path="res://scenes/label_settings.tres" id="2_85mox"]
 [ext_resource type="Texture2D" uid="uid://bsw6hcnbi3kj0" path="res://assets/engine_block i3 i4.png" id="2_fpiu6"]
 [ext_resource type="Texture2D" uid="uid://crgqtp54bxm6n" path="res://assets/inside garage.png" id="2_gwq5s"]
 [ext_resource type="StyleBox" uid="uid://dqpp4vrn3paqk" path="res://scenes/test_preview_box.tres" id="2_ku17k"]
+[ext_resource type="StyleBox" uid="uid://b7qcid1a454nv" path="res://scenes/panel_style2.tres" id="3_4qh7o"]
 [ext_resource type="Texture2D" uid="uid://d0ee4bxoocsf7" path="res://assets/inline i5 i6.png" id="3_pjmh8"]
 [ext_resource type="Texture2D" uid="uid://cgsgeam4kym8g" path="res://assets/v-engines.png" id="4_pjmh8"]
 [ext_resource type="Texture2D" uid="uid://dh52e0d1t0815" path="res://assets/Boxer engine.png" id="5_b6bfi"]
@@ -12,20 +13,24 @@
 [ext_resource type="Texture2D" uid="uid://djarea7wuae4t" path="res://assets/valves.png" id="7_l1jl4"]
 [ext_resource type="Texture2D" uid="uid://bi14q7dy8gyx2" path="res://assets/components.png" id="8_svopc"]
 [ext_resource type="Texture2D" uid="uid://xijg3tyfgut0" path="res://assets/fuel_system.png" id="10_x4oyf"]
+[ext_resource type="StyleBox" uid="uid://lh5dgxddqfk3" path="res://scenes/panel_style1.tres" id="11_61fcw"]
 [ext_resource type="Texture2D" uid="uid://ddcvvjfnmgy18" path="res://assets/forced induction.png" id="11_x4oyf"]
 [ext_resource type="Texture2D" uid="uid://d3ipg2kwbvjqq" path="res://assets/intake.png" id="12_5a72t"]
 [ext_resource type="Texture2D" uid="uid://jbt8tt1j4dgo" path="res://assets/exhaust.png" id="13_rq1st"]
 [ext_resource type="FontFile" uid="uid://dsdsw7axr2tds" path="res://fonts/Kenney Mini Square.ttf" id="15_gwq5s"]
+[ext_resource type="StyleBox" uid="uid://cg1kkoh65nb34" path="res://scenes/btn.tres" id="19_6o7hq"]
+[ext_resource type="StyleBox" uid="uid://dfqyx1ym60cil" path="res://scenes/btn_pressed.tres" id="20_yp62s"]
+[ext_resource type="StyleBox" uid="uid://kodo07t5ja8q" path="res://scenes/btn_hover.tres" id="21_nknwm"]
 
 [node name="Engine Builder" type="Node2D" node_paths=PackedStringArray("lblErrorEngineBlock")]
-position = Vector2(-124, 138)
+position = Vector2(-79, 138)
 script = ExtResource("1_v3cha")
 lblErrorEngineBlock = NodePath("TabContainer/EngineBlock/lblError")
 
 [node name="background_Color" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.8509804)
-position = Vector2(1135, 343)
-scale = Vector2(8, 8)
+position = Vector2(1306.0001, 553)
+scale = Vector2(9.597656, 10.9140625)
 texture = ExtResource("2_gwq5s")
 
 [node name="EngineSpecspnl" type="Panel" parent="."]
@@ -39,6 +44,7 @@ offset_right = 2012.3234
 offset_bottom = 784.572
 grow_horizontal = 0
 scale = Vector2(1.0150163, 0.9526546)
+theme_override_styles/panel = ExtResource("3_4qh7o")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="EngineSpecspnl"]
 layout_mode = 0
@@ -143,10 +149,10 @@ scale = Vector2(1, 0.939)
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 20
-current_tab = 7
+theme_override_styles/panel = ExtResource("3_4qh7o")
+current_tab = 0
 
 [node name="EngineBlock" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 18
@@ -198,6 +204,7 @@ offset_left = 60.0
 offset_top = 399.0
 offset_right = 348.0
 offset_bottom = 609.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/EngineBlock/EngineTypepnl"]
 layout_mode = 0
@@ -286,6 +293,7 @@ offset_left = 422.0
 offset_top = 399.0
 offset_right = 766.3996
 offset_bottom = 609.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/EngineBlock/EngineMaterialspnl"]
 layout_mode = 0
@@ -362,6 +370,7 @@ offset_left = 748.0
 offset_top = 120.0
 offset_right = 1147.7593
 offset_bottom = 330.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/EngineBlock/EngineSizepnl"]
 layout_mode = 0
@@ -474,6 +483,7 @@ offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Production/CamshaftTypepnl"]
 layout_mode = 0
@@ -514,6 +524,7 @@ offset_left = 460.0
 offset_top = 469.0
 offset_right = 755.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Production/numValvespnl"]
 layout_mode = 0
@@ -556,6 +567,7 @@ offset_left = 812.0
 offset_top = 469.0
 offset_right = 1107.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Production/vvtpnl"]
 layout_mode = 0
@@ -636,6 +648,7 @@ offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Components/Pistonspnl"]
 layout_mode = 0
@@ -676,6 +689,7 @@ offset_left = 89.0
 offset_top = 640.0
 offset_right = 384.0
 offset_bottom = 785.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Components/CrankShaftpnl"]
 layout_mode = 0
@@ -716,6 +730,7 @@ offset_left = 460.0
 offset_top = 469.0
 offset_right = 755.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Components/Conrodspnl"]
 layout_mode = 0
@@ -777,6 +792,7 @@ offset_left = 60.0
 offset_top = 399.0
 offset_right = 348.0
 offset_bottom = 609.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Fuel System/FuelSystempnl"]
 layout_mode = 0
@@ -822,6 +838,7 @@ offset_left = 422.0
 offset_top = 399.0
 offset_right = 710.0
 offset_bottom = 609.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Fuel System/FuelTypepnl"]
 layout_mode = 0
@@ -861,6 +878,7 @@ offset_left = 748.0
 offset_top = 120.0
 offset_right = 1135.0
 offset_bottom = 330.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Fuel System/Fuelsliderspnl"]
 layout_mode = 0
@@ -963,6 +981,7 @@ offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Forced Induction/turbopnl"]
 layout_mode = 0
@@ -1003,6 +1022,7 @@ offset_left = 89.0
 offset_top = 640.0
 offset_right = 384.0
 offset_bottom = 785.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Forced Induction/Setuppnl"]
 layout_mode = 0
@@ -1045,6 +1065,7 @@ offset_left = 460.0
 offset_top = 469.0
 offset_right = 755.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Forced Induction/Typepnl"]
 layout_mode = 0
@@ -1123,6 +1144,7 @@ offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Intake/intakepnl"]
 layout_mode = 0
@@ -1163,6 +1185,7 @@ offset_left = 430.0
 offset_top = 469.0
 offset_right = 725.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Intake/CoolingSystempnl"]
 layout_mode = 0
@@ -1259,6 +1282,7 @@ offset_left = 89.0
 offset_top = 469.0
 offset_right = 384.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Exhaust/ExhaustManifoldpnl"]
 layout_mode = 0
@@ -1301,6 +1325,7 @@ offset_left = 89.0
 offset_top = 640.0
 offset_right = 384.0
 offset_bottom = 785.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Exhaust/Exhaustpnl"]
 layout_mode = 0
@@ -1339,6 +1364,7 @@ offset_left = 460.0
 offset_top = 469.0
 offset_right = 755.0
 offset_bottom = 614.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Exhaust/Catpnl"]
 layout_mode = 0
@@ -1379,6 +1405,7 @@ offset_left = 460.0
 offset_top = 640.0
 offset_right = 755.0
 offset_bottom = 785.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="Label" type="Label" parent="TabContainer/Exhaust/exhaustMufflerpnl"]
 layout_mode = 0
@@ -1416,6 +1443,7 @@ popup/item_3/text = "straight pipe"
 popup/item_3/id = 3
 
 [node name="Confirmation" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 7
 
@@ -1435,6 +1463,7 @@ offset_left = 66.0
 offset_top = 359.0
 offset_right = 1113.0
 offset_bottom = 819.0
+theme_override_styles/panel = ExtResource("11_61fcw")
 
 [node name="GraphBackground" type="ColorRect" parent="TabContainer/Confirmation/curvespnl"]
 layout_mode = 1
@@ -1512,6 +1541,9 @@ offset_right = 454.10687
 offset_bottom = 206.75659
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("19_6o7hq")
+theme_override_styles/pressed = ExtResource("20_yp62s")
+theme_override_styles/hover = ExtResource("21_nknwm")
 text = " Build Engine"
 
 [node name="LineEdit" type="LineEdit" parent="TabContainer/Confirmation"]
@@ -1530,6 +1562,7 @@ offset_left = 94.99999
 offset_top = -62.200962
 offset_right = 330.0
 offset_bottom = 45.645504
+theme_override_styles/panel = ExtResource("3_4qh7o")
 
 [node name="Button" type="Button" parent="loadEnginpnl"]
 layout_mode = 0
@@ -1539,6 +1572,9 @@ offset_right = 176.0
 offset_bottom = 175.0
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("19_6o7hq")
+theme_override_styles/pressed = ExtResource("20_yp62s")
+theme_override_styles/hover = ExtResource("21_nknwm")
 text = " Load engine "
 
 [node name="OptionButton" type="OptionButton" parent="loadEnginpnl"]
@@ -1566,25 +1602,34 @@ offset_right = 184.22162
 offset_bottom = 68.69909
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("19_6o7hq")
+theme_override_styles/pressed = ExtResource("20_yp62s")
+theme_override_styles/hover = ExtResource("21_nknwm")
 text = " Load engine "
 
 [node name="Button" type="Button" parent="."]
 offset_left = 142.0
-offset_top = 647.0
+offset_top = 1086.0
 offset_right = 311.0
-offset_bottom = 736.0
+offset_bottom = 1175.0
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("19_6o7hq")
+theme_override_styles/pressed = ExtResource("20_yp62s")
+theme_override_styles/hover = ExtResource("21_nknwm")
 text = "Back to parkinglot without saving"
 autowrap_mode = 2
 
 [node name="Button2" type="Button" parent="."]
 offset_left = 142.0
-offset_top = 541.0
+offset_top = 980.0
 offset_right = 311.0
-offset_bottom = 630.0
+offset_bottom = 1069.0
 theme_override_fonts/font = ExtResource("15_gwq5s")
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("19_6o7hq")
+theme_override_styles/pressed = ExtResource("20_yp62s")
+theme_override_styles/hover = ExtResource("21_nknwm")
 text = "Back to car builder without saving"
 autowrap_mode = 2
 
